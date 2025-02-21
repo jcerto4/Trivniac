@@ -27,10 +27,10 @@ public class Timer extends HBox{
 		private Timeline timeline;
 		private boolean useTimer = true;
 	
-		private Button button;
+		private Runnable onTimerEnd;
 	
-		public Timer(int seconds, Button button) {
-			this.button = button;
+		public Timer(int seconds, Runnable onTimerEnd) {
+			this.onTimerEnd = onTimerEnd;
 			buildTimer(seconds);
 		}
 	
@@ -48,8 +48,8 @@ public class Timer extends HBox{
 		}
 	
 		private void styleText() {
-			timerText.setFont(Font.font("Georgia", 60));
-			timerText.setFill(Color.RED);
+			timerText.setFont(Font.font("Georgia", 120));
+			timerText.setFill(Color.BLACK);
 			DropShadow dropShadow = new DropShadow();
 			timerText.setEffect(dropShadow);
 		}
@@ -85,7 +85,9 @@ public class Timer extends HBox{
 			if (secondsLeft <= 0) {
 				stopTimer();
 				timeline.stop();
-				button.fire();
+				if(onTimerEnd != null) {
+					onTimerEnd.run();
+				}
 			}
 	
 		}

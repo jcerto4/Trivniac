@@ -1,11 +1,14 @@
 package screens;
 
 import java.io.File;
+import java.util.function.Consumer;
 
 import classes.Question;
 import db.DatabaseManager;
 import gameobjects.Timer;
+import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -32,6 +35,8 @@ public class QuestionScreen extends BorderPane{
 	private Timer timer;
 	private Question question;
 	private int correctAnswer;
+	private String gameMode;
+	private Consumer<Boolean> onQuestionAnswered;
 	
 	private Button option1;
 	private Button option2;
@@ -48,12 +53,14 @@ public class QuestionScreen extends BorderPane{
 	private Media correctSoundMedia;
 	private MediaPlayer correctSoundPlayer;
 	
-	
-	public QuestionScreen(String category) {
-		
+
+	public QuestionScreen(String category, Consumer<Boolean> onQuestionAnswered) {
+				
 		question = DatabaseManager.getRandomQuestion(category);
 		correctAnswer = question.getCorrectAnswer();
-	
+		
+		this.onQuestionAnswered = onQuestionAnswered;
+
 		loadQuestionMusic();
 		playQuestionMusic();
 		
@@ -63,7 +70,7 @@ public class QuestionScreen extends BorderPane{
 		setBackground();
 		createTopSection();
 		createCenterSection();
-		createBottomSection();
+		//createBottomSection();
 		createOptionButtonListeners();
 		styleButtons();
 		showQuestionScreen();
@@ -79,16 +86,25 @@ public class QuestionScreen extends BorderPane{
 	
 	private void createTopSection() {
 		
-		timer = new Timer(25, null);
+		timer = new Timer(25, () -> {
+			int forcedIncorrect = (correctAnswer == 1 ? 2 : 1);
+			checkAnswer(forcedIncorrect);
+		});
+		
 		timer.setAlignment(Pos.CENTER);
 		this.setTop(timer);
+		timer.startTimer();
 	}
 	
 	private void createCenterSection() {
 		
+		Text categoryText = new Text(question.getCategory());
+		categoryText.setFont(Font.font("Georgia", 54));
+		categoryText.setFill(Color.BLACK);
+		
 		Text questionText = new Text(question.getQuestionText());
-		questionText.setFont(Font.font("Georgia", 24));
-		questionText.setFill(Color.WHITE);
+		questionText.setFont(Font.font("Georgia", 36));
+		questionText.setFill(Color.BLACK);
 		
 		String[] options = question.getOptions();
 		option1 = new Button(options[0]);
@@ -99,7 +115,7 @@ public class QuestionScreen extends BorderPane{
 		VBox optionsCtn = new VBox(20, option1, option2, option3, option4);
 		optionsCtn.setAlignment(Pos.CENTER);
 		
-		VBox centerCtn = new VBox(30, questionText, optionsCtn);
+		VBox centerCtn = new VBox(30, categoryText, questionText, optionsCtn);
 		centerCtn.setAlignment(Pos.CENTER);
 		
 		this.setCenter(centerCtn);
@@ -107,6 +123,7 @@ public class QuestionScreen extends BorderPane{
 	}
 	
 	private void createBottomSection() {
+		
 		//Eventually will house the powerups
 		
 		
@@ -124,8 +141,10 @@ public class QuestionScreen extends BorderPane{
 		option3.setPrefSize(500, 100);
 		option4.setPrefSize(500, 100);
 		
-		
-		
+		option1.setFont(Font.font("Georgia", 32));
+		option2.setFont(Font.font("Georgia", 32));
+		option3.setFont(Font.font("Georgia", 32));
+		option4.setFont(Font.font("Georgia", 32));
 	}
 	
 	private void createHoverEffect(Button button) {
@@ -199,22 +218,58 @@ public class QuestionScreen extends BorderPane{
 		
 		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 		
-		BackgroundImage welcomeBackground = new BackgroundImage(
+		BackgroundImage questionBackground = new BackgroundImage(
 			backgroundImage,
 			BackgroundRepeat.NO_REPEAT,
 			BackgroundRepeat.NO_REPEAT,
 			BackgroundPosition.DEFAULT,
 			backgroundSize
 			);
-		this.setBackground(new Background(welcomeBackground));
+		this.setBackground(new Background(questionBackground));
 	}
 	
 	private void checkAnswer(int selectedOption) {
-		if(selectedOption == correctAnswer) {
-			//correct logic
+		
+		stopQuestionMusic();
+		timer.stopTimer();
+		disableOptionButtons();
+		
+		boolean isCorrect = (selectedOption == correctAnswer);
+		
+		highlightOptions(option1, correctAnswer == 1);
+		highlightOptions(option2, correctAnswer == 2);
+		highlightOptions(option3, correctAnswer == 3);
+		highlightOptions(option4, correctAnswer == 4);
+		
+		if(isCorrect) {
+			playCorrectSound();
+			
 		}else {
-			//incorrect logic
+			playIncorrectSound();
 		}
+		
+		new Timeline(new KeyFrame(Duration.seconds(2), e->{
+			stopCorrectSound();
+			stopIncorrectSound();
+			onQuestionAnswered.accept(isCorrect);
+			questionStage.close();
+		})).play();
+		
+	}
+	
+	private void highlightOptions(Button button, boolean isCorrect) {
+		if(isCorrect) {
+			button.setStyle("-fx-background-color: green;");
+		}else {
+			button.setStyle("-fx-background-color: red;");
+		}
+	}
+	
+	private void disableOptionButtons() {
+		option1.setDisable(true);
+		option2.setDisable(true);
+		option3.setDisable(true);
+		option4.setDisable(true);
 	}
 	
 	private void showQuestionScreen() {

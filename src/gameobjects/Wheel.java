@@ -1,31 +1,43 @@
 package gameobjects;
 
+import java.io.File;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 
-public class Wheel extends Pane{
+public class Wheel extends StackPane{
 	
 	private Canvas canvas;
 	private double angle = 0;
-	private double radius = 140;
+	private double radius = 290;
+	
+	private Media spinMedia;
+	private MediaPlayer spinPlayer; 
 	
 	public Wheel(){
 		
-		canvas = new Canvas(300, 300);
-		canvas.setTranslateX(canvas.getWidth() / 2);
-		canvas.setTranslateY(canvas.getHeight() / 2);
+		loadSpinSound();
+		this.setPrefSize(600, 600);
+		canvas = new Canvas(600, 600);
 		drawWheel();
 		drawArrow();
+		
+	
 	}
 	
 	
@@ -47,27 +59,22 @@ public class Wheel extends Pane{
 	
 	private void drawArrow() {
 		
-		double centerX = canvas.getTranslateX() + canvas.getWidth() / 2;
-		double centerY = canvas.getTranslateY() + canvas.getHeight() / 2;
-		
-		double arrowX = centerX - radius - 20;
-		
+		double arrowX = -radius - 7;	
 		
 		Polygon arrow = new Polygon();
 		arrow.getPoints().addAll(
-		    0.0, 0.0,
-			30.0, -15.0,
-			30.0, 15.0
+		    30.0, 0.0,
+			0.0, -15.0,
+			0.0, 15.0
 		);
-		
-		arrow.setLayoutX(arrowX);
-		arrow.setLayoutY(centerY);
-		arrow.setRotate(180);
+		arrow.setTranslateX(arrowX);
 		arrow.setFill(Color.BLACK); 
 		this.getChildren().add(arrow);
 	}
 	
-	public void spinWheel() {
+	public void spinWheel(Consumer<String> selectedCategory) {
+		
+		playSpinSound();
 		
 		RotateTransition wheelAnimation = new RotateTransition(Duration.seconds(3), canvas);
 		Random random = new Random();
@@ -81,15 +88,18 @@ public class Wheel extends Pane{
 		wheelAnimation.setFromAngle(startAngle);
 		wheelAnimation.setToAngle(endAngle);
 		wheelAnimation.setInterpolator(Interpolator.EASE_OUT);
+		
 		wheelAnimation.setOnFinished(e -> {
-			System.out.println(getSelectedCategory());
+			stopSpinSound();
+			String category = getSelectedCategory();
+			selectedCategory.accept(category);
 		});
 		wheelAnimation.play();
 		
 		angle = endAngle;
 	}
 	
-	public String getSelectedCategory() {
+	private String getSelectedCategory() {
 		//Normalize the spinAngle 0-360 degrees: (1900 % 360) = 100 degrees
 		//Add 180 degrees to offset the angle to match the arrow placement on the West side
 		//Calculate the index
@@ -98,6 +108,20 @@ public class Wheel extends Pane{
 		double finalAngle = (spinAngle + 180) % 360;
 		int index = (int) (finalAngle / 60);
 		return categories[index];
+	}
+	
+	private void loadSpinSound() {
+		String soundURL = "sounds/wheel_spin.mp3";
+		spinMedia = new Media(new File(soundURL).toURI().toString());
+		spinPlayer = new MediaPlayer(spinMedia);
+	}
+	
+	private void playSpinSound() {
+		spinPlayer.play();
+	}
+	
+	private void stopSpinSound() {
+		spinPlayer.stop();
 	}
 	
 }
