@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import classes.Player;
 import classes.Question;
@@ -68,8 +70,7 @@ public class DatabaseManager {
         			return new Player(
         					results.getInt("player_id"),
         					results.getString("username"),
-        					results.getString("password"),
-        					results.getInt("high_score")
+        					results.getString("password")
         				); 
         		}else {
         			System.out.println("No player found with username: " + username);
@@ -89,14 +90,13 @@ public class DatabaseManager {
     
     public static void insertNewPlayer(String username, String password) {
     	
-    	String query = "INSERT INTO player (username, password, high_score) VALUES (?, ?, ?)";
+    	String query = "INSERT INTO player (username, password) VALUES (?, ?)";
     	
     	try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
     		PreparedStatement statement = connection.prepareStatement(query)){
     		
     		statement.setString(1, username);
     		statement.setString(2, password);
-    		statement.setInt(3, 0);
 
     		statement.executeUpdate();
    
@@ -108,7 +108,7 @@ public class DatabaseManager {
     		}	
     		
     }
-    
+      
     public static int getPlayerHighScore(int playerID, String gameMode) {
     	 
     	String query = "SELECT MAX(score) FROM game_results WHERE player_id = ? AND game_mode = ?";
@@ -130,6 +130,42 @@ public class DatabaseManager {
     	  }
     	  
     	  return 0;
+    }
+    
+    public static ArrayList<Player> getTopPlayers(String gameMode) {
+    	
+    	ArrayList<Player> topPlayers = new ArrayList<>();
+    	String query = "SELECT p.player_id, p.username, p.password, MAX(g.score) AS high_score " +
+    					"FROM player p JOIN game_results g " + 
+    					"ON p.player_id = g.player_id " +
+    					"WHERE g.game_mode = ? " +
+    					"GROUP BY p.player_id, p.username, p.password " +
+    					"ORDER BY high_score DESC";
+    	
+    	try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+    			PreparedStatement statement = connection.prepareStatement(query)){
+    		
+    		statement.setString(1, gameMode);
+    		
+    		try(ResultSet results = statement.executeQuery()){
+    			while(results.next()) {
+    				Player player = new Player(
+    						results.getInt("player_id"),
+    						results.getString("username"),
+    						results.getString("password"),
+    						results.getInt("high_score")
+    					);
+    				topPlayers.add(player);
+    			}
+    		}
+    		
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Error fetching top players for game mode: " + gameMode);
+    		e.printStackTrace();
+    	}
+    	
+    	return topPlayers;
     }
     
 //--------------------------------------------------------------------------------------------------

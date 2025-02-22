@@ -6,6 +6,13 @@ public class Player {
 	private String username;
 	private String password;
 	private int highScore;
+	private int rank;
+	
+	public Player(int playerID, String username, String password) {
+		this.playerID = playerID;
+		this.username = username;
+		this.password = password;
+	}
 	
 	public Player(int playerID, String username, String password, int highScore) {
 		this.playerID = playerID;
@@ -28,6 +35,14 @@ public class Player {
 
 	public int getHighScore() {
 		return highScore;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 	
 	public String toString() {

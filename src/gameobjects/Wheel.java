@@ -67,6 +67,8 @@ public class Wheel extends StackPane{
 			0.0, -15.0,
 			0.0, 15.0
 		);
+		arrow.setScaleX(2);
+		arrow.setScaleY(2);
 		arrow.setTranslateX(arrowX);
 		arrow.setFill(Color.BLACK); 
 		this.getChildren().add(arrow);

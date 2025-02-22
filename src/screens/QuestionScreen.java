@@ -37,6 +37,7 @@ public class QuestionScreen extends BorderPane{
 	private int correctAnswer;
 	private String gameMode;
 	private Consumer<Boolean> onQuestionAnswered;
+	private int gameID;
 	
 	private Button option1;
 	private Button option2;
@@ -54,8 +55,9 @@ public class QuestionScreen extends BorderPane{
 	private MediaPlayer correctSoundPlayer;
 	
 
-	public QuestionScreen(String category, Consumer<Boolean> onQuestionAnswered) {
+	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered) {
 				
+		this.gameID = gameID;
 		question = DatabaseManager.getRandomQuestion(category);
 		correctAnswer = question.getCorrectAnswer();
 		
@@ -82,6 +84,37 @@ public class QuestionScreen extends BorderPane{
 	    option2.setOnAction(e -> checkAnswer(2));
 	    option3.setOnAction(e -> checkAnswer(3));
 	    option4.setOnAction(e -> checkAnswer(4));
+	}
+	
+	private void checkAnswer(int selectedOption) {
+		
+		stopQuestionMusic();
+		timer.stopTimer();
+		disableOptionButtons();
+		
+		boolean isCorrect = (selectedOption == correctAnswer);
+		
+		DatabaseManager.saveGameRound(gameID, question.getQuestionID(), isCorrect);
+		
+		highlightOptions(option1, correctAnswer == 1);
+		highlightOptions(option2, correctAnswer == 2);
+		highlightOptions(option3, correctAnswer == 3);
+		highlightOptions(option4, correctAnswer == 4);
+		
+		if(isCorrect) {
+			playCorrectSound();
+			
+		}else {
+			playIncorrectSound();
+		}
+		
+		new Timeline(new KeyFrame(Duration.seconds(2), e->{
+			stopCorrectSound();
+			stopIncorrectSound();
+			onQuestionAnswered.accept(isCorrect);
+			questionStage.close();
+		})).play();
+		
 	}
 	
 	private void createTopSection() {
@@ -226,35 +259,6 @@ public class QuestionScreen extends BorderPane{
 			backgroundSize
 			);
 		this.setBackground(new Background(questionBackground));
-	}
-	
-	private void checkAnswer(int selectedOption) {
-		
-		stopQuestionMusic();
-		timer.stopTimer();
-		disableOptionButtons();
-		
-		boolean isCorrect = (selectedOption == correctAnswer);
-		
-		highlightOptions(option1, correctAnswer == 1);
-		highlightOptions(option2, correctAnswer == 2);
-		highlightOptions(option3, correctAnswer == 3);
-		highlightOptions(option4, correctAnswer == 4);
-		
-		if(isCorrect) {
-			playCorrectSound();
-			
-		}else {
-			playIncorrectSound();
-		}
-		
-		new Timeline(new KeyFrame(Duration.seconds(2), e->{
-			stopCorrectSound();
-			stopIncorrectSound();
-			onQuestionAnswered.accept(isCorrect);
-			questionStage.close();
-		})).play();
-		
 	}
 	
 	private void highlightOptions(Button button, boolean isCorrect) {

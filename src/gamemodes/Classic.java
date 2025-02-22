@@ -1,5 +1,7 @@
 package gamemodes;
 
+import classes.Player;
+import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
 import javafx.geometry.Pos;
@@ -9,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -21,13 +24,26 @@ public class Classic extends BorderPane{
 	private Wheel wheel;
 	private Button btnSpin = new Button("SPIN");
 	private HBox livesCtn = new HBox();
-	//private LeaderBoard leaderBoard;
+	private LeaderBoard leaderBoard;
 	private int lives = 3;
 	private int score = 0;
+	private int gameID;
+	private Player player;
 	
 	
-	public Classic() {
+//	public Classic() {
+//		wheel = new Wheel();
+//		createSpinButtonListeners();
+//		createTopSection();
+//		createCenterSection();
+//		styleButtons();
+//		showClassicMode();
+//	}
+	
+	public Classic(int gameID, Player player) {
 		
+		this.gameID = gameID;
+		this.player = player;
 		wheel = new Wheel();
 		createSpinButtonListeners();
 		createTopSection();
@@ -58,6 +74,7 @@ public class Classic extends BorderPane{
 		for(int i = 0; i < 3; i++) {
 			Label brain = new Label("\uD83E\uDDE0");
 			brain.setFont(Font.font("Segoe UI Emoji", 120));
+			brain.setTextFill(Color.RED);
 			livesCtn.getChildren().add(brain);
 		}
 		
@@ -74,14 +91,14 @@ public class Classic extends BorderPane{
 	
 	
 	private void showQuestionScreen(String category) {
-		new QuestionScreen(category, (Boolean isCorrect) -> {
+		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
 			handleQuestionResult(isCorrect);
 		});
 	}
 	
 	private void handleQuestionResult(boolean isCorrect) {
 		if(isCorrect) {
-			score += 5;
+			DatabaseManager.saveGameResult(gameID, score+5);
 			btnSpin.setDisable(false);
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {
