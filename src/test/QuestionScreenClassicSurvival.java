@@ -18,7 +18,7 @@ public class QuestionScreenClassicSurvival extends Application{
 public void start(Stage stage) {
 		
 		new Classic();
-		//new Survival();
+		new Survival();
 		
 	}
 

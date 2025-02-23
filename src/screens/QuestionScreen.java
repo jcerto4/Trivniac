@@ -144,6 +144,10 @@ public class QuestionScreen extends BorderPane{
 		questionText.setFont(Font.font("Georgia", 36));
 		questionText.setFill(Color.WHITE);
 		
+		VBox questionCtn = new VBox(questionText);
+		questionCtn.setAlignment(Pos.CENTER);
+		questionCtn.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 10; -fx-background-radius: 10;");
+		
 		String[] options = question.getOptions();
 		option1 = new Button(options[0]);
 		option2 = new Button(options[1]);
@@ -153,7 +157,7 @@ public class QuestionScreen extends BorderPane{
 		VBox optionsCtn = new VBox(20, option1, option2, option3, option4);
 		optionsCtn.setAlignment(Pos.CENTER);
 		
-		VBox centerCtn = new VBox(30, categoryText, questionText, optionsCtn);
+		VBox centerCtn = new VBox(30, categoryText, questionCtn, optionsCtn);
 		centerCtn.setAlignment(Pos.CENTER);
 		
 		this.setCenter(centerCtn);

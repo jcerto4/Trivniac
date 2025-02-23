@@ -30,7 +30,7 @@ public void start(Stage stage) {
 			Player mike = DatabaseManager.getPlayer("Mike1");
 			
 			int gameID = DatabaseManager.startNewGame(mike, "Classic");
-			DatabaseManager.saveGameResult(gameID, 180);
+			DatabaseManager.updateScore(gameID, 180);
 		});
 		
 		HBox btnCtn = new HBox(10, btnRefresh, btnInsert);
