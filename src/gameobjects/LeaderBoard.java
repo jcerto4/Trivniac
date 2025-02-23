@@ -15,22 +15,17 @@ import javafx.scene.layout.VBox;
 
 public class LeaderBoard extends VBox{
  
-	//private String gameMode;
+	private String gameMode;
 	private TableView<Player> leaderboard;
 	ArrayList<Player> topPlayers = new ArrayList<>();
 	ObservableList<Player> observableList;
 	
-	private SimpleIntegerProperty rank;
-	private SimpleStringProperty username;
-	private SimpleStringProperty gameMode;
-	private SimpleIntegerProperty score;
-	
 	private TableColumn<Player, Integer> rankCol = new TableColumn<>("Rank");
 	private TableColumn<Player, String> usernameCol = new TableColumn<>("User");
-	private TableColumn<Player, String> gameModeCol = new TableColumn<>("Game Mode");
-	private TableColumn<Player, Integer> scoreCol = new TableColumn<>("High Score"); 
+	private TableColumn<Player, String> gameModeCol = new TableColumn<>("Mode");
+	private TableColumn<Player, Integer> scoreCol = new TableColumn<>("Score"); 
 	
-	public LeaderBoard(SimpleStringProperty gameMode) {
+	public LeaderBoard(String gameMode) {
 		
 		this.gameMode = gameMode;
 		buildLeaderboard();
@@ -39,6 +34,11 @@ public class LeaderBoard extends VBox{
 	public void refreshLeaderboard() {
 		new Thread(() -> {
 			ArrayList<Player> updatedPlayers = DatabaseManager.getTopPlayers(gameMode);
+			
+			for(int i = 0; i < updatedPlayers.size(); i++) {
+				updatedPlayers.get(i).setRank(i + 1);
+			}
+			
 			Platform.runLater(() -> {
 				observableList.setAll(updatedPlayers);
 				leaderboard.refresh();
@@ -49,14 +49,33 @@ public class LeaderBoard extends VBox{
 	private void buildLeaderboard() {
 		
 		leaderboard = new TableView<>();
+		
+		leaderboard.setPrefSize(400, 400);
+		
+		rankCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getRank()).asObject());
+		usernameCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUsername()));
+		gameModeCol.setCellValueFactory(cellData -> new SimpleStringProperty(gameMode));
+		scoreCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getHighScore()).asObject());
+		
+		rankCol.setStyle("-fx-alignment: CENTER;");
+		usernameCol.setStyle("-fx-alignment: CENTER;");
+		gameModeCol.setStyle("-fx-alignment: CENTER;");
+		scoreCol.setStyle("-fx-alignment: CENTER;");
+		
 		leaderboard.getColumns().addAll(rankCol, usernameCol, gameModeCol, scoreCol);
 		
+		leaderboard.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		
+		
 		topPlayers = DatabaseManager.getTopPlayers(gameMode);
+		
 		for(int i = 0; i < topPlayers.size(); i++) {
 			topPlayers.get(i).setRank(i + 1);
 		}
-		leaderboard.setItems(observableList);
 		
+		observableList = FXCollections.observableArrayList(topPlayers);
+		
+		leaderboard.setItems(observableList);
 		
 		
 		this.getChildren().add(leaderboard);

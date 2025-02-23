@@ -169,7 +169,7 @@ public class DatabaseManager {
     }
     
 //--------------------------------------------------------------------------------------------------
-//Game Creation, Game Round Tracking, Saving Game Results 
+//Game Creation, Game Session Round Tracking, Updating Game Session Score 
     
     
 //When this method is called: Save the game_id in Java and use it to track the game session data
@@ -225,7 +225,7 @@ public class DatabaseManager {
     	
     }
   
-    public static void saveGameResult(int gameID, int newScore) {
+    public static void updateScore(int gameID, int newScore) {
     	    
     	if(gameID == -1) {
     		System.out.println("Error Locating Game");
@@ -246,5 +246,6 @@ public class DatabaseManager {
     	        System.out.println("Error Saving Game Results");
     	        e.printStackTrace();
     	    }
-    	}	
+    	}
+    
 }

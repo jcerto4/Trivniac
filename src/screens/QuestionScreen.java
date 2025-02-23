@@ -25,17 +25,18 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class QuestionScreen extends BorderPane{
 	
+	private String category;
 	private Stage questionStage;
 	private Timer timer;
 	private Question question;
 	private int correctAnswer;
-	private String gameMode;
 	private Consumer<Boolean> onQuestionAnswered;
 	private int gameID;
 	
@@ -43,6 +44,8 @@ public class QuestionScreen extends BorderPane{
 	private Button option2;
 	private Button option3;
 	private Button option4;
+	
+	String[] options;
 	
 	private Media questionMusicMedia;
 	private MediaPlayer questionMusicPlayer;
@@ -58,8 +61,10 @@ public class QuestionScreen extends BorderPane{
 	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered) {
 				
 		this.gameID = gameID;
+		this.category = category;
 		question = DatabaseManager.getRandomQuestion(category);
 		correctAnswer = question.getCorrectAnswer();
+		options = question.getOptions();
 		
 		this.onQuestionAnswered = onQuestionAnswered;
 
@@ -132,12 +137,12 @@ public class QuestionScreen extends BorderPane{
 	private void createCenterSection() {
 		
 		Text categoryText = new Text(question.getCategory());
-		categoryText.setFont(Font.font("Georgia", 54));
-		categoryText.setFill(Color.BLACK);
+		categoryText.setFont(Font.font("Georgia", FontWeight.BOLD, 54));
+		categoryText.setFill(Color.WHITE);
 		
 		Text questionText = new Text(question.getQuestionText());
 		questionText.setFont(Font.font("Georgia", 36));
-		questionText.setFill(Color.BLACK);
+		questionText.setFill(Color.WHITE);
 		
 		String[] options = question.getOptions();
 		option1 = new Button(options[0]);
@@ -247,7 +252,7 @@ public class QuestionScreen extends BorderPane{
 	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/question_background.jpg");
+		Image backgroundImage = getBackgroundImage();
 		
 		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 		
@@ -261,12 +266,45 @@ public class QuestionScreen extends BorderPane{
 		this.setBackground(new Background(questionBackground));
 	}
 	
+	private Image getBackgroundImage() {
+		switch(category) {
+			case "History":
+				return new Image("file:images/history_background.jpg");
+			case "Sports":
+				return new Image("file:images/sports_background.jpg");
+			case "Geography":
+				return new Image("file:images/geography_background.jpg");
+			case "Science":
+				return new Image("file:images/science_background.jpg");
+			case "Pop-Culture":
+				return new Image("file:images/pop_background.jpg");
+			case "Wild":
+				return new Image("file:images/wild_background.jpg");
+		}
+		
+		return null;
+	}
+	
 	private void highlightOptions(Button button, boolean isCorrect) {
 		if(isCorrect) {
-			button.setStyle("-fx-background-color: green;");
+			button.setStyle(
+					"-fx-background-color: green;" +
+					"-fx-text-fill: black;" +
+					"-fx-font-weight: bold;"	
+				);
+			scaleCorrectAnswer(button);
 		}else {
 			button.setStyle("-fx-background-color: red;");
 		}
+	}
+	
+	private void scaleCorrectAnswer(Button button) {
+		
+		ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+		//button.setFont(Font.font("Georgia",FontWeight.BOLD, 56));
+		scale.setToX(1.2);
+		scale.setToY(1.2);
+		scale.play();
 	}
 	
 	private void disableOptionButtons() {

@@ -1,6 +1,7 @@
 package test;
 
 import gamemodes.Classic;
+import gamemodes.Survival;
 import gameobjects.Wheel;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -15,7 +16,10 @@ public class QuestionScreenClassicSurvival extends Application{
 	
 	
 public void start(Stage stage) {
+		
 		new Classic();
+		//new Survival();
+		
 	}
 
 	public static void main(String[] args) {

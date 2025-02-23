@@ -24,7 +24,7 @@ public class Wheel extends StackPane{
 	
 	private Canvas canvas;
 	private double angle = 0;
-	private double radius = 290;
+	private double radius = 240;
 	
 	private Media spinMedia;
 	private MediaPlayer spinPlayer; 
@@ -32,8 +32,8 @@ public class Wheel extends StackPane{
 	public Wheel(){
 		
 		loadSpinSound();
-		this.setPrefSize(600, 600);
-		canvas = new Canvas(600, 600);
+		this.setPrefSize(500, 500);
+		canvas = new Canvas(500, 500);
 		drawWheel();
 		drawArrow();
 		

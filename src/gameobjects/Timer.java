@@ -49,7 +49,7 @@ public class Timer extends HBox{
 	
 		private void styleText() {
 			timerText.setFont(Font.font("Georgia", 120));
-			timerText.setFill(Color.BLACK);
+			timerText.setFill(Color.WHITE);
 			DropShadow dropShadow = new DropShadow();
 			timerText.setEffect(dropShadow);
 		}

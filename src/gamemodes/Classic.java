@@ -1,9 +1,12 @@
 package gamemodes;
 
+import java.io.File;
+
 import classes.Player;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -24,30 +29,38 @@ public class Classic extends BorderPane{
 	private Wheel wheel;
 	private Button btnSpin = new Button("SPIN");
 	private HBox livesCtn = new HBox();
-	private LeaderBoard leaderBoard;
+	private LeaderBoard leaderboard;
 	private int lives = 3;
 	private int score = 0;
 	private int gameID;
 	private Player player;
 	
+	private Media loseLifeMedia;
+	private MediaPlayer loseLifePlayer;
 	
-//	public Classic() {
-//		wheel = new Wheel();
-//		createSpinButtonListeners();
-//		createTopSection();
-//		createCenterSection();
-//		styleButtons();
-//		showClassicMode();
-//	}
+	
+	public Classic() {
+		loadLoseLifeSound();
+		wheel = new Wheel();
+		leaderboard = new LeaderBoard("Classic");
+		createSpinButtonListeners();
+		createTopSection();
+		createCenterSection();
+		createRightSection();
+		styleButtons();
+		showClassicMode();
+	}
 	
 	public Classic(int gameID, Player player) {
 		
 		this.gameID = gameID;
 		this.player = player;
 		wheel = new Wheel();
-		createSpinButtonListeners();
+		leaderboard = new LeaderBoard("Classic");
 		createTopSection();
 		createCenterSection();
+		createRightSection();
+		createSpinButtonListeners();
 		styleButtons();
 		showClassicMode();
 	}
@@ -89,6 +102,12 @@ public class Classic extends BorderPane{
 		this.setCenter(centerCtn);
 	}
 	
+	private void createRightSection() {
+		leaderboard.setAlignment(Pos.CENTER_RIGHT);
+		leaderboard.setPadding(new Insets(0, 10, 0, 0));
+		this.setRight(leaderboard);
+	}
+	
 	
 	private void showQuestionScreen(String category) {
 		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
@@ -98,10 +117,12 @@ public class Classic extends BorderPane{
 	
 	private void handleQuestionResult(boolean isCorrect) {
 		if(isCorrect) {
-			DatabaseManager.saveGameResult(gameID, score+5);
+			score += 5;
+			DatabaseManager.updateScore(gameID, score);
 			btnSpin.setDisable(false);
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {
+				playLoseLife();
 				livesCtn.getChildren().remove(0);
 				lives--;
 			}
@@ -120,8 +141,18 @@ public class Classic extends BorderPane{
 		btnSpin.setFont(Font.font("Georgia", 32));
 	}
 	
+	private void loadLoseLifeSound() {
+		String soundURL = "sounds/lose_life.mp3";
+		loseLifeMedia = new Media(new File(soundURL).toURI().toString());
+		loseLifePlayer = new MediaPlayer(loseLifeMedia);
+	}
+	
+	private void playLoseLife() {
+		loseLifePlayer.play();
+	}
+	
 	private void showClassicMode() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1400, 1000);
 		classicStage = new Stage();
 		classicStage.setTitle("Classic Mode");
 		classicStage.setScene(scene);
