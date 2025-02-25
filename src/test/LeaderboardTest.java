@@ -16,7 +16,7 @@ public class LeaderboardTest extends Application{
 
 	
 	
-public void start(Stage stage) {
+	public void start(Stage stage) {
 		
 		
 		BorderPane testScreen = new BorderPane();

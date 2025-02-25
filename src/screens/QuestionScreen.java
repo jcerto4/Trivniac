@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import classes.Question;
 import db.DatabaseManager;
 import gameobjects.Timer;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -296,19 +297,22 @@ public class QuestionScreen extends BorderPane{
 					"-fx-text-fill: black;" +
 					"-fx-font-weight: bold;"	
 				);
-			scaleCorrectAnswer(button);
 		}else {
 			button.setStyle("-fx-background-color: red;");
 		}
+		
+		scaleCorrectAnswer(button, isCorrect);
 	}
 	
-	private void scaleCorrectAnswer(Button button) {
+	private void scaleCorrectAnswer(Button button, boolean isCorrect) {
 		
+		if(isCorrect) {
 		ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
-		//button.setFont(Font.font("Georgia",FontWeight.BOLD, 56));
 		scale.setToX(1.2);
 		scale.setToY(1.2);
 		scale.play();
+		}
+		
 	}
 	
 	private void disableOptionButtons() {

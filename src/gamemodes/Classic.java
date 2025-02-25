@@ -6,6 +6,7 @@ import classes.Player;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,8 +19,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import screens.GameOver;
 import screens.QuestionScreen;
 
@@ -123,7 +124,7 @@ public class Classic extends BorderPane{
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {
 				playLoseLife();
-				livesCtn.getChildren().remove(0);
+				animateLifeLoss((Label)livesCtn.getChildren().get(0));
 				lives--;
 			}
 			
@@ -133,6 +134,16 @@ public class Classic extends BorderPane{
 				new GameOver();
 			}
 		}
+	}
+	
+	private void animateLifeLoss(Label brain) {
+		
+		FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), brain);
+		fadeOut.setFromValue(1.0);
+		fadeOut.setToValue(0.0);
+		fadeOut.setOnFinished(e -> livesCtn.getChildren().remove(0));
+		fadeOut.play();
+		
 	}
 	
 	private void styleButtons() {
@@ -152,7 +163,7 @@ public class Classic extends BorderPane{
 	}
 	
 	private void showClassicMode() {
-		Scene scene = new Scene(this, 1400, 1000);
+		Scene scene = new Scene(this, 1200, 1000);
 		classicStage = new Stage();
 		classicStage.setTitle("Classic Mode");
 		classicStage.setScene(scene);
