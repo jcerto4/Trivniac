@@ -21,7 +21,7 @@ public class SpinningWheel extends Application{
 		Wheel wheel = new Wheel();
 		Button btnSpin = new Button("Spin");
 		
-		btnSpin.setOnAction(e -> wheel.spinWheel());
+		//btnSpin.setOnAction(e -> wheel.spinWheel(String selectedCategory));
 		
 		HBox btnCtn = new HBox(btnSpin);
 		btnCtn.setAlignment(Pos.CENTER);

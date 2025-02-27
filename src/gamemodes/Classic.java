@@ -54,6 +54,7 @@ public class Classic extends BorderPane{
 	
 	public Classic(int gameID, Player player) {
 		
+		loadLoseLifeSound();
 		this.gameID = gameID;
 		this.player = player;
 		wheel = new Wheel();
@@ -159,7 +160,13 @@ public class Classic extends BorderPane{
 	}
 	
 	private void playLoseLife() {
+		//stopLoseLife();
+		loseLifePlayer.seek(Duration.ZERO);
 		loseLifePlayer.play();
+	}
+	
+	private void stopLoseLife() {
+		loseLifePlayer.stop();
 	}
 	
 	private void showClassicMode() {

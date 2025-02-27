@@ -48,10 +48,13 @@ public class Wheel extends StackPane{
 		double centerY = canvas.getHeight() / 2;
 		
 		Color[] colors = {Color.YELLOW, Color.RED, Color.GREEN, Color.BLUE, Color.PURPLE, Color.ORANGE};
+		String[] categories = {"History", "Sports", "Geography", "Science", "Pop-Culture", "Wild"};
 		
 		for(int i = 0; i < 6; i++) {
 			graphics.setFill(colors[i]);
 			graphics.fillArc(centerX - radius, centerY - radius, radius * 2, radius * 2, i * 60, 60, ArcType.ROUND);
+			
+			//graphics.fillText(categories[i], i * 60, i * 60);
 		}
 		
 		this.getChildren().add(canvas);
