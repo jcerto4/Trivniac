@@ -39,19 +39,7 @@ public class Classic extends BorderPane{
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
 	
-	
-	public Classic() {
-		loadLoseLifeSound();
-		wheel = new Wheel();
-		leaderboard = new LeaderBoard("Classic");
-		createSpinButtonListeners();
-		createTopSection();
-		createCenterSection();
-		createRightSection();
-		styleButtons();
-		showClassicMode();
-	}
-	
+		
 	public Classic(int gameID, Player player) {
 		
 		loadLoseLifeSound();
@@ -121,6 +109,7 @@ public class Classic extends BorderPane{
 		if(isCorrect) {
 			score += 5;
 			DatabaseManager.updateScore(gameID, score);
+			leaderboard.refreshLeaderboard();
 			btnSpin.setDisable(false);
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {

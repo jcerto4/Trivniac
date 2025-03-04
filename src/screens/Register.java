@@ -116,9 +116,9 @@ public class Register extends BorderPane{
 				
 				if(player == null) {
 					DatabaseManager.insertNewPlayer(userNameEntry.getText(), passwordEntry.getText());
-//					Player newUser = DatabaseManager.getPlayer(userNameEntry.getText());
-//					registerStage.close();
-//					new GameModeSelection(newUser);
+					Player newUser = DatabaseManager.getPlayer(userNameEntry.getText());
+					registerStage.close();
+					new GameModeSelection(newUser);
 				} else {
 					showAlert(AlertType.ERROR, "Registration Error", "This username is already taken");
 				}

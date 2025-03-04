@@ -119,7 +119,7 @@ public class Login extends BorderPane{
 				}else {
 					if(passwordEntry.getText().equals(player.getPassword())) {
 						loginStage.close();
-						//new GameModeSelection(player);
+						new GameModeSelection(player);
 					}else {
 						showAlert(AlertType.ERROR, "Login Error", "Incorrect Password");
 					}
