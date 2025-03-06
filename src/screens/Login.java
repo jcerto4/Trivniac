@@ -219,7 +219,7 @@ public class Login extends BorderPane{
 	}	
 	
 	private void showLoginScreen() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		loginStage = new Stage();
 		loginStage.setTitle("Register Screen");
 		loginStage.setScene(scene);

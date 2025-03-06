@@ -28,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -144,10 +145,13 @@ public class QuestionScreen extends BorderPane{
 		Text questionText = new Text(question.getQuestionText());
 		questionText.setFont(Font.font("Georgia", 36));
 		questionText.setFill(Color.WHITE);
+		questionText.setWrappingWidth(800);
+		questionText.setTextAlignment(TextAlignment.CENTER);
 		
 		VBox questionCtn = new VBox(questionText);
 		questionCtn.setAlignment(Pos.CENTER);
 		questionCtn.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 10; -fx-background-radius: 10;");
+		questionCtn.setMaxWidth(850);
 		
 		String[] options = question.getOptions();
 		option1 = new Button(options[0]);
@@ -179,10 +183,10 @@ public class QuestionScreen extends BorderPane{
 		createHoverEffect(option3);
 		createHoverEffect(option4);
 		
-		option1.setPrefSize(500, 100);
-		option2.setPrefSize(500, 100);
-		option3.setPrefSize(500, 100);
-		option4.setPrefSize(500, 100);
+		option1.setPrefSize(500, 75);
+		option2.setPrefSize(500, 75);
+		option3.setPrefSize(500, 75);
+		option4.setPrefSize(500, 75);
 		
 		option1.setFont(Font.font("Georgia", 32));
 		option2.setFont(Font.font("Georgia", 32));
@@ -323,7 +327,8 @@ public class QuestionScreen extends BorderPane{
 	}
 	
 	private void showQuestionScreen() {
-		Scene scene = new Scene(this, 1200, 1000);
+		
+		Scene scene = new Scene(this, 1000, 700);
 		questionStage = new Stage();
 		questionStage.setTitle("Question Screen");
 		questionStage.setScene(scene);

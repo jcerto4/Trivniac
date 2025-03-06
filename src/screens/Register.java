@@ -217,7 +217,7 @@ public class Register extends BorderPane{
 	}	
 	
 	private void showRegisterScreen() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		registerStage = new Stage();
 		registerStage.setTitle("Register Screen");
 		registerStage.setScene(scene);

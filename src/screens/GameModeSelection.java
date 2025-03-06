@@ -7,7 +7,10 @@ import db.DatabaseManager;
 import gamemodes.Blitz;
 import gamemodes.Classic;
 import gamemodes.Survival;
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -32,6 +35,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -48,49 +52,77 @@ public class GameModeSelection extends BorderPane{
 	private Media gameModeMusicMedia;
 	private MediaPlayer gameModeMusicPlayer;
 	
-	private Media entrySoundMedia;
-	private MediaPlayer entrySoundPlayer;
+	private Media classicSoundMedia;
+	private MediaPlayer classicSoundPlayer;
+	
+	private Media survivalSoundMedia;
+	private MediaPlayer survivalSoundPlayer;
+	
+	private Media blitzSoundMedia;
+	private MediaPlayer blitzSoundPlayer;
 	
 	
 	public GameModeSelection(Player player) {
 		
 		this.player = player;
-		loadGameModeMusic();
-		loadEntrySound();
+		
+		loadClassicSound();
+		loadSurvivalSound();
+		loadBlitzSound();
+		
+		setBackground();
 		createTopSection();
 		createCenterSection();
 		createBottomSection();
 		createGameModeSelectionButtonListeners();
 		createExitButtonListeners();
 		styleButtons();
+		
 		showGameModeSelection();
 	}
 	
 	private void createGameModeSelectionButtonListeners() {
 				
 		btnClassic.setOnAction(e -> {
-			playEntrySound();
+			playClassicSound();
 			int gameID = DatabaseManager.startNewGame(player, "Classic");
 			close();
 			new Classic(gameID, player);
 		});
 		
 		btnSurvival.setOnAction(e -> {
-			playEntrySound();
+			playSurvivalSound();
 			int gameID = DatabaseManager.startNewGame(player, "Survival");
 			close();
 			new Survival(gameID, player);
 		});
 		
 		btnBlitz.setOnAction(e -> {
-			playEntrySound();
+			playBlitzSound();
 			int gameID = DatabaseManager.startNewGame(player, "Blitz");
 			close();
 			//new Blitz(gameID, player);
 		});
 		
-		
 	}
+	
+//	private void animateTransition(Runnable mode) {
+//		
+//		
+//		TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), this);
+//		transition.setToX(-500);
+//		
+//		
+//		transition.setOnFinished(e -> {
+//			close();
+//			mode.run();
+//		});
+//		
+//		transition.play();
+//		
+//		
+//	}
+	
 	
 	private void createExitButtonListeners() {
 		btnExit.setOnAction(event -> close());
@@ -98,7 +130,20 @@ public class GameModeSelection extends BorderPane{
 	
 	private void createTopSection() {
 		
+		Label welcome = new Label("Welcome " + player.getUsername());
+		welcome.setFont(Font.font("Georgia", FontWeight.BOLD, 36));
+		welcome.setTextFill(Color.WHITE);
 		
+		Label header = new Label("Choose Your Game Mode");
+		header.setFont(Font.font("Georgia", FontWeight.BOLD, 36));
+		header.setTextFill(Color.WHITE);
+		
+		VBox headerCtn = new VBox(10, welcome, header);
+		
+		headerCtn.setPadding(new Insets(50, 0, 0, 0));
+		headerCtn.setAlignment(Pos.CENTER);
+		
+		this.setTop(headerCtn);
 	}
 	
 	
@@ -118,7 +163,7 @@ public class GameModeSelection extends BorderPane{
 	
 	
 	private void showGameModeSelection() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		gameModeStage = new Stage();
 		gameModeStage.setTitle("Welcome Screen");
 		gameModeStage.setScene(scene);
@@ -153,9 +198,9 @@ public class GameModeSelection extends BorderPane{
 		btnSurvival.setPrefSize(500, 100);
 		btnBlitz.setPrefSize(500, 100);
 		
-		btnClassic.setFont(Font.font("Arial", 24));
-		btnSurvival.setFont(Font.font("Arial", 24));
-		btnBlitz.setFont(Font.font("Arial", 24));
+		btnClassic.setFont(Font.font("Arial", 28));
+		btnSurvival.setFont(Font.font("Arial", 28));
+		btnBlitz.setFont(Font.font("Arial", 28));
 
 		btnExit.setFont(Font.font("Arial", 14));
 		
@@ -188,33 +233,34 @@ public class GameModeSelection extends BorderPane{
 		
 	}
 	
-	private void loadEntrySound() {
-		String soundURL = "sounds/entry_sound.mp3";
-		entrySoundMedia = new Media(new File(soundURL).toURI().toString());
-		entrySoundPlayer = new MediaPlayer(entrySoundMedia);
+	private void loadClassicSound() {
+		String soundURL = "sounds/classic_sound.mp3";
+		classicSoundMedia = new Media(new File(soundURL).toURI().toString());
+		classicSoundPlayer = new MediaPlayer(classicSoundMedia);
 	}
 	
-	private void playEntrySound() {
-		entrySoundPlayer.play();
+	private void loadSurvivalSound() {
+		String soundURL = "sounds/survival_sound.mp3";
+		survivalSoundMedia = new Media(new File(soundURL).toURI().toString());
+		survivalSoundPlayer = new MediaPlayer(survivalSoundMedia);
 	}
 	
-	private void stopEntrySound() {
-		entrySoundPlayer.stop();
+	private void loadBlitzSound() {
+		String soundURL = "sounds/blitz_sound.mp3";
+		blitzSoundMedia = new Media(new File(soundURL).toURI().toString());
+		blitzSoundPlayer = new MediaPlayer(blitzSoundMedia);
 	}
 	
-	private void loadGameModeMusic() {
-		String soundURL = "sounds/welcome_music.mp3";
-		gameModeMusicMedia = new Media(new File(soundURL).toURI().toString());
-		gameModeMusicPlayer = new MediaPlayer(gameModeMusicMedia);
+	private void playClassicSound() {
+		classicSoundPlayer.play();
 	}
 	
-	private void playGameModeMusic() {
-		gameModeMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-		gameModeMusicPlayer.play();
+	private void playSurvivalSound() {
+		survivalSoundPlayer.play();
 	}
 	
-	private void stopGameModeMusic() {
-		gameModeMusicPlayer.stop();
+	private void playBlitzSound() {
+		blitzSoundPlayer.play();
 	}
 	
 	

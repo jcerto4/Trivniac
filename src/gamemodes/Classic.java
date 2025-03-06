@@ -12,6 +12,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -47,6 +53,7 @@ public class Classic extends BorderPane{
 		this.player = player;
 		wheel = new Wheel();
 		leaderboard = new LeaderBoard("Classic");
+		setBackground();
 		createTopSection();
 		createCenterSection();
 		createRightSection();
@@ -158,8 +165,25 @@ public class Classic extends BorderPane{
 		loseLifePlayer.stop();
 	}
 	
+	private void setBackground() {
+		
+		Image backgroundImage = new Image("file:images/classic_background.jpg");
+		
+		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+		
+		BackgroundImage classicBackground = new BackgroundImage(
+			backgroundImage,
+			BackgroundRepeat.NO_REPEAT,
+			BackgroundRepeat.NO_REPEAT,
+			BackgroundPosition.DEFAULT,
+			backgroundSize
+			);
+		this.setBackground(new Background(classicBackground));
+		
+	}
+	
 	private void showClassicMode() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		classicStage = new Stage();
 		classicStage.setTitle("Classic Mode");
 		classicStage.setScene(scene);

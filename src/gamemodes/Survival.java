@@ -41,21 +41,7 @@ public class Survival extends BorderPane{
 	
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
-	
-	
-	public Survival() {
 		
-		loadLoseLifeSound();
-		wheel = new Wheel();
-		leaderboard = new LeaderBoard("Survival");
-		createSpinButtonListeners();
-		createTopSection();
-		createCenterSection();
-		createRightSection();
-		styleButtons();
-		showSurvivalMode();
-	}
-	
 	public Survival(int gameID, Player player) {
 		
 		this.gameID = gameID;
@@ -86,11 +72,7 @@ public class Survival extends BorderPane{
 	
 	private void createTopSection() {
 		
-		Image image = new Image("file:images/trivniac_logo.png");
-		ImageView logo = new ImageView(image);
-		
-
-		VBox streakCtn = new VBox(logo, streakTracker);
+		VBox streakCtn = new VBox(streakTracker);
 		streakCtn.setAlignment(Pos.CENTER);
 		this.setTop(streakCtn);
 		
@@ -152,7 +134,7 @@ public class Survival extends BorderPane{
 	}
 	
 	private void showSurvivalMode() {
-		Scene scene = new Scene(this, 1400, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		survivalStage = new Stage();
 		survivalStage.setTitle("Survival Mode");
 		survivalStage.setScene(scene);

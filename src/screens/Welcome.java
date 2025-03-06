@@ -173,7 +173,7 @@ public class Welcome extends BorderPane{
 	
 	
 	private void showWelcomeScreen() {
-		Scene scene = new Scene(this, 1200, 1000);
+		Scene scene = new Scene(this, 1000, 700);
 		welcomeStage = new Stage();
 		welcomeStage.setTitle("Welcome Screen");
 		welcomeStage.setScene(scene);
