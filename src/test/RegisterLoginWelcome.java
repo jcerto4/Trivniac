@@ -11,8 +11,6 @@ public class RegisterLoginWelcome extends Application{
 	
 	public void start(Stage primaryStage) throws Exception {
 		
-//		new Register();
-//		new Login();
 		new Welcome();
 	}
 	

@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -18,6 +19,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 
 public class Wheel extends StackPane{
@@ -36,8 +40,6 @@ public class Wheel extends StackPane{
 		canvas = new Canvas(400, 400);
 		drawWheel();
 		drawArrow();
-		
-	
 	}
 	
 	
@@ -47,14 +49,26 @@ public class Wheel extends StackPane{
 		double centerX = canvas.getWidth() / 2;
 		double centerY = canvas.getHeight() / 2;
 		
-		Color[] colors = {Color.YELLOW, Color.RED, Color.GREEN, Color.BLUE, Color.PURPLE, Color.ORANGE};
+		Color[] colors = {Color.YELLOW, Color.RED, Color.GREEN, Color.BLUE, Color.PURPLE, Color.PINK};
 		String[] categories = {"History", "Sports", "Geography", "Science", "Pop-Culture", "Wild"};
+		
+		graphics.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+		graphics.setTextAlign(TextAlignment.CENTER);
+		graphics.setTextBaseline(VPos.CENTER);
 		
 		for(int i = 0; i < 6; i++) {
 			graphics.setFill(colors[i]);
 			graphics.fillArc(centerX - radius, centerY - radius, radius * 2, radius * 2, i * 60, 60, ArcType.ROUND);
+		}
+		
+		for(int i = 0; i < 6; i++) {
 			
-			//graphics.fillText(categories[i], i * 60, i * 60);
+			double angle = Math.toRadians(i * 60 + 30);
+			double textX = centerX + (radius * 0.6) * Math.cos(angle);
+			double textY = centerY - (radius * 0.6) * Math.sin(angle);
+			
+			graphics.setFill(Color.WHITE);
+			graphics.fillText(categories[i], textX, textY);
 		}
 		
 		this.getChildren().add(canvas);

@@ -328,7 +328,7 @@ public class QuestionScreen extends BorderPane{
 	
 	private void showQuestionScreen() {
 		
-		Scene scene = new Scene(this, 1000, 700);
+		Scene scene = new Scene(this, 1000, 750);
 		questionStage = new Stage();
 		questionStage.setTitle("Question Screen");
 		questionStage.setScene(scene);

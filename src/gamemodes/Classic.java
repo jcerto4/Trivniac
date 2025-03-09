@@ -9,10 +9,13 @@ import gameobjects.Wheel;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -79,12 +82,12 @@ public class Classic extends BorderPane{
 	private void createTopSection() {
 		
 		livesCtn.setAlignment(Pos.CENTER);
-		livesCtn.setSpacing(10);
+		livesCtn.setSpacing(20);
 		
 		for(int i = 0; i < 3; i++) {
-			Label brain = new Label("\uD83E\uDDE0");
-			brain.setFont(Font.font("Segoe UI Emoji", 120));
-			brain.setTextFill(Color.RED);
+			ImageView brain = new ImageView(new Image("file:images/brain.png"));
+			brain.setFitWidth(125);
+			brain.setFitHeight(125);
 			livesCtn.getChildren().add(brain);
 		}
 		
@@ -121,7 +124,7 @@ public class Classic extends BorderPane{
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {
 				playLoseLife();
-				animateLifeLoss((Label)livesCtn.getChildren().get(0));
+				animateLifeLoss(livesCtn.getChildren().get(0));
 				lives--;
 			}
 			
@@ -133,9 +136,9 @@ public class Classic extends BorderPane{
 		}
 	}
 	
-	private void animateLifeLoss(Label brain) {
+	private void animateLifeLoss(Node node) {
 		
-		FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), brain);
+		FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), node);
 		fadeOut.setFromValue(1.0);
 		fadeOut.setToValue(0.0);
 		fadeOut.setOnFinished(e -> livesCtn.getChildren().remove(0));
@@ -169,16 +172,12 @@ public class Classic extends BorderPane{
 		
 		Image backgroundImage = new Image("file:images/classic_background.jpg");
 		
-		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+		ImageView background = new ImageView(backgroundImage);
 		
-		BackgroundImage classicBackground = new BackgroundImage(
-			backgroundImage,
-			BackgroundRepeat.NO_REPEAT,
-			BackgroundRepeat.NO_REPEAT,
-			BackgroundPosition.DEFAULT,
-			backgroundSize
-			);
-		this.setBackground(new Background(classicBackground));
+		background.setFitWidth(1000);
+		background.setFitHeight(800);
+		
+		this.getChildren().add(0, background);
 		
 	}
 	

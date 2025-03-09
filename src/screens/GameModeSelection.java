@@ -105,25 +105,7 @@ public class GameModeSelection extends BorderPane{
 		});
 		
 	}
-	
-//	private void animateTransition(Runnable mode) {
-//		
-//		
-//		TranslateTransition transition = new TranslateTransition(Duration.seconds(1.5), this);
-//		transition.setToX(-500);
-//		
-//		
-//		transition.setOnFinished(e -> {
-//			close();
-//			mode.run();
-//		});
-//		
-//		transition.play();
-//		
-//		
-//	}
-	
-	
+
 	private void createExitButtonListeners() {
 		btnExit.setOnAction(event -> close());
 	}
