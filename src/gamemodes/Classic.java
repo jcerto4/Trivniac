@@ -104,7 +104,7 @@ public class Classic extends BorderPane{
 	
 	private void createRightSection() {
 		leaderboard.setAlignment(Pos.CENTER_RIGHT);
-		leaderboard.setPadding(new Insets(0, 10, 0, 0));
+		leaderboard.setPadding(new Insets(0, 20, 0, 0));
 		this.setRight(leaderboard);
 	}
 	
@@ -148,7 +148,7 @@ public class Classic extends BorderPane{
 	
 	private void styleButtons() {
 		
-		btnSpin.setPrefSize(250, 50);
+		btnSpin.setPrefSize(200, 50);
 		btnSpin.setFont(Font.font("Georgia", 32));
 	}
 	
