@@ -106,6 +106,7 @@ public class Survival extends BorderPane{
 			DatabaseManager.updateScore(gameID, score);
 			btnSpin.setDisable(false);
 			updateStreakTracker();
+			leaderboard.refreshLeaderboard();
 		}else {
 			survivalStage.close();
 			new GameOver(player, score, "Survival");

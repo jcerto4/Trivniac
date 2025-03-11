@@ -5,7 +5,10 @@ import java.io.File;
 import classes.Player;
 import db.DatabaseManager;
 import gamemodes.Classic;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +29,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -71,7 +75,7 @@ public class GameOver extends BorderPane{
 	private void createPlayAgainButtonListeners() {
 		
 		btnAgain.setOnAction(e -> {
-			int gameID = DatabaseManager.startNewGame(player, "Classic");
+			int gameID = DatabaseManager.startNewGame(player, gameMode);
 			close();
 			new Classic(gameID, player);
 		});
@@ -98,32 +102,59 @@ public class GameOver extends BorderPane{
 
 	private void createTopSection() {
 		
-		Label header = new Label("Game Over");
-		Label subHeader = new Label();
-		header.setFont(Font.font("Verdana", FontWeight.BOLD, 36));
-		subHeader.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+		String header = "GAME OVER";
+		Label subHeader;
+
+		HBox headerCtn = new HBox();
+		headerCtn.setAlignment(Pos.CENTER);
 		
-		header.setTextFill(Color.WHITE);
-		subHeader.setTextFill(Color.WHITE);
-		
-		VBox headerCtn = new VBox(10, header);
-		
+		for(int i = 0; i < header.length(); i++) {
+			
+			char letter = header.charAt(i);
+			Text text = new Text(String.valueOf(letter));
+			text.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+			text.setFill(Color.WHITE);
+			text.setTranslateY(-300);
+			
+			TranslateTransition fallTrans = new TranslateTransition(Duration.seconds(1 + Math.random()), text);
+			fallTrans.setToY(0);
+			fallTrans.play();
+			
+			headerCtn.getChildren().add(text);
+		}
+
 		int highScore = DatabaseManager.getPlayerHighScore(player.getPlayerID(), gameMode);
 		
 		if(highScore == score) {
 			subHeader = new Label("NEW High Score! Congrats " + player.getUsername());
 			headerCtn.getChildren().add(subHeader);
+		}else {
+			subHeader = new Label("Better Luck Next Time!");
 		}
 		
-		headerCtn.setAlignment(Pos.CENTER);
-		headerCtn.setPadding(new Insets(20));
+		subHeader.setTextFill(Color.WHITE);
+		subHeader.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
+		subHeader.setOpacity(0);
 		
-		this.setTop(headerCtn);	
+		
+		VBox topCtn = new VBox(10, headerCtn, subHeader);
+		topCtn.setAlignment(Pos.CENTER);
+		topCtn.setPadding(new Insets(30, 0, 0, 0));
+		
+		this.setTop(topCtn);	
+		
+		PauseTransition delay = new PauseTransition(Duration.seconds(1));
+		delay.setOnFinished(e -> {
+			FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), subHeader);
+			fadeIn.setToValue(1);
+			fadeIn.play();
+		});
+		delay.play();
 	}
 	
 	private void createCenterSection() {
 		
-		VBox centerCtn = new VBox(10, btnAgain, btnMode);
+		VBox centerCtn = new VBox(20, btnAgain, btnMode);
 		
 		centerCtn.setAlignment(Pos.CENTER);
 		
@@ -164,8 +195,8 @@ public class GameOver extends BorderPane{
 		btnAgain.setFont(Font.font("Arial", 28));
 		btnMode.setFont(Font.font("Arial", 28));
 		
-		btnAgain.setPrefSize(500, 100);
-		btnMode.setPrefSize(500, 100);
+		btnAgain.setPrefSize(400, 100);
+		btnMode.setPrefSize(400, 100);
 		
 		createHoverEffect(btnAgain);
 		createHoverEffect(btnMode);

@@ -8,8 +8,10 @@ import gamemodes.Blitz;
 import gamemodes.Classic;
 import gamemodes.Survival;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -84,24 +86,46 @@ public class GameModeSelection extends BorderPane{
 	private void createGameModeSelectionButtonListeners() {
 				
 		btnClassic.setOnAction(e -> {
+			disableButtons();
 			playClassicSound();
-			int gameID = DatabaseManager.startNewGame(player, "Classic");
-			close();
-			new Classic(gameID, player);
+			
+			Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
+
+				int gameID = DatabaseManager.startNewGame(player, "Classic");
+				close();
+				new Classic(gameID, player);
+				
+			}));
+				timeLine.play();
 		});
 		
 		btnSurvival.setOnAction(e -> {
+			disableButtons();
 			playSurvivalSound();
-			int gameID = DatabaseManager.startNewGame(player, "Survival");
-			close();
-			new Survival(gameID, player);
+			
+			Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+				
+				int gameID = DatabaseManager.startNewGame(player, "Survival");
+				close();
+				new Survival(gameID, player);
+				
+			}));
+			
+			timeLine.play();
 		});
 		
 		btnBlitz.setOnAction(e -> {
+			disableButtons();
 			playBlitzSound();
-			int gameID = DatabaseManager.startNewGame(player, "Blitz");
-			close();
-			//new Blitz(gameID, player);
+			
+			Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+				int gameID = DatabaseManager.startNewGame(player, "Blitz");
+				close();
+				new Blitz(gameID, player);
+				
+			}));
+			
+			timeLine.play();
 		});
 		
 	}
@@ -213,6 +237,13 @@ public class GameModeSelection extends BorderPane{
 			button.setEffect(null);
 		});
 		
+	}
+	
+	private void disableButtons() {
+		btnClassic.setDisable(true);
+		btnSurvival.setDisable(true);
+		btnBlitz.setDisable(true);
+		btnExit.setDisable(true);
 	}
 	
 	private void loadClassicSound() {
