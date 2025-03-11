@@ -7,6 +7,8 @@ import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -131,7 +133,15 @@ public class Classic extends BorderPane{
 			if(lives > 0) {
 				btnSpin.setDisable(false);
 			}else {
-				new GameOver();
+				
+				Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(1.75), e -> {
+					
+					classicStage.close();
+					new GameOver(player, score, "Classic");
+					
+				}));
+				
+				timeLine.play();
 			}
 		}
 	}

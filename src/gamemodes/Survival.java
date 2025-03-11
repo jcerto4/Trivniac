@@ -107,7 +107,8 @@ public class Survival extends BorderPane{
 			btnSpin.setDisable(false);
 			updateStreakTracker();
 		}else {
-			new GameOver();
+			survivalStage.close();
+			new GameOver(player, score, "Survival");
 		}
 	
 	}
