@@ -10,6 +10,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -138,12 +139,8 @@ public class QuestionScreen extends BorderPane{
 	
 	private void createCenterSection() {
 		
-		Text categoryText = new Text(question.getCategory());
-		categoryText.setFont(Font.font("Georgia", FontWeight.BOLD, 54));
-		categoryText.setFill(Color.WHITE);
-		
 		Text questionText = new Text(question.getQuestionText());
-		questionText.setFont(Font.font("Georgia", 36));
+		questionText.setFont(Font.font("Verdana", 28));
 		questionText.setFill(Color.WHITE);
 		questionText.setWrappingWidth(800);
 		questionText.setTextAlignment(TextAlignment.CENTER);
@@ -162,7 +159,7 @@ public class QuestionScreen extends BorderPane{
 		VBox optionsCtn = new VBox(20, option1, option2, option3, option4);
 		optionsCtn.setAlignment(Pos.CENTER);
 		
-		VBox centerCtn = new VBox(30, categoryText, questionCtn, optionsCtn);
+		VBox centerCtn = new VBox(20, questionCtn, optionsCtn);
 		centerCtn.setAlignment(Pos.CENTER);
 		
 		this.setCenter(centerCtn);
@@ -183,10 +180,10 @@ public class QuestionScreen extends BorderPane{
 		createHoverEffect(option3);
 		createHoverEffect(option4);
 		
-		option1.setPrefSize(500, 75);
-		option2.setPrefSize(500, 75);
-		option3.setPrefSize(500, 75);
-		option4.setPrefSize(500, 75);
+		option1.setPrefSize(400, 60);
+		option2.setPrefSize(400, 60);
+		option3.setPrefSize(400, 60);
+		option4.setPrefSize(400, 60);
 		
 		option1.setFont(Font.font("Georgia", 32));
 		option2.setFont(Font.font("Georgia", 32));

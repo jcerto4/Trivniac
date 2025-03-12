@@ -54,22 +54,18 @@ public class GameOver extends BorderPane{
 		this.player = player;
 		this.score = score;
 		this.gameMode = gameMode;
-		
 		loadGameOverSound();
 		playGameOverSound();
 		setBackground();
 		createTopSection();
 		createCenterSection();
 		createBottomSection();
-		
 		createPlayAgainButtonListeners();
 		createModeButtonListeners();
 		createLogoutButtonListeners();
 		createExitButtonListeners();
-		
 		styleButtons();
-		showGameOverScreen();
-		
+		showGameOverScreen();		
 	}
 	
 	private void createPlayAgainButtonListeners() {
@@ -150,6 +146,8 @@ public class GameOver extends BorderPane{
 			fadeIn.play();
 		});
 		delay.play();
+		
+		
 	}
 	
 	private void createCenterSection() {
@@ -224,6 +222,23 @@ public class GameOver extends BorderPane{
 			button.setEffect(null);
 		});
 		
+	}
+	
+	private void disableButtons() {
+		
+		btnAgain.setDisable(true);
+		btnMode.setDisable(true);
+		btnLogout.setDisable(true);
+		btnExit.setDisable(true);
+		
+	}
+	
+	private void enableButtons() {
+	
+		btnAgain.setDisable(false);
+		btnMode.setDisable(false);
+		btnLogout.setDisable(false);
+		btnExit.setDisable(false);
 	}
 	
 	private void loadGameOverSound() {

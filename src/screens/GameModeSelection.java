@@ -137,11 +137,11 @@ public class GameModeSelection extends BorderPane{
 	private void createTopSection() {
 		
 		Label welcome = new Label("Welcome " + player.getUsername());
-		welcome.setFont(Font.font("Georgia", FontWeight.BOLD, 36));
+		welcome.setFont(Font.font("Verdana", FontWeight.BOLD, 48));
 		welcome.setTextFill(Color.WHITE);
 		
 		Label header = new Label("Choose Your Game Mode");
-		header.setFont(Font.font("Georgia", FontWeight.BOLD, 36));
+		header.setFont(Font.font("Verdana", FontWeight.BOLD, 36));
 		header.setTextFill(Color.WHITE);
 		
 		VBox headerCtn = new VBox(10, welcome, header);
@@ -197,6 +197,20 @@ public class GameModeSelection extends BorderPane{
 	}
 	
 	private void styleButtons() {
+		
+		 String buttonStyle = "-fx-background-color: linear-gradient(to bottom, #007BFF, #0056b3);" +
+                 "-fx-text-fill: white;" +
+                 "-fx-font-size: 28px;" +
+                 "-fx-font-weight: bold;" +
+                 "-fx-background-radius: 15px;" +
+                 "-fx-border-radius: 15px;" +
+                 "-fx-border-color: white;" +
+                 "-fx-border-width: 2px;";
+		
+		btnClassic.setStyle(buttonStyle);
+		btnSurvival.setStyle(buttonStyle);
+		btnBlitz.setStyle(buttonStyle);
+		
 		
 		btnExit.setPrefSize(100, 50);
 		

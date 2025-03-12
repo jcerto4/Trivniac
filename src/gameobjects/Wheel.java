@@ -55,12 +55,11 @@ public class Wheel extends StackPane{
 		double centerY = canvas.getHeight() / 2;
 		
 		Color[] colors = {
-				Color.web("#F1C40F"), 
-				Color.web("#E74C3C"), 
-				Color.web("#2ECC71"), 
-				Color.web("#3498DB"), 
-				Color.web("#9B59B6"), 
-				Color.web("#95A5A6")
+				Color.web("#F1C40F"), 		//Golden Yellow
+				Color.web("#E74C3C"),		//Alizarin Red
+				Color.web("#2ECC71"), 		//Emerald Green
+				Color.web("#3498DB"), 		//Dodger Blue	
+				Color.web("#9B59B6"), 		//Amethyst
 			};
 		
 		String[] categories = {"History", "Sports", "Geography", "Science", "Pop-Culture", "Wild"};
