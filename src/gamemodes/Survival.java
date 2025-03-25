@@ -24,6 +24,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import screens.GameModeSelection;
 import screens.GameOver;
 import screens.QuestionScreen;
 
@@ -41,6 +42,8 @@ public class Survival extends BorderPane{
 	
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
+	
+	private Button btnBack = new Button("Go Back");
 		
 	public Survival(int gameID, Player player) {
 		
@@ -51,9 +54,18 @@ public class Survival extends BorderPane{
 		createTopSection();
 		createCenterSection();
 		createRightSection();
+		createBottomSection();
 		createSpinButtonListeners();
+		createBackButtonListeners();
 		styleButtons();
 		showSurvivalMode();
+	}
+	
+	private void createBackButtonListeners() {
+		btnBack.setOnAction(e -> {
+			survivalStage.close();
+			new GameModeSelection(player);
+		});
 	}
 	
 	private void createSpinButtonListeners() {
@@ -89,6 +101,14 @@ public class Survival extends BorderPane{
 		leaderboard.setAlignment(Pos.CENTER_RIGHT);
 		leaderboard.setPadding(new Insets(0, 10, 0, 0));
 		this.setRight(leaderboard);
+	}
+	
+	private void createBottomSection() {
+		
+		HBox btmCtn = new HBox(btnBack);
+		btmCtn.setAlignment(Pos.CENTER_LEFT);
+		btmCtn.setPadding(new Insets(20));
+		this.setBottom(btmCtn);
 	}
 	
 	

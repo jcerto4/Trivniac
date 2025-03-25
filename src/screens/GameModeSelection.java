@@ -49,7 +49,7 @@ public class GameModeSelection extends BorderPane{
 	private Button btnClassic = new Button("Classic");
 	private Button btnSurvival = new Button("Survival");
 	private Button btnBlitz = new Button("Blitz");
-	private Button btnExit = new Button("Exit");
+	private Button btnBack = new Button("Logout");
 	
 	private Media gameModeMusicMedia;
 	private MediaPlayer gameModeMusicPlayer;
@@ -77,7 +77,7 @@ public class GameModeSelection extends BorderPane{
 		createCenterSection();
 		createBottomSection();
 		createGameModeSelectionButtonListeners();
-		createExitButtonListeners();
+		createBackButtonListeners();
 		styleButtons();
 		
 		showGameModeSelection();
@@ -130,8 +130,8 @@ public class GameModeSelection extends BorderPane{
 		
 	}
 
-	private void createExitButtonListeners() {
-		btnExit.setOnAction(event -> close());
+	private void createBackButtonListeners() {
+		btnBack.setOnAction(event -> new Login());
 	}
 	
 	private void createTopSection() {
@@ -163,7 +163,11 @@ public class GameModeSelection extends BorderPane{
 	
 	private void createBottomSection() {
 		
-	
+		HBox bottomCtn = new HBox(btnBack);
+		bottomCtn.setAlignment(Pos.CENTER_RIGHT);
+		bottomCtn.setPadding(new Insets(30));
+		
+		this.setBottom(bottomCtn);
 		
 	}
 	
@@ -198,7 +202,7 @@ public class GameModeSelection extends BorderPane{
 	
 	private void styleButtons() {
 		
-		 String buttonStyle = "-fx-background-color: linear-gradient(to bottom, #007BFF, #0056b3);" +
+		 String buttonStyle = "-fx-background-color: #007BFF;" +
                  "-fx-text-fill: white;" +
                  "-fx-font-size: 28px;" +
                  "-fx-font-weight: bold;" +
@@ -212,7 +216,7 @@ public class GameModeSelection extends BorderPane{
 		btnBlitz.setStyle(buttonStyle);
 		
 		
-		btnExit.setPrefSize(100, 50);
+		btnBack.setPrefSize(100, 50);
 		
 		btnClassic.setPrefSize(500, 100);
 		btnSurvival.setPrefSize(500, 100);
@@ -222,12 +226,12 @@ public class GameModeSelection extends BorderPane{
 		btnSurvival.setFont(Font.font("Arial", 28));
 		btnBlitz.setFont(Font.font("Arial", 28));
 
-		btnExit.setFont(Font.font("Arial", 14));
+		btnBack.setFont(Font.font("Arial", 14));
 		
 		createHoverEffect(btnClassic);
 		createHoverEffect(btnSurvival);
 		createHoverEffect(btnBlitz);
-		createHoverEffect(btnExit);
+		createHoverEffect(btnBack);
 	
 	}
 	
@@ -257,7 +261,7 @@ public class GameModeSelection extends BorderPane{
 		btnClassic.setDisable(true);
 		btnSurvival.setDisable(true);
 		btnBlitz.setDisable(true);
-		btnExit.setDisable(true);
+		btnBack.setDisable(true);
 	}
 	
 	private void loadClassicSound() {

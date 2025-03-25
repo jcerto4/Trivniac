@@ -104,17 +104,13 @@ public class Timer extends HBox{
 		public void stopTimer() {
 			timeline.stop();
 		}
-	
-		public int getStartSeconds() {
-			return startSeconds;
+		
+		public int getSecondsLeft() {
+			return secondsLeft;
 		}
-	
-		public void setStartSeconds(int seconds) {
-			this.startSeconds = seconds;
-		}
-	
-		public void setUseTimer(boolean useTimer) {
-			this.useTimer = useTimer;
+		
+		public void setSecondsLeft(int seconds) {
+			this.secondsLeft = seconds;
 		}
 	
 	}

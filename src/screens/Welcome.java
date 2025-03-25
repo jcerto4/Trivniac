@@ -201,6 +201,30 @@ public class Welcome extends BorderPane{
 	
 	private void styleButtons() {
 		
+		 String registerStyle = "-fx-background-color: #E6A400;" +
+                 "-fx-text-fill: white;" +
+                 "-fx-font-size: 28px;" +
+                 "-fx-font-weight: bold;" +
+                 "-fx-background-radius: 15px;" +
+                 "-fx-border-radius: 15px;" +
+                 "-fx-border-color: #8B6508;" +
+                 "-fx-border-width: 2px;";
+		 
+		 
+		 String loginStyle = "-fx-background-color: #B22222;" +
+                 "-fx-text-fill: white;" +
+                 "-fx-font-size: 28px;" +
+                 "-fx-font-weight: bold;" +
+                 "-fx-background-radius: 15px;" +
+                 "-fx-border-radius: 15px;" +
+                 "-fx-border-color: #8B0000;" +
+                 "-fx-border-width: 2px;";
+		 
+		
+		btnRegister.setStyle(registerStyle);
+		btnLogin.setStyle(loginStyle);
+		 
+		 
 		btnExit.setPrefSize(100, 50);
 		btnRegister.setPrefSize(500, 100);
 		btnLogin.setPrefSize(500, 100);

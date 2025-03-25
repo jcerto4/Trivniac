@@ -32,8 +32,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import screens.GameModeSelection;
 import screens.GameOver;
 import screens.QuestionScreen;
+import screens.Welcome;
 
 public class Classic extends BorderPane{
 	
@@ -50,6 +52,8 @@ public class Classic extends BorderPane{
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
 	
+	private Button btnBack = new Button("Go Back");
+	
 		
 	public Classic(int gameID, Player player) {
 		
@@ -62,9 +66,18 @@ public class Classic extends BorderPane{
 		createTopSection();
 		createCenterSection();
 		createRightSection();
+		createBottomSection();
 		createSpinButtonListeners();
+		createBackButtonListeners();
 		styleButtons();
 		showClassicMode();
+	}
+	
+	private void createBackButtonListeners() {
+		btnBack.setOnAction(e -> {
+			classicStage.close();
+			new GameModeSelection(player);
+		});
 	}
 	
 	private void createSpinButtonListeners() {
@@ -108,6 +121,14 @@ public class Classic extends BorderPane{
 		leaderboard.setAlignment(Pos.CENTER_RIGHT);
 		leaderboard.setPadding(new Insets(0, 20, 0, 0));
 		this.setRight(leaderboard);
+	}
+	
+	private void createBottomSection() {
+		
+		HBox btmCtn = new HBox(btnBack);
+		btmCtn.setAlignment(Pos.CENTER_LEFT);
+		btmCtn.setPadding(new Insets(20));
+		this.setBottom(btmCtn);
 	}
 	
 	

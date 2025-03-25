@@ -12,6 +12,7 @@ public class RegisterLoginWelcome extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		
 		new Welcome();
+		//new Login();
 	}
 	
 	public static void main(String[] args) {

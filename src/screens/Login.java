@@ -36,6 +36,8 @@ public class Login extends BorderPane{
 	private Button btnLogin = new Button("Login");
 	private Button btnBack = new Button("Go Back");
 	private Button btnExit = new Button("Exit");
+	private Label userNameLabel = new Label("Username: ");
+	private Label passwordLabel = new Label("Password: ");
 	private Stage loginStage;
 	
 	public Login() {
@@ -89,7 +91,6 @@ public class Login extends BorderPane{
 		HBox titleCtn = new HBox(title);
 		titleCtn.setAlignment(Pos.CENTER);
 		
-		Label userNameLabel = new Label("Username: ");
 		userNameLabel.setTextFill(Color.WHITE);
 		userNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		TextField userNameEntry = new TextField();
@@ -97,7 +98,6 @@ public class Login extends BorderPane{
 		HBox userCtn = new HBox(10, userNameLabel, userNameEntry);
 		userCtn.setAlignment(Pos.CENTER);
 		
-		Label passwordLabel = new Label("Password: ");
 		passwordLabel.setTextFill(Color.WHITE);
 		passwordLabel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 		PasswordField passwordEntry = new PasswordField();
@@ -213,6 +213,14 @@ public class Login extends BorderPane{
 		btnBack.setPrefSize(100, 50);
 		btnBack.setFont(Font.font("Arial", 14));
 		
+		//String labelStyle = "-fx-background-color: white; -fx-border-color: #FFD700; -fx-border-radius: 8px;";
+		//String buttonStyle = "-fx-background-color: #E6A400; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 10px;";
+		
+		//userNameLabel.setStyle(labelStyle);
+		//passwordLabel.setStyle(labelStyle);
+		
+		//btnLogin.setStyle(buttonStyle);
+		
 		createHoverEffect(btnLogin);
 		createHoverEffect(btnExit);
 		createHoverEffect(btnBack);
@@ -221,7 +229,7 @@ public class Login extends BorderPane{
 	private void showLoginScreen() {
 		Scene scene = new Scene(this, 1000, 700);
 		loginStage = new Stage();
-		loginStage.setTitle("Register Screen");
+		loginStage.setTitle("Login Screen");
 		loginStage.setScene(scene);
 		loginStage.show();
 	}
