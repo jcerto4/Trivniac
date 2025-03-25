@@ -88,6 +88,7 @@ public class Blitz extends BorderPane{
 	private void createTopSection() {
 		
 		timer = new Timer(30, () -> {
+			blitzStage.close();
 			new GameOver(player, score, "Blitz");
 		});
 		
@@ -129,7 +130,7 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void createRightSection() {
-		leaderboard.setPrefSize(250, 300);
+		leaderboard.setPrefSize(400, 300);
 		leaderboard.setAlignment(Pos.CENTER_RIGHT);
 		leaderboard.setPadding(new Insets(0, 20, 0, 0));
 		this.setRight(leaderboard);
@@ -140,6 +141,7 @@ public class Blitz extends BorderPane{
 		if(selectedAnswer == question.getCorrectAnswer()) {
 			score += 10;
 			DatabaseManager.updateScore(gameID, score);
+			leaderboard.refreshLeaderboard();
 			timer.setSecondsLeft(timer.getSecondsLeft() + 10);
 			playCorrectSound();
 		}else {
@@ -153,7 +155,12 @@ public class Blitz extends BorderPane{
 	private void showNextQuestion() {
 		
 		int random = new Random().nextInt(categories.length);
-		question = DatabaseManager.getRandomQuestion(categories[random]);
+		
+		do {
+			question = DatabaseManager.getRandomQuestion(categories[random]);
+		}while(usedQuestions.contains(question));
+		
+		usedQuestions.add(question);
 		
 		questionText.setText(question.getQuestionText());
 		
@@ -189,7 +196,7 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void loadIncorrectSound() {
-		String soundURL = "sounds/incorrect_sound.mp3";
+		String soundURL = "sounds/wrong_answer.mp3";
 		incorrectSoundMedia = new Media(new File(soundURL).toURI().toString());
 		incorrectSoundPlayer = new MediaPlayer(incorrectSoundMedia);
 	}
@@ -205,7 +212,7 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void loadCorrectSound() {
-		String soundURL = "sounds/correct_sound.mp3";
+		String soundURL = "sounds/correct_answer.mp3";
 		correctSoundMedia = new Media(new File(soundURL).toURI().toString());
 		correctSoundPlayer = new MediaPlayer(correctSoundMedia);
 	}
