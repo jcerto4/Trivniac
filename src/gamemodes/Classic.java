@@ -32,6 +32,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import powerups.DoubleChance;
+import powerups.EliminateTwo;
+import powerups.StopTimer;
 import screens.GameModeSelection;
 import screens.GameOver;
 import screens.QuestionScreen;
@@ -52,6 +55,10 @@ public class Classic extends BorderPane{
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
 	
+	private DoubleChance doubleChance;
+	private EliminateTwo elimTwo;
+	private StopTimer stopTimer;
+	
 	private Button btnBack = new Button("Go Back");
 	
 		
@@ -62,6 +69,11 @@ public class Classic extends BorderPane{
 		this.player = player;
 		wheel = new Wheel();
 		leaderboard = new LeaderBoard("Classic");
+		
+		doubleChance = new DoubleChance();
+		elimTwo = new EliminateTwo();
+		stopTimer = new StopTimer();
+		
 		setBackground();
 		createTopSection();
 		createCenterSection();
@@ -135,7 +147,7 @@ public class Classic extends BorderPane{
 	private void showQuestionScreen(String category) {
 		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
 			handleQuestionResult(isCorrect);
-		});
+		}, doubleChance, elimTwo, stopTimer);
 	}
 	
 	private void handleQuestionResult(boolean isCorrect) {

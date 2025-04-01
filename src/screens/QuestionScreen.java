@@ -1,6 +1,8 @@
 package screens;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.function.Consumer;
 
 import classes.Question;
@@ -34,6 +36,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import powerups.DoubleChance;
+import powerups.EliminateTwo;
+import powerups.StopTimer;
 
 public class QuestionScreen extends BorderPane{
 	
@@ -63,16 +67,16 @@ public class QuestionScreen extends BorderPane{
 	private MediaPlayer correctSoundPlayer;
 	
 	private boolean doubleChanceUsed = false;
-	private boolean eliminateTwoUsed = false;
-	private boolean stopTimerUsed = false;
+	//private boolean eliminateTwoUsed = false;
 	
 	
 	private boolean doubleChanceActive = false;
 	private boolean eliminateTwoActive = false;
 	private boolean stopTimerActive = false;
 	
+	
 
-	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered) {
+	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered, DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer) {
 				
 		this.gameID = gameID;
 		this.category = category;
@@ -81,6 +85,10 @@ public class QuestionScreen extends BorderPane{
 		options = question.getOptions();
 		
 		this.onQuestionAnswered = onQuestionAnswered;
+		
+		doubleChance.setQuestionScreen(this);
+		elimTwo.setQuestionScreen(this);
+		stopTimer.setQuestionScreen(this);
 
 		loadQuestionMusic();
 		playQuestionMusic();
@@ -91,7 +99,7 @@ public class QuestionScreen extends BorderPane{
 		setBackground();
 		createTopSection();
 		createCenterSection();
-		createBottomSection();
+		createBottomSection(doubleChance, elimTwo, stopTimer);
 		createOptionButtonListeners();
 		styleButtons();
 		showQuestionScreen();
@@ -105,6 +113,29 @@ public class QuestionScreen extends BorderPane{
 	    option4.setOnAction(e -> checkAnswer(4));
 	}
 	
+	public void eliminateTwo() {
+		
+		ArrayList<Integer> incorrectChoices = new ArrayList<>();
+		
+		for(int i = 0; i < 4; i++) {
+			if(i + 1 != correctAnswer) {
+				incorrectChoices.add(i);
+			}
+		}
+		
+		Button[] buttons = {option1, option2, option3, option4};
+		
+		Collections.shuffle(incorrectChoices);
+		
+		buttons[incorrectChoices.get(0)].setDisable(true);
+		buttons[incorrectChoices.get(1)].setDisable(true);
+		
+	}
+	
+	public void stopTimer() {
+		timer.stopTimer();
+	}
+	
 	private void checkAnswer(int selectedOption) {
 		
 		if(doubleChanceActive && !doubleChanceUsed && selectedOption != correctAnswer) {
@@ -115,7 +146,6 @@ public class QuestionScreen extends BorderPane{
 			return;
 			
 		}
-		
 		
 		stopQuestionMusic();
 		timer.stopTimer();
@@ -145,6 +175,7 @@ public class QuestionScreen extends BorderPane{
 		})).play();
 		
 	}
+	
 	
 	private void createTopSection() {
 		
@@ -187,16 +218,13 @@ public class QuestionScreen extends BorderPane{
 		
 	}
 	
-	private void createBottomSection() {
+	private void createBottomSection(DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer) {
 		
 		HBox powerupCtn = new HBox(20);
 		
 		powerupCtn.setAlignment(Pos.CENTER);
 		
-		DoubleChance doubleChance = new DoubleChance(this);
-		
-		
-		powerupCtn.getChildren().add(doubleChance.getButton());
+		powerupCtn.getChildren().addAll(doubleChance.getButton(), elimTwo.getButton(), stopTimer.getButton());
 		
 		this.setBottom(powerupCtn);
 		

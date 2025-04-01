@@ -24,6 +24,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import powerups.DoubleChance;
+import powerups.EliminateTwo;
+import powerups.StopTimer;
 import screens.GameModeSelection;
 import screens.GameOver;
 import screens.QuestionScreen;
@@ -44,6 +47,10 @@ public class Survival extends BorderPane{
 	private MediaPlayer loseLifePlayer;
 	
 	private Button btnBack = new Button("Go Back");
+	
+	private DoubleChance doubleChance;
+	private EliminateTwo elimTwo;
+	private StopTimer stopTimer;
 		
 	public Survival(int gameID, Player player) {
 		
@@ -51,6 +58,11 @@ public class Survival extends BorderPane{
 		this.player = player;
 		wheel = new Wheel();
 		leaderboard = new LeaderBoard("Survival");
+		
+		doubleChance = new DoubleChance();
+		elimTwo = new EliminateTwo();
+		stopTimer = new StopTimer();
+		
 		createTopSection();
 		createCenterSection();
 		createRightSection();
@@ -115,7 +127,7 @@ public class Survival extends BorderPane{
 	private void showQuestionScreen(String category) {
 		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
 			handleQuestionResult(isCorrect);
-		});
+		}, doubleChance, elimTwo, stopTimer);
 	}
 	
 	private void handleQuestionResult(boolean isCorrect) {

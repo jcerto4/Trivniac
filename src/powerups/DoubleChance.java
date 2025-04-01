@@ -7,8 +7,11 @@ public class DoubleChance extends PowerUp{
 	
 	private QuestionScreen questionScreen;
 	
-	public DoubleChance(QuestionScreen questionScreen) {
+	public DoubleChance() {
 		super("file:images/double_chance.png");
+	}
+	
+	public void setQuestionScreen(QuestionScreen questionScreen) {
 		this.questionScreen = questionScreen;
 	}
 	
