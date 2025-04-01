@@ -22,6 +22,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -32,6 +33,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import powerups.DoubleChance;
 
 public class QuestionScreen extends BorderPane{
 	
@@ -60,6 +62,15 @@ public class QuestionScreen extends BorderPane{
 	private Media correctSoundMedia;
 	private MediaPlayer correctSoundPlayer;
 	
+	private boolean doubleChanceUsed = false;
+	private boolean eliminateTwoUsed = false;
+	private boolean stopTimerUsed = false;
+	
+	
+	private boolean doubleChanceActive = false;
+	private boolean eliminateTwoActive = false;
+	private boolean stopTimerActive = false;
+	
 
 	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered) {
 				
@@ -80,7 +91,7 @@ public class QuestionScreen extends BorderPane{
 		setBackground();
 		createTopSection();
 		createCenterSection();
-		//createBottomSection();
+		createBottomSection();
 		createOptionButtonListeners();
 		styleButtons();
 		showQuestionScreen();
@@ -95,6 +106,16 @@ public class QuestionScreen extends BorderPane{
 	}
 	
 	private void checkAnswer(int selectedOption) {
+		
+		if(doubleChanceActive && !doubleChanceUsed && selectedOption != correctAnswer) {
+			
+			doubleChanceUsed = true;
+			disableOptionButton(selectedOption);
+			
+			return;
+			
+		}
+		
 		
 		stopQuestionMusic();
 		timer.stopTimer();
@@ -168,8 +189,47 @@ public class QuestionScreen extends BorderPane{
 	
 	private void createBottomSection() {
 		
-		//Eventually will house the powerups
+		HBox powerupCtn = new HBox(20);
 		
+		powerupCtn.setAlignment(Pos.CENTER);
+		
+		DoubleChance doubleChance = new DoubleChance(this);
+		
+		
+		powerupCtn.getChildren().add(doubleChance.getButton());
+		
+		this.setBottom(powerupCtn);
+		
+		
+	}
+	
+	public void enableDoubleChance() {
+		this.doubleChanceActive = true;
+	}
+	
+	public void enableEliminateTwo() {
+		this.eliminateTwoActive = true;
+	}
+	
+	public void enableStopTimer() {
+		this.stopTimerActive = true;
+	}
+	
+	private void disableOptionButton(int selectedOption) {
+		
+		switch(selectedOption) {
+			case 1:
+				option1.setDisable(true);
+				break;
+			case 2:
+				option2.setDisable(true);
+				break;
+			case 3:
+				option3.setDisable(true);
+				break;
+			case 4:
+				option4.setDisable(true);
+		}
 		
 	}
 	
