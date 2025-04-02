@@ -66,16 +66,8 @@ public class QuestionScreen extends BorderPane{
 	private Media correctSoundMedia;
 	private MediaPlayer correctSoundPlayer;
 	
-	private boolean doubleChanceUsed = false;
-	//private boolean eliminateTwoUsed = false;
-	
-	
 	private boolean doubleChanceActive = false;
-	private boolean eliminateTwoActive = false;
-	private boolean stopTimerActive = false;
 	
-	
-
 	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered, DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer) {
 				
 		this.gameID = gameID;
@@ -138,9 +130,8 @@ public class QuestionScreen extends BorderPane{
 	
 	private void checkAnswer(int selectedOption) {
 		
-		if(doubleChanceActive && !doubleChanceUsed && selectedOption != correctAnswer) {
+		if(doubleChanceActive && selectedOption != correctAnswer) {
 			
-			doubleChanceUsed = true;
 			disableOptionButton(selectedOption);
 			
 			return;
@@ -233,14 +224,6 @@ public class QuestionScreen extends BorderPane{
 	
 	public void enableDoubleChance() {
 		this.doubleChanceActive = true;
-	}
-	
-	public void enableEliminateTwo() {
-		this.eliminateTwoActive = true;
-	}
-	
-	public void enableStopTimer() {
-		this.stopTimerActive = true;
 	}
 	
 	private void disableOptionButton(int selectedOption) {

@@ -20,10 +20,9 @@ public abstract class PowerUp{
 		this.button.setGraphic(imageView);
 		this.button.setOnAction(e -> activatePowerUp());
 		
-		imageView.setFitWidth(200);
-		imageView.setFitHeight(200);
+		imageView.setFitWidth(175);
+		imageView.setFitHeight(175);
 		imageView.setPreserveRatio(false);
-		//imageView.setStyle("-fx-background-color: transparent;");
 		button.setStyle("-fx-background-color: transparent; -fx-padding: 0;");
 		
 		DropShadow shadow = new DropShadow(10, Color.BLACK);
