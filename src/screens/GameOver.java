@@ -4,7 +4,9 @@ import java.io.File;
 
 import classes.Player;
 import db.DatabaseManager;
+import gamemodes.Blitz;
 import gamemodes.Classic;
+import gamemodes.Survival;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
@@ -73,7 +75,18 @@ public class GameOver extends BorderPane{
 		btnAgain.setOnAction(e -> {
 			int gameID = DatabaseManager.startNewGame(player, gameMode);
 			close();
-			new Classic(gameID, player);
+			
+			switch(gameMode) {
+				case "Classic":
+					new Classic(gameID, player);
+					break;
+				case "Survival":
+					new Survival(gameID, player);
+					break;
+				case "Blitz":
+					new Blitz(gameID, player);
+			}
+			
 		});
 	}
 	

@@ -142,7 +142,7 @@ public class Blitz extends BorderPane{
 			score += 10;
 			DatabaseManager.updateScore(gameID, score);
 			leaderboard.refreshLeaderboard();
-			timer.setSecondsLeft(timer.getSecondsLeft() + 10);
+			timer.setSecondsLeft(timer.getSecondsLeft() + 5);
 			playCorrectSound();
 		}else {
 			playIncorrectSound();

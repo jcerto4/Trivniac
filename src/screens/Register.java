@@ -174,7 +174,7 @@ public class Register extends BorderPane{
 	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/register_background.jpg");
+		Image backgroundImage = new Image("file:images/register_background.png");
 		
 		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 		

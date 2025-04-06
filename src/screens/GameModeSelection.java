@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -155,7 +156,39 @@ public class GameModeSelection extends BorderPane{
 	
 	private void createCenterSection() {
 		
-		VBox modeCtn = new VBox(20, btnClassic, btnSurvival, btnBlitz);
+		ImageView classicIcon = new ImageView(new Image("file:images/classic_icon.png"));
+		ImageView survivalIcon = new ImageView(new Image("file:images/survival_icon.png"));
+		ImageView blitzIcon = new ImageView(new Image("file:images/blitz_icon.png"));
+		
+		classicIcon.setFitHeight(100);
+		classicIcon.setFitWidth(100);
+		survivalIcon.setFitHeight(100);
+		survivalIcon.setFitWidth(100);
+		blitzIcon.setFitHeight(100);
+		blitzIcon.setFitWidth(100);
+		
+		classicIcon.setPreserveRatio(true);
+		survivalIcon.setPreserveRatio(true);
+		blitzIcon.setPreserveRatio(true);
+		
+		Tooltip classicTip = new Tooltip("Classic Mode: You have 3 lives. Try to answer as many questions as you can before losing them all!");
+		Tooltip survivalTip = new Tooltip("Survival Mode: You only get 1 life. One wrong answer and it's game over!");
+		Tooltip blitzTip = new Tooltip("Blitz Mode: You have 30 seconds to answer as many questions as possible. Each correct answer adds 5 seconds");
+		
+		HBox classicCtn = new HBox(10, classicIcon, btnClassic);
+		HBox survivalCtn = new HBox(10, survivalIcon, btnSurvival);
+		HBox blitzCtn = new HBox(10, blitzIcon, btnBlitz);
+		
+		Tooltip.install(classicCtn, classicTip);
+		Tooltip.install(survivalCtn, survivalTip);
+		Tooltip.install(blitzCtn, blitzTip);
+		
+		classicCtn.setAlignment(Pos.CENTER);
+		survivalCtn.setAlignment(Pos.CENTER);
+		blitzCtn.setAlignment(Pos.CENTER);
+		
+		
+		VBox modeCtn = new VBox(20, classicCtn, survivalCtn, blitzCtn);
 		modeCtn.setAlignment(Pos.CENTER);
 		this.setCenter(modeCtn);
 		
@@ -175,7 +208,7 @@ public class GameModeSelection extends BorderPane{
 	private void showGameModeSelection() {
 		Scene scene = new Scene(this, 1000, 700);
 		gameModeStage = new Stage();
-		gameModeStage.setTitle("Welcome Screen");
+		gameModeStage.setTitle("Game Mode Selection Screen");
 		gameModeStage.setScene(scene);
 		gameModeStage.show();
 	}
@@ -186,7 +219,7 @@ public class GameModeSelection extends BorderPane{
 	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/mode_background.jpg");
+		Image backgroundImage = new Image("file:images/mode_background.png");
 		
 		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 		
@@ -202,18 +235,11 @@ public class GameModeSelection extends BorderPane{
 	
 	private void styleButtons() {
 		
-		 String buttonStyle = "-fx-background-color: #007BFF;" +
-                 "-fx-text-fill: white;" +
-                 "-fx-font-size: 28px;" +
-                 "-fx-font-weight: bold;" +
-                 "-fx-background-radius: 15px;" +
-                 "-fx-border-radius: 15px;" +
-                 "-fx-border-color: white;" +
-                 "-fx-border-width: 2px;";
+	
 		
-		btnClassic.setStyle(buttonStyle);
-		btnSurvival.setStyle(buttonStyle);
-		btnBlitz.setStyle(buttonStyle);
+		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
+		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
+		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
 		
 		
 		btnBack.setPrefSize(100, 50);

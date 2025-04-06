@@ -67,6 +67,7 @@ public class QuestionScreen extends BorderPane{
 	private MediaPlayer correctSoundPlayer;
 	
 	private boolean doubleChanceActive = false;
+	private boolean doubleChanceUsed = false;
 	
 	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered, DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer) {
 				
@@ -130,7 +131,9 @@ public class QuestionScreen extends BorderPane{
 	
 	private void checkAnswer(int selectedOption) {
 		
-		if(doubleChanceActive && selectedOption != correctAnswer) {
+		if(doubleChanceActive && !doubleChanceUsed && selectedOption != correctAnswer) {
+			
+			doubleChanceUsed = true;
 			
 			disableOptionButton(selectedOption);
 			

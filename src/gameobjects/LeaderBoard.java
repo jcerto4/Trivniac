@@ -29,6 +29,7 @@ public class LeaderBoard extends VBox{
 		
 		this.gameMode = gameMode;
 		buildLeaderboard();
+		styleLeaderboard();
 	}
 	
 	public void refreshLeaderboard() {
@@ -79,6 +80,20 @@ public class LeaderBoard extends VBox{
 		
 		
 		this.getChildren().add(leaderboard);
+	}
+	
+	private void styleLeaderboard() {
+		
+		leaderboard.setStyle(
+				 "-fx-background-color: transparent;" +
+				 "-fx-border-radius: 12;" +
+				 "-fx-background-radius: 12;" +
+				 "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.2, 0, 5);" +
+				 "-fx-font-family: 'Segoe UI';" +
+				 "-fx-font-size: 14px;"
+				);
+		
+		
 	}
 	
 }
