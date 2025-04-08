@@ -26,23 +26,6 @@ public class LeaderBoard extends VBox{
 		styleLeaderboard();
 	}
 	
-	public void refreshLeaderboard() {
-	
-		new Thread(() -> {
-			
-			ArrayList<Player> topPlayers = DatabaseManager.getTopPlayers(gameMode);
-			Platform.runLater(() -> {
-				
-				getChildren().clear();
-				buildRows(topPlayers);
-
-			});
-			
-			
-		}).start();
-		
-	}
-	
 	private void buildLeaderboard() {
 		
 		ArrayList<Player> topPlayers = DatabaseManager.getTopPlayers(gameMode);

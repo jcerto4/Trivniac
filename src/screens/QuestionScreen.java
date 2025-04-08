@@ -265,15 +265,35 @@ public class QuestionScreen extends BorderPane{
 		createHoverEffect(option3);
 		createHoverEffect(option4);
 		
-		option1.setPrefSize(400, Region.USE_COMPUTED_SIZE);
-		option2.setPrefSize(400, Region.USE_COMPUTED_SIZE);
-		option3.setPrefSize(400, Region.USE_COMPUTED_SIZE);
-		option4.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option1.setPrefSize(450, Region.USE_COMPUTED_SIZE);
+		option2.setPrefSize(450, Region.USE_COMPUTED_SIZE);
+		option3.setPrefSize(450, Region.USE_COMPUTED_SIZE);
+		option4.setPrefSize(450, Region.USE_COMPUTED_SIZE);
 		
-		option1.setFont(Font.font("Georgia", 32));
-		option2.setFont(Font.font("Georgia", 32));
-		option3.setFont(Font.font("Georgia", 32));
-		option4.setFont(Font.font("Georgia", 32));
+//		option1.setFont(Font.font("Georgia", 32));
+//		option2.setFont(Font.font("Georgia", 32));
+//		option3.setFont(Font.font("Georgia", 32));
+//		option4.setFont(Font.font("Georgia", 32));
+		
+		String style = (
+			"-fx-background-color: rgba(0, 0, 0, 0.35);" +
+			"-fx-background-radius: 20;" +
+			"-fx-border-color: white;" +
+			"-fx-border-width: 2;" +
+		    "-fx-border-radius: 20;" +
+			"-fx-background-radius: 20;" +
+		    "-fx-text-fill: white;" +
+		    "-fx-font-size: 24px;" +
+		    "-fx-font-weight: bold;" +
+		    "-fx-font-family: 'Segoe UI';" +
+		    "-fx-padding: 12 24 12 24;" +
+		    "-fx-cursor: hand;"
+		);
+		
+		option1.setStyle(style);
+		option2.setStyle(style);
+		option3.setStyle(style);
+		option4.setStyle(style);
 	}
 	
 	private void createHoverEffect(Button button) {
@@ -379,12 +399,30 @@ public class QuestionScreen extends BorderPane{
 	private void highlightOptions(Button button, boolean isCorrect) {
 		if(isCorrect) {
 			button.setStyle(
-					"-fx-background-color: green;" +
-					"-fx-text-fill: black;" +
-					"-fx-font-weight: bold;"	
+				"-fx-background-radius: 20;" +
+				"-fx-border-color: white;" +
+				"-fx-border-width: 2;" +
+				"-fx-border-radius: 20;" +
+				"-fx-text-fill: white;" +
+				"-fx-font-size: 24px;" +
+				"-fx-font-weight: bold;" +
+				"-fx-font-family: 'Segoe UI';" +
+				"-fx-padding: 12 24 12 24;" +
+				"-fx-background-color: green;"	
 				);
 		}else {
-			button.setStyle("-fx-background-color: red;");
+			button.setStyle(	
+					"-fx-background-radius: 20;" +
+					"-fx-border-color: white;" +
+					"-fx-border-width: 2;" +
+					"-fx-border-radius: 20;" +
+					"-fx-text-fill: white;" +
+					"-fx-font-size: 24px;" +
+					"-fx-font-weight: bold;" +
+					"-fx-font-family: 'Segoe UI';" +
+					"-fx-padding: 12 24 12 24;" +
+					"-fx-background-color: red;"	
+				);
 		}
 		
 		scaleCorrectAnswer(button, isCorrect);

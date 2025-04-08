@@ -52,6 +52,7 @@ public class GameModeSelection extends BorderPane{
 	private Button btnSurvival = new Button("Survival");
 	private Button btnBlitz = new Button("Blitz");
 	private Button btnBack = new Button("Logout");
+	private Button btnLeaderboard = new Button("Leaderboards");
 	
 	private Media gameModeMusicMedia;
 	private MediaPlayer gameModeMusicPlayer;
@@ -80,9 +81,19 @@ public class GameModeSelection extends BorderPane{
 		createBottomSection();
 		createGameModeSelectionButtonListeners();
 		createBackButtonListeners();
+		createLeaderboardButtonListeners();
 		styleButtons();
 		
 		showGameModeSelection();
+	}
+	
+	private void createLeaderboardButtonListeners() {
+		
+		btnLeaderboard.setOnAction(e -> {
+			close();
+			new LeaderboardScreen(player);
+		});
+		
 	}
 	
 	private void createGameModeSelectionButtonListeners() {
@@ -91,7 +102,7 @@ public class GameModeSelection extends BorderPane{
 			disableButtons();
 			playClassicSound();
 			
-			Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(0.5), event -> {
+			Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(0.75), event -> {
 
 				int gameID = DatabaseManager.startNewGame(player, "Classic");
 				close();
@@ -202,7 +213,10 @@ public class GameModeSelection extends BorderPane{
 	
 	private void createBottomSection() {
 		
-		HBox bottomCtn = new HBox(btnBack);
+		Region spacer = new Region();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		
+		HBox bottomCtn = new HBox(btnLeaderboard, spacer, btnBack);
 		bottomCtn.setAlignment(Pos.CENTER_RIGHT);
 		bottomCtn.setPadding(new Insets(10, 20, 10, 20));
 		
@@ -242,9 +256,9 @@ public class GameModeSelection extends BorderPane{
 	private void styleButtons() {
 		
 		
-		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
-		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
-		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
+		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;");
+		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;");
+		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;");
 		
 		btnBack.setStyle(
 				"-fx-background-color: transparent;" +        
@@ -252,11 +266,25 @@ public class GameModeSelection extends BorderPane{
 			    "-fx-background-radius: 10;" +
 			    "-fx-border-radius: 10;" +
 			    "-fx-border-color: #ffffff;" +
-			    "-fx-border-width: 1.5px;" +
+			    "-fx-border-width: 2px;" +
 			    "-fx-font-weight: bold;" +
 			    "-fx-font-size: 14px;" +
-			    "-fx-cursor: hand;"
+			    "-fx-cursor: hand;" +
+			    "-fx-font-family: 'Verdana';"
 			    );
+		
+		btnLeaderboard.setStyle(
+			"-fx-background-color: transparent;" +
+			"-fx-border-color: white;" +
+			"-fx-text-fill: white;" +
+			"-fx-font-weight: bold;" +
+			"-fx-border-radius: 10;" +
+			"-fx-background-radius: 10;" +
+		    "-fx-border-width: 2px;" +
+			"-fx-font-size: 14px;" +
+			"-fx-cursor: hand;" +
+			"-fx-font-family: 'Verdana';"
+		);
 		
 		
 		btnBack.setPrefSize(100, 40);
@@ -271,6 +299,8 @@ public class GameModeSelection extends BorderPane{
 		createHoverEffect(btnSurvival);
 		createHoverEffect(btnBlitz);
 		createHoverEffect(btnBack);
+		createHoverEffect(btnLeaderboard);
+		
 	
 	}
 	
@@ -301,6 +331,7 @@ public class GameModeSelection extends BorderPane{
 		btnSurvival.setDisable(true);
 		btnBlitz.setDisable(true);
 		btnBack.setDisable(true);
+		btnLeaderboard.setDisable(true);
 	}
 	
 	private void loadClassicSound() {

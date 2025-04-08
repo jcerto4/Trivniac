@@ -132,6 +132,34 @@ public class DatabaseManager {
     	  return 0;
     }
     
+    public static ArrayList<Integer> getAllScoresForPlayer(int playerID, String gameMode){
+    	
+    	ArrayList<Integer> scores = new ArrayList<>();
+    	
+    	String query = "SELECT score FROM game_results WHERE player_id = ? AND game_mode = ? ORDER BY score DESC";
+    	
+    	try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+    			PreparedStatement statement = connection.prepareStatement(query)){
+    		
+    		statement.setInt(1, playerID);
+    		statement.setString(2, gameMode);
+    		
+    		try(ResultSet results = statement.executeQuery()){
+    			while(results.next()) {
+    				scores.add(results.getInt("score"));
+    			}
+    		}
+    		
+    
+    	}catch(SQLException e) {
+    		System.out.println("Error retrieving all scores for player " + playerID + " in mode " + gameMode);
+    		e.printStackTrace();
+    	}
+    	
+    	return scores;
+    	
+    }
+    
     public static ArrayList<Player> getTopPlayers(String gameMode) {
     	
     	ArrayList<Player> topPlayers = new ArrayList<>();
@@ -140,7 +168,7 @@ public class DatabaseManager {
     					"ON p.player_id = g.player_id " +
     					"WHERE g.game_mode = ? " +
     					"GROUP BY p.player_id, p.username, p.password " +
-    					"ORDER BY high_score DESC";
+    					"ORDER BY high_score DESC LIMIT 10";
     	
     	try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
     			PreparedStatement statement = connection.prepareStatement(query)){

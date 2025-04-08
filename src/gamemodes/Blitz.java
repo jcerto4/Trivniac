@@ -88,6 +88,7 @@ public class Blitz extends BorderPane{
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			timer.stopTickingSound();
 			blitzStage.close();
 			new GameModeSelection(player);
 		});
