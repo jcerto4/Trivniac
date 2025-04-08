@@ -190,7 +190,7 @@ public class GameOver extends BorderPane{
 	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/over_background.jpg");
+		Image backgroundImage = new Image("file:images/over_background.png");
 		
 		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 		
@@ -212,10 +212,19 @@ public class GameOver extends BorderPane{
 		btnAgain.setPrefSize(400, 100);
 		btnMode.setPrefSize(400, 100);
 		
+		btnLogout.setPrefSize(100, 50);
+		btnExit.setPrefSize(100, 50);
+		
 		createHoverEffect(btnAgain);
 		createHoverEffect(btnMode);
 		createHoverEffect(btnLogout);
 		createHoverEffect(btnExit);
+		
+		btnAgain.setStyle("-fx-background-color: linear-gradient(#ff1744, #d50000); -fx-text-fill: white; -fx-background-radius: 12;");
+		btnMode.setStyle("-fx-background-color: linear-gradient(#2979ff, #1565c0); -fx-text-fill: white; -fx-background-radius: 12;");
+		btnLogout.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-background-radius: 8;");
+		btnExit.setStyle("-fx-background-color: transparent; -fx-border-color: red; -fx-text-fill: red; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-width: 2;");
+		
 	}	
 	
 	private void createHoverEffect(Button button) {

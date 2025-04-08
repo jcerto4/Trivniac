@@ -2,6 +2,7 @@ package powerups;
 
 import java.io.File;
 
+import javafx.scene.control.Tooltip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -17,6 +18,8 @@ public class EliminateTwo extends PowerUp{
 	public EliminateTwo() {
 		super("file:images/eliminate_two.png");
 		loadEliminateTwoSound();
+		tooltip = new Tooltip("Eliminate Two");
+		Tooltip.install(getButton(), tooltip);
 	}
 	
 	public void setQuestionScreen(QuestionScreen questionScreen) {

@@ -169,8 +169,6 @@ public class GameModeSelection extends BorderPane{
 		blitzIcon.setFitHeight(150);
 		blitzIcon.setFitWidth(150);
 		
-		
-		
 		classicIcon.setPreserveRatio(true);
 		survivalIcon.setPreserveRatio(true);
 		blitzIcon.setPreserveRatio(true);
@@ -244,18 +242,30 @@ public class GameModeSelection extends BorderPane{
 	private void styleButtons() {
 		
 		
-		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
-		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
-		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
+		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
+		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
+		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15; -fx-cursor: hand;");
+		
+		btnBack.setStyle(
+				"-fx-background-color: transparent;" +        
+			    "-fx-text-fill: white;" +
+			    "-fx-background-radius: 10;" +
+			    "-fx-border-radius: 10;" +
+			    "-fx-border-color: #ffffff;" +
+			    "-fx-border-width: 1.5px;" +
+			    "-fx-font-weight: bold;" +
+			    "-fx-font-size: 14px;" +
+			    "-fx-cursor: hand;"
+			    );
 		
 		
-		btnBack.setPrefSize(100, 50);
+		btnBack.setPrefSize(100, 40);
 		
 		btnClassic.setPrefSize(500, 100);
 		btnSurvival.setPrefSize(500, 100);
 		btnBlitz.setPrefSize(500, 100);
 
-		btnBack.setFont(Font.font("Arial", 14));
+		btnBack.setPadding(new Insets(20));
 		
 		createHoverEffect(btnClassic);
 		createHoverEffect(btnSurvival);

@@ -3,6 +3,7 @@ package powerups;
 import java.io.File;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -17,7 +18,9 @@ public class DoubleChance extends PowerUp{
 	
 	public DoubleChance() {
 		super("file:images/double_chance.png");
-		//loadDoubleChanceSound();
+		loadDoubleChanceSound();
+		tooltip = new Tooltip("Double Chance");
+		Tooltip.install(getButton(), tooltip);
 	}
 	
 	public void setQuestionScreen(QuestionScreen questionScreen) {
@@ -38,7 +41,7 @@ public class DoubleChance extends PowerUp{
 	public void activatePowerUp() {
 		
 		if(!isUsed) {
-			//playDoubleChanceSound();
+			playDoubleChanceSound();
 			questionScreen.enableDoubleChance();
 			getButton().setDisable(true);
 			isUsed = true;

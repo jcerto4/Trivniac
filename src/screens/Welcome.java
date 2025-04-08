@@ -195,7 +195,8 @@ public class Welcome extends BorderPane{
                  "-fx-background-radius: 15px;" +
                  "-fx-border-radius: 15px;" +
                  "-fx-border-color: #8B6508;" +
-                 "-fx-border-width: 2px;";
+                 "-fx-border-width: 2px;"
+                 + "-fx-cursor: hand;";
 		 
 		 
 		 String loginStyle = 
@@ -206,7 +207,8 @@ public class Welcome extends BorderPane{
                  "-fx-background-radius: 15px;" +
                  "-fx-border-radius: 15px;" +
                  "-fx-border-color: #8B0000;" +
-                 "-fx-border-width: 2px;";
+                 "-fx-border-width: 2px;" +
+                 "-fx-cursor: hand;";
 		 
 		
 		btnRegister.setStyle(registerStyle);
@@ -232,7 +234,9 @@ public class Welcome extends BorderPane{
 			"-fx-background-radius: 8;" +
 			"-fx-border-radius: 8;" +
 			"-fx-border-color: #7a7a7a;" +
-		    "-fx-border-width: 1;");
+		    "-fx-border-width: 1;" +
+			"-fx-cursor: hand;"
+		);
 	
 	}
 	

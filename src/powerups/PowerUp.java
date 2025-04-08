@@ -2,6 +2,7 @@ package powerups;
 
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,8 @@ public abstract class PowerUp{
 	protected boolean isUsed = false;
 	private Button button;
 	private ImageView imageView;
+	
+	Tooltip tooltip;
 	
 	public PowerUp(String imagePath) {
 		this.imageView = new ImageView(new Image(imagePath));

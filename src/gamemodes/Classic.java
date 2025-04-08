@@ -48,7 +48,7 @@ public class Classic extends BorderPane{
 	private Wheel wheel;
 	private Button btnSpin = new Button("SPIN");
 	private HBox livesCtn = new HBox();
-	private LeaderBoard leaderboard;
+
 	private int lives = 3;
 	private int score = 0;
 	private int gameID;
@@ -70,7 +70,8 @@ public class Classic extends BorderPane{
 		this.gameID = gameID;
 		this.player = player;
 		wheel = new Wheel();
-		leaderboard = new LeaderBoard("Classic");
+		
+		
 		
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
@@ -79,7 +80,7 @@ public class Classic extends BorderPane{
 		setBackground();
 		createTopSection();
 		createCenterSection();
-		createRightSection();
+		
 		createBottomSection();
 		createSpinButtonListeners();
 		createBackButtonListeners();
@@ -131,12 +132,6 @@ public class Classic extends BorderPane{
 		this.setCenter(centerCtn);
 	}
 	
-	private void createRightSection() {
-	
-		this.setRight(leaderboard);
-		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
-	}
-	
 	private void createBottomSection() {
 		
 		HBox btmCtn = new HBox(btnBack);
@@ -156,7 +151,6 @@ public class Classic extends BorderPane{
 		if(isCorrect) {
 			score += 5;
 			DatabaseManager.updateScore(gameID, score);
-			leaderboard.refreshLeaderboard();
 			btnSpin.setDisable(false);
 		}else {
 			if(!livesCtn.getChildren().isEmpty()) {
@@ -194,8 +188,10 @@ public class Classic extends BorderPane{
 	private void styleButtons() {
 		
 		btnSpin.setPrefSize(200, 50);
+		btnBack.setPrefSize(100, 40);
 		btnSpin.setFont(Font.font("Georgia", 32));
 		createHoverEffect(btnSpin);
+		createHoverEffect(btnBack);
 		
 		btnSpin.setStyle( 
 				"-fx-background-color: linear-gradient(to bottom, #ffe066, #ffcc00);" +
@@ -203,7 +199,16 @@ public class Classic extends BorderPane{
 			    "-fx-background-radius: 15;" +
 			    "-fx-border-radius: 15;" +
 			    "-fx-border-color: #b38f00;" +
-			    "-fx-border-width: 2;");
+			    "-fx-border-width: 2;"
+			   );
+		
+		btnBack.setStyle(
+				"-fx-background-color: linear-gradient(#616161, #424242);" +
+				"-fx-text-fill: white;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 12;" 
+			);
+		
 	}
 	
 	private void loadLoseLifeSound() {

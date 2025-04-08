@@ -39,7 +39,7 @@ public class Survival extends BorderPane{
 	private Stage survivalStage;
 	private Wheel wheel;
 	private Button btnSpin = new Button("SPIN");
-	private LeaderBoard leaderboard;
+
 	private int score = 0;
 	private int gameID;
 	private Player player;
@@ -60,7 +60,7 @@ public class Survival extends BorderPane{
 		this.gameID = gameID;
 		this.player = player;
 		wheel = new Wheel();
-		leaderboard = new LeaderBoard("Survival");
+		
 		
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
@@ -69,7 +69,6 @@ public class Survival extends BorderPane{
 		setBackground();
 		createTopSection();
 		createCenterSection();
-		createRightSection();
 		createBottomSection();
 		createSpinButtonListeners();
 		createBackButtonListeners();
@@ -113,12 +112,6 @@ public class Survival extends BorderPane{
 		this.setCenter(centerCtn);
 	}
 	
-	private void createRightSection() {
-	
-		this.setRight(leaderboard);
-		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
-	}
-	
 	private void createBottomSection() {
 		
 		HBox btmCtn = new HBox(btnBack);
@@ -142,7 +135,6 @@ public class Survival extends BorderPane{
 			DatabaseManager.updateScore(gameID, score);
 			btnSpin.setDisable(false);
 			updateStreakTracker();
-			leaderboard.refreshLeaderboard();
 		}else {
 			survivalStage.close();
 			new GameOver(player, score, "Survival");
@@ -154,9 +146,12 @@ public class Survival extends BorderPane{
 		streakTracker.setFont(Font.font("Georgia", 36));
 		
 		btnSpin.setPrefSize(250, 50);
+		btnBack.setPrefSize(100, 40);
+
 		btnSpin.setFont(Font.font("Georgia", 32));
 		
 		createHoverEffect(btnSpin);
+		createHoverEffect(btnBack);
 		
 		btnSpin.setStyle(
 			"-fx-background-color: linear-gradient(to bottom, #ffaa3c, #cc6600);" +
@@ -166,6 +161,13 @@ public class Survival extends BorderPane{
 			"-fx-border-color: #5c2e00;" +
 			"-fx-border-width: 2;"
 		);
+		
+		btnBack.setStyle(
+				"-fx-background-color: linear-gradient(#616161, #424242);" +
+				"-fx-text-fill: white;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 12;" 
+			);
 		
 	}
 	

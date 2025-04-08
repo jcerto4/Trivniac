@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import javafx.stage.Stage;
+import screens.GameModeSelection;
 import screens.GameOver;
 
 public class Blitz extends BorderPane{
@@ -38,7 +39,6 @@ public class Blitz extends BorderPane{
 	private Player player;
 	private Stage blitzStage;
 	private Timer timer;
-	private LeaderBoard leaderboard;
 	
 	private String[] categories = {"History", "Sports", "Geography", "Science", "Pop-Culture", "Wild"};
 	private Question question;
@@ -57,6 +57,8 @@ public class Blitz extends BorderPane{
 	private Media blitzMusicMedia;
 	private MediaPlayer blitzMusicPlayer;
 	
+	private Button btnBack = new Button("Go Back");
+	
 	
 	
 	public Blitz(int gameID, Player player) {
@@ -68,20 +70,27 @@ public class Blitz extends BorderPane{
 		
 		usedQuestions.add(question);
 		
-		leaderboard = new LeaderBoard("Blitz");
 		setBackground();
 		loadIncorrectSound();
 		loadCorrectSound();
 		loadBlitzMusic();
 		createTopSection();
 		createCenterSection();
-		createRightSection();
+		createBottomSection();
 		createOptionButtonListeners();
+		createBackButtonListeners();
 		styleButtons();
 		
 		
 		showBlitzScreen();
 		
+	}
+	
+	private void createBackButtonListeners() {
+		btnBack.setOnAction(e -> {
+			blitzStage.close();
+			new GameModeSelection(player);
+		});
 	}
 	
 	private void createOptionButtonListeners() {
@@ -135,10 +144,12 @@ public class Blitz extends BorderPane{
 		
 	}
 	
-	private void createRightSection() {
+	private void createBottomSection() {
 		
-		this.setRight(leaderboard);
-		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
+		HBox btmCtn = new HBox(btnBack);
+		btmCtn.setAlignment(Pos.CENTER_LEFT);
+		btmCtn.setPadding(new Insets(20));
+		this.setBottom(btmCtn);
 	}
 	
 	private void checkAnswer(int selectedAnswer) {
@@ -146,7 +157,6 @@ public class Blitz extends BorderPane{
 		if(selectedAnswer == question.getCorrectAnswer()) {
 			score += 10;
 			DatabaseManager.updateScore(gameID, score);
-			leaderboard.refreshLeaderboard();
 			timer.setSecondsLeft(timer.getSecondsLeft() + 5);
 			playCorrectSound();
 		}else {
@@ -181,15 +191,11 @@ public class Blitz extends BorderPane{
 	
 	private void styleButtons() {
 		
-		option1.setPrefSize(300, Region.USE_COMPUTED_SIZE);
-		option2.setPrefSize(300, Region.USE_COMPUTED_SIZE);
-		option3.setPrefSize(300, Region.USE_COMPUTED_SIZE);
-		option4.setPrefSize(300, Region.USE_COMPUTED_SIZE);
-		
-		option1.setFont(Font.font("Verdana", 18));
-		option2.setFont(Font.font("Verdana", 18));
-		option3.setFont(Font.font("Verdana", 18));
-		option4.setFont(Font.font("Verdana", 18));
+		option1.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option2.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option3.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option4.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		btnBack.setPrefSize(100, 40);
 		
 		option1.setWrapText(true);
 		option2.setWrapText(true);
@@ -201,8 +207,7 @@ public class Blitz extends BorderPane{
 		option3.setTextAlignment(TextAlignment.CENTER);
 		option4.setTextAlignment(TextAlignment.CENTER);
 
-		
-		questionText.setFont(Font.font("Verdana", 22));
+		questionText.setFont(Font.font("Verdana", 24));
 		questionText.setFill(Color.WHITE);
 		questionText.setWrappingWidth(400);
 		questionText.setTextAlignment(TextAlignment.CENTER);
@@ -211,12 +216,13 @@ public class Blitz extends BorderPane{
 		createHoverEffect(option2);
 		createHoverEffect(option3);
 		createHoverEffect(option4);
+		createHoverEffect(btnBack);
 		
 		String style = (
 			"-fx-background-color: linear-gradient(to bottom, #ffe680, #ffcc00);" +
 			"-fx-text-fill: #1a1a1a;" +
 			 "-fx-font-weight: bold;" +
-			 "-fx-font-size: 18px;" +
+			 "-fx-font-size: 20px;" +
 			 "-fx-background-radius: 6;" +
 			 "-fx-border-radius: 6;" +
 			 "-fx-border-color: #333;" +
@@ -227,6 +233,13 @@ public class Blitz extends BorderPane{
 		option2.setStyle(style);
 		option3.setStyle(style);
 		option4.setStyle(style);
+		
+		btnBack.setStyle(
+				"-fx-background-color: linear-gradient(#616161, #424242);" +
+				"-fx-text-fill: white;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 12;" 
+			);
 	}
 	
 	private void createHoverEffect(Button button) {
