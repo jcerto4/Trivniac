@@ -7,11 +7,13 @@ import classes.Player;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import powerups.DoubleChance;
 import powerups.EliminateTwo;
 import powerups.StopTimer;
@@ -63,6 +66,7 @@ public class Survival extends BorderPane{
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
 		
+		setBackground();
 		createTopSection();
 		createCenterSection();
 		createRightSection();
@@ -110,9 +114,9 @@ public class Survival extends BorderPane{
 	}
 	
 	private void createRightSection() {
-		leaderboard.setAlignment(Pos.CENTER_RIGHT);
-		leaderboard.setPadding(new Insets(0, 10, 0, 0));
+	
 		this.setRight(leaderboard);
+		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
 	}
 	
 	private void createBottomSection() {
@@ -151,6 +155,18 @@ public class Survival extends BorderPane{
 		
 		btnSpin.setPrefSize(250, 50);
 		btnSpin.setFont(Font.font("Georgia", 32));
+		
+		createHoverEffect(btnSpin);
+		
+		btnSpin.setStyle(
+			"-fx-background-color: linear-gradient(to bottom, #ffaa3c, #cc6600);" +
+			"-fx-text-fill: #fff5e6;" +
+			"-fx-background-radius: 10;" +
+			"-fx-border-radius: 10;" +
+			"-fx-border-color: #5c2e00;" +
+			"-fx-border-width: 2;"
+		);
+		
 	}
 	
 	private void loadLoseLifeSound() {
@@ -165,6 +181,41 @@ public class Survival extends BorderPane{
 	
 	private void updateStreakTracker() {
 		streakTracker.setText("Current Answer Streak: " + answerStreak);
+	}
+	
+	private void createHoverEffect(Button button) {
+		
+		DropShadow shadow = new DropShadow(10, Color.BLACK);
+		
+		button.setOnMouseEntered(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1.05);
+			scale.setToY(1.05);
+			scale.play();
+			button.setEffect(shadow);
+		});
+		
+		button.setOnMouseExited(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1);
+			scale.setToY(1);
+			scale.play();
+			button.setEffect(null);
+		});
+		
+	}
+	
+	private void setBackground() {
+		
+		Image backgroundImage = new Image("file:images/survival_background.png");
+		
+		ImageView background = new ImageView(backgroundImage);
+		
+		background.setFitWidth(1000);
+		background.setFitHeight(800);
+		
+		this.getChildren().add(0, background);
+		
 	}
 	
 	private void showSurvivalMode() {

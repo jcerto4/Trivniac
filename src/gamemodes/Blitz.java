@@ -9,12 +9,17 @@ import classes.Question;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Timer;
+import javafx.animation.ScaleTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -64,6 +69,7 @@ public class Blitz extends BorderPane{
 		usedQuestions.add(question);
 		
 		leaderboard = new LeaderBoard("Blitz");
+		setBackground();
 		loadIncorrectSound();
 		loadCorrectSound();
 		loadBlitzMusic();
@@ -130,10 +136,9 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void createRightSection() {
-		leaderboard.setPrefSize(400, 300);
-		leaderboard.setAlignment(Pos.CENTER_RIGHT);
-		leaderboard.setPadding(new Insets(0, 20, 0, 0));
+		
 		this.setRight(leaderboard);
+		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
 	}
 	
 	private void checkAnswer(int selectedAnswer) {
@@ -176,22 +181,73 @@ public class Blitz extends BorderPane{
 	
 	private void styleButtons() {
 		
-		option1.setPrefSize(300, 50);
-		option2.setPrefSize(300, 50);
-		option3.setPrefSize(300, 50);
-		option4.setPrefSize(300, 50);
+		option1.setPrefSize(300, Region.USE_COMPUTED_SIZE);
+		option2.setPrefSize(300, Region.USE_COMPUTED_SIZE);
+		option3.setPrefSize(300, Region.USE_COMPUTED_SIZE);
+		option4.setPrefSize(300, Region.USE_COMPUTED_SIZE);
 		
 		option1.setFont(Font.font("Verdana", 18));
 		option2.setFont(Font.font("Verdana", 18));
 		option3.setFont(Font.font("Verdana", 18));
 		option4.setFont(Font.font("Verdana", 18));
 		
+		option1.setWrapText(true);
+		option2.setWrapText(true);
+		option3.setWrapText(true);
+		option4.setWrapText(true);
+		
+		option1.setTextAlignment(TextAlignment.CENTER);
+		option2.setTextAlignment(TextAlignment.CENTER);
+		option3.setTextAlignment(TextAlignment.CENTER);
+		option4.setTextAlignment(TextAlignment.CENTER);
+
+		
 		questionText.setFont(Font.font("Verdana", 22));
 		questionText.setFill(Color.WHITE);
 		questionText.setWrappingWidth(400);
 		questionText.setTextAlignment(TextAlignment.CENTER);
 		
+		createHoverEffect(option1);
+		createHoverEffect(option2);
+		createHoverEffect(option3);
+		createHoverEffect(option4);
 		
+		String style = (
+			"-fx-background-color: linear-gradient(to bottom, #ffe680, #ffcc00);" +
+			"-fx-text-fill: #1a1a1a;" +
+			 "-fx-font-weight: bold;" +
+			 "-fx-font-size: 18px;" +
+			 "-fx-background-radius: 6;" +
+			 "-fx-border-radius: 6;" +
+			 "-fx-border-color: #333;" +
+			 "-fx-border-width: 2;"	
+			);
+		
+		option1.setStyle(style);
+		option2.setStyle(style);
+		option3.setStyle(style);
+		option4.setStyle(style);
+	}
+	
+	private void createHoverEffect(Button button) {
+		
+		DropShadow shadow = new DropShadow(10, Color.BLACK);
+		
+		button.setOnMouseEntered(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1.1);
+			scale.setToY(1.1);
+			scale.play();
+			button.setEffect(shadow);
+		});
+		
+		button.setOnMouseExited(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1);
+			scale.setToY(1);
+			scale.play();
+			button.setEffect(null);
+		});
 		
 	}
 	
@@ -239,6 +295,19 @@ public class Blitz extends BorderPane{
 	
 	private void stopBlitzMusic() {
 		blitzMusicPlayer.stop();
+	}
+	
+	private void setBackground() {
+		
+		Image backgroundImage = new Image("file:images/blitz_background.png");
+		
+		ImageView background = new ImageView(backgroundImage);
+		
+		background.setFitWidth(1000);
+		background.setFitHeight(800);
+		
+		this.getChildren().add(0, background);
+		
 	}
 	
 	private void showBlitzScreen() {

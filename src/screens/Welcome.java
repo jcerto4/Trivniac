@@ -44,7 +44,7 @@ public class Welcome extends BorderPane{
 		
 		loadWelcomeMusic();
 		playWelcomeMusic();
-		createTopSection();
+		//createTopSection();
 		createCenterSection();
 		createBottomSection();
 		setBackground();
@@ -100,32 +100,13 @@ public class Welcome extends BorderPane{
 	
 	private void createTopSection() {
 		
-		Image image = new Image("file:images/trivniac_logo.png");
-		ImageView logo = new ImageView(image);
-		
-		logo.setFitWidth(700);
-		logo.setPreserveRatio(true);
-		
-		
-		//Text subTitle = new Text("Test Your Knowledge - Climb the Leaderboards");
-		//subTitle.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-		//subTitle.setFill(Color.GOLD);
-		
-		
-		StackPane topCtn = new StackPane(logo);
-		
-		//topCtn.setPadding(new Insets(50, 0, 0, 0));
-		
-		topCtn.setAlignment(Pos.TOP_CENTER);
-		
-		this.setTop(topCtn);
-		
 	}
 	
 	
 	private void createCenterSection() {
 		
 		VBox btnCtn = new VBox(20, btnRegister, btnLogin);
+		btnCtn.setPadding(new Insets(375, 0, 0, 0));
 		btnCtn.setAlignment(Pos.CENTER);
 		this.setCenter(btnCtn);
 	}
@@ -185,23 +166,29 @@ public class Welcome extends BorderPane{
 	}
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/welcome_background.jpg");
+		Image backgroundImage = new Image("file:images/welcome_background.png");
 		
-		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+//		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
+//		
+//		BackgroundImage welcomeBackground = new BackgroundImage(
+//			backgroundImage,
+//			BackgroundRepeat.NO_REPEAT,
+//			BackgroundRepeat.NO_REPEAT,
+//			BackgroundPosition.DEFAULT,
+//			backgroundSize
+//			);
+//		this.setBackground(new Background(welcomeBackground));
 		
-		BackgroundImage welcomeBackground = new BackgroundImage(
-			backgroundImage,
-			BackgroundRepeat.NO_REPEAT,
-			BackgroundRepeat.NO_REPEAT,
-			BackgroundPosition.DEFAULT,
-			backgroundSize
-			);
-		this.setBackground(new Background(welcomeBackground));
+		ImageView background = new ImageView(backgroundImage);
+		background.setY(-68);
+		
+		getChildren().add(0, background);
 	}
 	
 	private void styleButtons() {
 		
-		 String registerStyle = "-fx-background-color: #E6A400;" +
+		 String registerStyle = 
+				 "-fx-background-color: #F7B733;" +
                  "-fx-text-fill: white;" +
                  "-fx-font-size: 28px;" +
                  "-fx-font-weight: bold;" +
@@ -211,7 +198,8 @@ public class Welcome extends BorderPane{
                  "-fx-border-width: 2px;";
 		 
 		 
-		 String loginStyle = "-fx-background-color: #B22222;" +
+		 String loginStyle = 
+				 "-fx-background-color: #C0392B;" +
                  "-fx-text-fill: white;" +
                  "-fx-font-size: 28px;" +
                  "-fx-font-weight: bold;" +
@@ -236,6 +224,15 @@ public class Welcome extends BorderPane{
 		createHoverEffect(btnRegister);
 		createHoverEffect(btnLogin);
 		createHoverEffect(btnExit);
+		
+		btnExit.setStyle(
+			"-fx-background-color: linear-gradient(to bottom, #d9d9d9, #bfbfbf);" +
+			"-fx-text-fill: #2a2a2a;" +
+			"-fx-font-weight: bold;" +
+			"-fx-background-radius: 8;" +
+			"-fx-border-radius: 8;" +
+			"-fx-border-color: #7a7a7a;" +
+		    "-fx-border-width: 1;");
 	
 	}
 	

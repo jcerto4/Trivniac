@@ -43,7 +43,7 @@ public class Login extends BorderPane{
 	public Login() {
 		
 		setBackground();
-		createTopSection();
+		//createTopSection();
 		createCenterSection();
 		createBottomSection();
 		createExitButtonListeners();
@@ -65,21 +65,6 @@ public class Login extends BorderPane{
 	
 	
 	private void createTopSection() {
-
-		Image image = new Image("file:images/trivniac_logo.png");
-		ImageView logo = new ImageView(image);
-		
-		logo.setFitWidth(500);
-		logo.setPreserveRatio(true);
-		
-		StackPane topCtn = new StackPane(logo);
-		
-		//topCtn.setPadding(new Insets(10));
-		
-		topCtn.setAlignment(Pos.TOP_CENTER);
-		
-		this.setTop(topCtn);
-
 		
 	}
 	
@@ -138,6 +123,7 @@ public class Login extends BorderPane{
 		
 		VBox registerCtn = new VBox(10, titleCtn, userCtn, passCtn, btnCtn);
 		registerCtn.setAlignment(Pos.CENTER);
+		registerCtn.setTranslateY(100);
 		
 		this.setCenter(registerCtn);
 		
@@ -213,17 +199,39 @@ public class Login extends BorderPane{
 		btnBack.setPrefSize(100, 50);
 		btnBack.setFont(Font.font("Arial", 14));
 		
-		//String labelStyle = "-fx-background-color: white; -fx-border-color: #FFD700; -fx-border-radius: 8px;";
-		//String buttonStyle = "-fx-background-color: #E6A400; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 10px;";
-		
-		//userNameLabel.setStyle(labelStyle);
-		//passwordLabel.setStyle(labelStyle);
-		
-		//btnLogin.setStyle(buttonStyle);
-		
 		createHoverEffect(btnLogin);
 		createHoverEffect(btnExit);
 		createHoverEffect(btnBack);
+		
+		btnLogin.setStyle(
+				"-fx-background-color: linear-gradient(to bottom, #f7c47b, #e3a752);" +  
+			    "-fx-text-fill: #3b2f26;" +                                              
+			    "-fx-font-weight: bold;" +
+			    "-fx-background-radius: 8;" +
+			    "-fx-border-radius: 8;" +
+			    "-fx-border-color: #b67c43;" +
+			    "-fx-border-width: 1;"
+			   );
+
+		btnExit.setStyle(
+				"-fx-background-color: linear-gradient(to bottom, #cc8e8e, #a76d6d);" +  
+				"-fx-text-fill: #2a2a2a;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 6;" +
+				"-fx-border-radius: 6;" +
+				"-fx-border-color: #8a8a8a;" +
+				"-fx-border-width: 1;"
+				);
+		
+		btnBack.setStyle(	
+				"-fx-background-color: linear-gradient(to bottom, #a6c2cb, #8fa9b3);" +  
+				"-fx-text-fill: #2a2a2a;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 6;" +
+				"-fx-border-radius: 6;" +
+				"-fx-border-color: #8a8a8a;" +
+				"-fx-border-width: 1;"
+				);
 	}	
 	
 	private void showLoginScreen() {

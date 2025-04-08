@@ -92,7 +92,10 @@ public class GameOver extends BorderPane{
 	
 	private void createModeButtonListeners() {
 		
-		btnMode.setOnAction(e -> new GameModeSelection(player));
+		btnMode.setOnAction(e -> {
+			close();
+			new GameModeSelection(player);
+		});
 	}
 
 	private void createLogoutButtonListeners() {

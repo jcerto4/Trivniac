@@ -39,6 +39,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -132,40 +133,43 @@ public class GameModeSelection extends BorderPane{
 	}
 
 	private void createBackButtonListeners() {
-		btnBack.setOnAction(event -> new Login());
+		btnBack.setOnAction(event -> {
+			close();
+			new Login();
+		});
 	}
 	
 	private void createTopSection() {
 		
-		Label welcome = new Label("Welcome " + player.getUsername());
-		welcome.setFont(Font.font("Verdana", FontWeight.BOLD, 48));
-		welcome.setTextFill(Color.WHITE);
+		Label user = new Label("Signed in as: " + player.getUsername());
+		user.setTextFill(Color.WHITE);
 		
-		Label header = new Label("Choose Your Game Mode");
-		header.setFont(Font.font("Verdana", FontWeight.BOLD, 36));
-		header.setTextFill(Color.WHITE);
+		HBox userCtn = new HBox(user);
+		userCtn.setAlignment(Pos.TOP_RIGHT);
+		userCtn.setPadding(new Insets(20));
 		
-		VBox headerCtn = new VBox(10, welcome, header);
-		
-		headerCtn.setPadding(new Insets(50, 0, 0, 0));
-		headerCtn.setAlignment(Pos.CENTER);
-		
-		this.setTop(headerCtn);
+		this.setTop(userCtn);
 	}
 	
-	
 	private void createCenterSection() {
+		
+		
+		Label header = new Label("Select Your Game Mode");
+		header.setFont(Font.font("Verdana", FontWeight.BOLD, 42));
+		header.setTextFill(Color.WHITE);
 		
 		ImageView classicIcon = new ImageView(new Image("file:images/classic_icon.png"));
 		ImageView survivalIcon = new ImageView(new Image("file:images/survival_icon.png"));
 		ImageView blitzIcon = new ImageView(new Image("file:images/blitz_icon.png"));
 		
-		classicIcon.setFitHeight(100);
-		classicIcon.setFitWidth(100);
-		survivalIcon.setFitHeight(100);
-		survivalIcon.setFitWidth(100);
-		blitzIcon.setFitHeight(100);
-		blitzIcon.setFitWidth(100);
+		classicIcon.setFitHeight(150);
+		classicIcon.setFitWidth(150);
+		survivalIcon.setFitHeight(150);
+		survivalIcon.setFitWidth(150);
+		blitzIcon.setFitHeight(150);
+		blitzIcon.setFitWidth(150);
+		
+		
 		
 		classicIcon.setPreserveRatio(true);
 		survivalIcon.setPreserveRatio(true);
@@ -175,22 +179,26 @@ public class GameModeSelection extends BorderPane{
 		Tooltip survivalTip = new Tooltip("Survival Mode: You only get 1 life. One wrong answer and it's game over!");
 		Tooltip blitzTip = new Tooltip("Blitz Mode: You have 30 seconds to answer as many questions as possible. Each correct answer adds 5 seconds");
 		
+		HBox headerCtn = new HBox(header);
 		HBox classicCtn = new HBox(10, classicIcon, btnClassic);
 		HBox survivalCtn = new HBox(10, survivalIcon, btnSurvival);
 		HBox blitzCtn = new HBox(10, blitzIcon, btnBlitz);
 		
-		Tooltip.install(classicCtn, classicTip);
-		Tooltip.install(survivalCtn, survivalTip);
-		Tooltip.install(blitzCtn, blitzTip);
+		Tooltip.install(classicIcon, classicTip);
+		Tooltip.install(survivalIcon, survivalTip);
+		Tooltip.install(blitzIcon, blitzTip);
 		
+		headerCtn.setAlignment(Pos.CENTER);
 		classicCtn.setAlignment(Pos.CENTER);
 		survivalCtn.setAlignment(Pos.CENTER);
 		blitzCtn.setAlignment(Pos.CENTER);
 		
 		
-		VBox modeCtn = new VBox(20, classicCtn, survivalCtn, blitzCtn);
+		VBox modeCtn = new VBox(classicCtn, survivalCtn, blitzCtn);
 		modeCtn.setAlignment(Pos.CENTER);
-		this.setCenter(modeCtn);
+		VBox centerCtn = new VBox(headerCtn, modeCtn);
+		centerCtn.setAlignment(Pos.CENTER);
+		this.setCenter(centerCtn);
 		
 	}
 	
@@ -198,7 +206,7 @@ public class GameModeSelection extends BorderPane{
 		
 		HBox bottomCtn = new HBox(btnBack);
 		bottomCtn.setAlignment(Pos.CENTER_RIGHT);
-		bottomCtn.setPadding(new Insets(30));
+		bottomCtn.setPadding(new Insets(10, 20, 10, 20));
 		
 		this.setBottom(bottomCtn);
 		
@@ -235,11 +243,10 @@ public class GameModeSelection extends BorderPane{
 	
 	private void styleButtons() {
 		
-	
 		
-		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
-		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
-		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-size: 24px; -fx-background-radius: 15;");
+		btnClassic.setStyle("-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
+		btnSurvival.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
+		btnBlitz.setStyle("-fx-background-color: #FF5722; -fx-text-fill: white; -fx-font-family: 'Verdana'; -fx-font-size: 28px; -fx-background-radius: 15;");
 		
 		
 		btnBack.setPrefSize(100, 50);
@@ -247,10 +254,6 @@ public class GameModeSelection extends BorderPane{
 		btnClassic.setPrefSize(500, 100);
 		btnSurvival.setPrefSize(500, 100);
 		btnBlitz.setPrefSize(500, 100);
-		
-		btnClassic.setFont(Font.font("Arial", 28));
-		btnSurvival.setFont(Font.font("Arial", 28));
-		btnBlitz.setFont(Font.font("Arial", 28));
 
 		btnBack.setFont(Font.font("Arial", 14));
 		

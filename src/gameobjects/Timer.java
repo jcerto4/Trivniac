@@ -1,5 +1,7 @@
 package gameobjects;
 
+import java.io.File;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -8,6 +10,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -28,8 +32,12 @@ public class Timer extends HBox{
 		private boolean useTimer = true;
 	
 		private Runnable onTimerEnd;
+		
+		private Media clockMedia;
+		private MediaPlayer clockMediaPlayer;
 	
 		public Timer(int seconds, Runnable onTimerEnd) {
+			loadTimerSound();
 			this.onTimerEnd = onTimerEnd;
 			buildTimer(seconds);
 		}
@@ -83,10 +91,18 @@ public class Timer extends HBox{
 			timerText.setText(Integer.toString(secondsLeft));
 	
 			if(secondsLeft <= 10) {
+				playTickingSound();
 				timerText.setFill(Color.RED);
+			}else {
+				stopTickingSound();
+				clockMediaPlayer.seek(Duration.ZERO);
+				timerText.setFill(Color.WHITE);
+				
 			}
 			
 			if (secondsLeft <= 0) {
+				stopTickingSound();
+				clockMediaPlayer.seek(Duration.ZERO);
 				stopTimer();
 				timeline.stop();
 				if(onTimerEnd != null) {
@@ -112,5 +128,21 @@ public class Timer extends HBox{
 		public void setSecondsLeft(int seconds) {
 			this.secondsLeft = seconds;
 		}
+		
+		private void loadTimerSound() {
+			String soundURL = "sounds/ticking_clock.mp3";
+			clockMedia = new Media(new File(soundURL).toURI().toString());
+			clockMediaPlayer = new MediaPlayer(clockMedia);
+		}
+		
+		private void playTickingSound() {
+			//clockMediaPlayer.seek(Duration.ZERO);
+			clockMediaPlayer.play();
+		}
+		
+		private void stopTickingSound() {
+			clockMediaPlayer.stop();
+		}
+		
 	
 	}

@@ -41,7 +41,7 @@ public class Register extends BorderPane{
 	public Register() {
 		
 		setBackground();
-		createTopSection();
+		//createTopSection();
 		createCenterSection();
 		createBottomSection();
 		createExitButtonListeners();
@@ -63,22 +63,7 @@ public class Register extends BorderPane{
 	
 	
 	private void createTopSection() {
-
-		Image image = new Image("file:images/trivniac_logo.png");
-		ImageView logo = new ImageView(image);
-		
-		logo.setFitWidth(500);
-		logo.setPreserveRatio(true);
-		
-		StackPane topCtn = new StackPane(logo);
-		
-		//topCtn.setPadding(new Insets(10));
-		
-		topCtn.setAlignment(Pos.TOP_CENTER);
-		
-		this.setTop(topCtn);
-
-		
+	
 	}
 	
 	private void createCenterSection() {
@@ -136,6 +121,8 @@ public class Register extends BorderPane{
 		
 		VBox registerCtn = new VBox(10, titleCtn, userCtn, passCtn, btnCtn);
 		registerCtn.setAlignment(Pos.CENTER);
+		registerCtn.setTranslateY(100);
+
 		
 		this.setCenter(registerCtn);
 		
@@ -214,6 +201,37 @@ public class Register extends BorderPane{
 		createHoverEffect(btnRegister);
 		createHoverEffect(btnExit);
 		createHoverEffect(btnBack);
+		
+		btnRegister.setStyle(
+				"-fx-background-color: linear-gradient(to bottom, #f7c47b, #e3a752);" +  
+			    "-fx-text-fill: #3b2f26;" +                                              
+			    "-fx-font-weight: bold;" +
+			    "-fx-background-radius: 8;" +
+			    "-fx-border-radius: 8;" +
+			    "-fx-border-color: #b67c43;" +
+			    "-fx-border-width: 1;"
+			   );
+
+		btnExit.setStyle(
+				"-fx-background-color: linear-gradient(to bottom, #cc8e8e, #a76d6d);" +  
+				"-fx-text-fill: #2a2a2a;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 6;" +
+				"-fx-border-radius: 6;" +
+				"-fx-border-color: #8a8a8a;" +
+				"-fx-border-width: 1;"
+				);
+		
+		btnBack.setStyle(	
+				"-fx-background-color: linear-gradient(to bottom, #a6c2cb, #8fa9b3);" +  
+				"-fx-text-fill: #2a2a2a;" +
+				"-fx-font-weight: bold;" +
+				"-fx-background-radius: 6;" +
+				"-fx-border-radius: 6;" +
+				"-fx-border-color: #8a8a8a;" +
+				"-fx-border-width: 1;"
+				);
+		
 	}	
 	
 	private void showRegisterScreen() {

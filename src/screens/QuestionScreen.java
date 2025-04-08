@@ -25,6 +25,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -202,6 +203,16 @@ public class QuestionScreen extends BorderPane{
 		option3 = new Button(options[2]);
 		option4 = new Button(options[3]);
 		
+		option1.setWrapText(true);
+		option2.setWrapText(true);
+		option3.setWrapText(true);
+		option4.setWrapText(true);
+		
+		option1.setTextAlignment(TextAlignment.CENTER);
+		option2.setTextAlignment(TextAlignment.CENTER);
+		option3.setTextAlignment(TextAlignment.CENTER);
+		option4.setTextAlignment(TextAlignment.CENTER);
+		
 		VBox optionsCtn = new VBox(20, option1, option2, option3, option4);
 		optionsCtn.setAlignment(Pos.CENTER);
 		
@@ -254,10 +265,10 @@ public class QuestionScreen extends BorderPane{
 		createHoverEffect(option3);
 		createHoverEffect(option4);
 		
-		option1.setPrefSize(400, 60);
-		option2.setPrefSize(400, 60);
-		option3.setPrefSize(400, 60);
-		option4.setPrefSize(400, 60);
+		option1.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option2.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option3.setPrefSize(400, Region.USE_COMPUTED_SIZE);
+		option4.setPrefSize(400, Region.USE_COMPUTED_SIZE);
 		
 		option1.setFont(Font.font("Georgia", 32));
 		option2.setFont(Font.font("Georgia", 32));
@@ -349,17 +360,17 @@ public class QuestionScreen extends BorderPane{
 	private Image getBackgroundImage() {
 		switch(category) {
 			case "History":
-				return new Image("file:images/history_background.jpg");
+				return new Image("file:images/history_background.png");
 			case "Sports":
-				return new Image("file:images/sports_background.jpg");
+				return new Image("file:images/sports_background.png");
 			case "Geography":
-				return new Image("file:images/geography_background.jpg");
+				return new Image("file:images/geography_background.png");
 			case "Science":
-				return new Image("file:images/science_background.jpg");
+				return new Image("file:images/science_background.png");
 			case "Pop-Culture":
-				return new Image("file:images/pop_background.jpg");
+				return new Image("file:images/pop_background.png");
 			case "Wild":
-				return new Image("file:images/wild_background.jpg");
+				return new Image("file:images/wild_background.png");
 		}
 		
 		return null;

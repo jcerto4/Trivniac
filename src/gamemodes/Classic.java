@@ -8,6 +8,7 @@ import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -130,9 +132,9 @@ public class Classic extends BorderPane{
 	}
 	
 	private void createRightSection() {
-		leaderboard.setAlignment(Pos.CENTER_RIGHT);
-		leaderboard.setPadding(new Insets(0, 20, 0, 0));
+	
 		this.setRight(leaderboard);
+		BorderPane.setMargin(leaderboard, new Insets(20, 20, 20, 20));
 	}
 	
 	private void createBottomSection() {
@@ -193,6 +195,15 @@ public class Classic extends BorderPane{
 		
 		btnSpin.setPrefSize(200, 50);
 		btnSpin.setFont(Font.font("Georgia", 32));
+		createHoverEffect(btnSpin);
+		
+		btnSpin.setStyle( 
+				"-fx-background-color: linear-gradient(to bottom, #ffe066, #ffcc00);" +
+			    "-fx-text-fill: #4b3600;" +
+			    "-fx-background-radius: 15;" +
+			    "-fx-border-radius: 15;" +
+			    "-fx-border-color: #b38f00;" +
+			    "-fx-border-width: 2;");
 	}
 	
 	private void loadLoseLifeSound() {
@@ -211,9 +222,31 @@ public class Classic extends BorderPane{
 		loseLifePlayer.stop();
 	}
 	
+	private void createHoverEffect(Button button) {
+		
+		DropShadow shadow = new DropShadow(10, Color.BLACK);
+		
+		button.setOnMouseEntered(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1.05);
+			scale.setToY(1.05);
+			scale.play();
+			button.setEffect(shadow);
+		});
+		
+		button.setOnMouseExited(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1);
+			scale.setToY(1);
+			scale.play();
+			button.setEffect(null);
+		});
+		
+	}
+	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/classic_background.jpg");
+		Image backgroundImage = new Image("file:images/classic_background.png");
 		
 		ImageView background = new ImageView(backgroundImage);
 		
