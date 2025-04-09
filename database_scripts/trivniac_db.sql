@@ -61,29 +61,6 @@ CREATE TABLE IF NOT EXISTS `trivniac`.`game_results` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `trivniac`.`game_rounds`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `trivniac`.`game_rounds` (
-  `game_id` INT NOT NULL,
-  `questions_id` INT NOT NULL,
-  `is_correct` TINYINT NULL,
-  PRIMARY KEY (`game_id`, `questions_id`),
-  INDEX `fk_game_results_has_questions_questions1_idx` (`questions_id` ASC) VISIBLE,
-  INDEX `fk_game_results_has_questions_game_results1_idx` (`game_id` ASC) VISIBLE,
-  CONSTRAINT `fk_game_results_has_questions_game_results1`
-    FOREIGN KEY (`game_id`)
-    REFERENCES `trivniac`.`game_results` (`game_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_game_results_has_questions_questions1`
-    FOREIGN KEY (`questions_id`)
-    REFERENCES `trivniac`.`questions` (`question_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

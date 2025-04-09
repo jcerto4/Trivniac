@@ -137,7 +137,7 @@ public class GameOver extends BorderPane{
 
 		int highScore = DatabaseManager.getPlayerHighScore(player.getPlayerID(), gameMode);
 		
-		if(highScore == score) {
+		if(highScore == score && highScore != 0) {
 			subHeader = new Label("NEW High Score! Congrats " + player.getUsername());
 			headerCtn.getChildren().add(subHeader);
 		}else {

@@ -76,28 +76,6 @@ public class Welcome extends BorderPane{
 		btnExit.setOnAction(event -> close());
 	}
 	
-	private void createHoverEffect(Button button) {
-		
-		DropShadow shadow = new DropShadow(10, Color.BLACK);
-		
-		button.setOnMouseEntered(e -> {
-			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
-			scale.setToX(1.05);
-			scale.setToY(1.05);
-			scale.play();
-			button.setEffect(shadow);
-		});
-		
-		button.setOnMouseExited(e -> {
-			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
-			scale.setToX(1);
-			scale.setToY(1);
-			scale.play();
-			button.setEffect(null);
-		});
-		
-	}
-	
 	private void createTopSection() {
 		
 	}
@@ -227,17 +205,54 @@ public class Welcome extends BorderPane{
 		createHoverEffect(btnLogin);
 		createHoverEffect(btnExit);
 		
-		btnExit.setStyle(
-			"-fx-background-color: linear-gradient(to bottom, #d9d9d9, #bfbfbf);" +
-			"-fx-text-fill: #2a2a2a;" +
-			"-fx-font-weight: bold;" +
-			"-fx-background-radius: 8;" +
-			"-fx-border-radius: 8;" +
-			"-fx-border-color: #7a7a7a;" +
-		    "-fx-border-width: 1;" +
-			"-fx-cursor: hand;"
-		);
+//		btnExit.setStyle(
+//			"-fx-background-color: linear-gradient(to bottom, #d9d9d9, #bfbfbf);" +
+//			"-fx-text-fill: #2a2a2a;" +
+//			"-fx-font-weight: bold;" +
+//			"-fx-background-radius: 8;" +
+//			"-fx-border-radius: 8;" +
+//			"-fx-border-color: #7a7a7a;" +
+//		    "-fx-border-width: 1;" +
+//			"-fx-cursor: hand;"
+//		);
+		
+		String backStyle = (
+				"-fx-background-color: rgba(0,0,0,0.4);" +
+				"-fx-text-fill: white;" +
+				"-fx-font-size: 14px;" +
+				"-fx-font-weight: bold;" +
+				"-fx-padding: 6 14 6 14;" +
+				"-fx-background-radius: 8;" +
+				"-fx-border-color: white;" +
+				"-fx-border-width: 1;" +
+				"-fx-border-radius: 8;" +
+				"-fx-cursor: hand;"
+			);
+		
+		btnExit.setStyle(backStyle);
 	
+	}
+	
+	private void createHoverEffect(Button button) {
+		
+		DropShadow shadow = new DropShadow(10, Color.BLACK);
+		
+		button.setOnMouseEntered(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1.1);
+			scale.setToY(1.1);
+			scale.play();
+			button.setEffect(shadow);
+		});
+		
+		button.setOnMouseExited(e -> {
+			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
+			scale.setToX(1);
+			scale.setToY(1);
+			scale.play();
+			button.setEffect(null);
+		});
+		
 	}
 	
 	private void loadWelcomeMusic() {

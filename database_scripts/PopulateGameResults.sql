@@ -8,16 +8,16 @@ use trivniac;
 
 
 INSERT INTO player (username, password) VALUES
-	('Alice', 'alice123'),
-	('Bob', 'bob123'),
-	('Charlie', 'charlie123'),
-	('Dana', 'dana123'),
-	('Eli', 'eli123'),
-    ('Fiona', 'fiona123'),
-	('George', 'george123'),
-	('Hannah', 'hannah123'),
-	('Ian', 'ian123'),
-	('Julia', 'julia123');
+	('Alice1', 'alice123'),
+	('Bob2', 'bob123'),
+	('Charlie3', 'charlie123'),
+	('Dana4', 'dana123'),
+	('Eli5', 'eli123'),
+    ('Fiona6', 'fiona123'),
+	('George7', 'george123'),
+	('Hannah8', 'hannah123'),
+	('Ian9', 'ian123'),
+	('Julia10', 'julia123');
 
 INSERT INTO game_results (player_id, score, game_mode) VALUES
   (1, 45, 'Classic'),
@@ -35,19 +35,19 @@ INSERT INTO game_results (player_id, score, game_mode) VALUES
   (5, 55, 'Classic'),
   (5, 45, 'Blitz'),
   (5, 70, 'Survival'),
-   (6, 68, 'Classic'),
-  (6, 72, 'Blitz'),
-  (6, 58, 'Survival'),
-  (7, 83, 'Classic'),
-  (7, 79, 'Blitz'),
-  (7, 65, 'Survival'),
-  (8, 91, 'Classic'),
-  (8, 86, 'Blitz'),
-  (8, 74, 'Survival'),
-  (9, 47, 'Classic'),
-  (9, 53, 'Blitz'),
-  (9, 49, 'Survival'),
-  (10, 62, 'Classic'),
+	(6, 65, 'Classic'),
+  (6, 70, 'Blitz'),
+  (6, 55, 'Survival'),
+  (7, 85, 'Classic'),
+  (7, 70, 'Blitz'),
+  (7, 60, 'Survival'),
+  (8, 90, 'Classic'),
+  (8, 85, 'Blitz'),
+  (8, 75, 'Survival'),
+  (9, 45, 'Classic'),
+  (9, 55, 'Blitz'),
+  (9, 45, 'Survival'),
+  (10, 65, 'Classic'),
   (10, 70, 'Blitz'),
-  (10, 68, 'Survival');
+  (10, 65, 'Survival');
     

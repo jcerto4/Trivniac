@@ -104,6 +104,7 @@ public class Blitz extends BorderPane{
 	private void createTopSection() {
 		
 		timer = new Timer(30, () -> {
+			timer.stopTickingSound();
 			blitzStage.close();
 			new GameOver(player, score, "Blitz");
 		});

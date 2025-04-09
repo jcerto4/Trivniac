@@ -35,7 +35,6 @@ public class Login extends BorderPane{
 
 	private Button btnLogin = new Button("Login");
 	private Button btnBack = new Button("Go Back");
-	private Button btnExit = new Button("Exit");
 	private Label userNameLabel = new Label("Username: ");
 	private Label passwordLabel = new Label("Password: ");
 	private Stage loginStage;
@@ -43,17 +42,12 @@ public class Login extends BorderPane{
 	public Login() {
 		
 		setBackground();
-		//createTopSection();
 		createCenterSection();
 		createBottomSection();
-		createExitButtonListeners();
 		createBackButtonListeners();
 		styleButtons();
 		showLoginScreen();
 		
-	}
-	private void createExitButtonListeners() {
-		btnExit.setOnAction(e -> close());
 	}
 	
 	private void createBackButtonListeners() {
@@ -61,11 +55,6 @@ public class Login extends BorderPane{
 			loginStage.close();
 			new Welcome();
 		});
-	}
-	
-	
-	private void createTopSection() {
-		
 	}
 	
 	private void createCenterSection() {
@@ -123,6 +112,7 @@ public class Login extends BorderPane{
 		
 		VBox registerCtn = new VBox(10, titleCtn, userCtn, passCtn, btnCtn);
 		registerCtn.setAlignment(Pos.CENTER);
+		registerCtn.setTranslateX(-40);
 		registerCtn.setTranslateY(100);
 		
 		this.setCenter(registerCtn);
@@ -130,12 +120,11 @@ public class Login extends BorderPane{
 	}
 	
 	private void createBottomSection() {
-	
-		HBox exitCtn = new HBox(20, btnBack, btnExit);
-		exitCtn.setAlignment(Pos.BOTTOM_RIGHT);
-		exitCtn.setPadding(new Insets(10, 10, 10, 10));
-		this.setBottom(exitCtn);
 		
+		HBox btmCtn = new HBox(btnBack);
+		btmCtn.setAlignment(Pos.BOTTOM_LEFT);
+		btmCtn.setPadding(new Insets(20));
+		this.setBottom(btmCtn);
 	}
 	
 	private void createHoverEffect(Button button) {
@@ -193,14 +182,11 @@ public class Login extends BorderPane{
 		
 		btnLogin.setFont(Font.font("Arial", 20));
 		
-		btnExit.setPrefSize(100, 50);
-		btnExit.setFont(Font.font("Arial", 14));
 		
 		btnBack.setPrefSize(100, 50);
 		btnBack.setFont(Font.font("Arial", 14));
 		
 		createHoverEffect(btnLogin);
-		createHoverEffect(btnExit);
 		createHoverEffect(btnBack);
 		
 		btnLogin.setStyle(
@@ -212,16 +198,6 @@ public class Login extends BorderPane{
 			    "-fx-border-color: #b67c43;" +
 			    "-fx-border-width: 1;"
 			   );
-
-		btnExit.setStyle(
-				"-fx-background-color: linear-gradient(to bottom, #cc8e8e, #a76d6d);" +  
-				"-fx-text-fill: #2a2a2a;" +
-				"-fx-font-weight: bold;" +
-				"-fx-background-radius: 6;" +
-				"-fx-border-radius: 6;" +
-				"-fx-border-color: #8a8a8a;" +
-				"-fx-border-width: 1;"
-				);
 		
 		btnBack.setStyle(	
 				"-fx-background-color: linear-gradient(to bottom, #a6c2cb, #8fa9b3);" +  

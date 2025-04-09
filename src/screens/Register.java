@@ -41,31 +41,21 @@ public class Register extends BorderPane{
 	public Register() {
 		
 		setBackground();
-		//createTopSection();
 		createCenterSection();
 		createBottomSection();
-		createExitButtonListeners();
 		createBackButtonListeners();
 		styleButtons();
 		showRegisterScreen();
 		
 	}
-	private void createExitButtonListeners() {
-		btnExit.setOnAction(e -> close());
-	}
-	
+
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
 			registerStage.close();
 			new Welcome();
 		});
 	}
-	
-	
-	private void createTopSection() {
-	
-	}
-	
+
 	private void createCenterSection() {
 		
 		Text title = new Text("Create an Account to Play");
@@ -121,8 +111,8 @@ public class Register extends BorderPane{
 		
 		VBox registerCtn = new VBox(10, titleCtn, userCtn, passCtn, btnCtn);
 		registerCtn.setAlignment(Pos.CENTER);
+		registerCtn.setTranslateX(-40);
 		registerCtn.setTranslateY(100);
-
 		
 		this.setCenter(registerCtn);
 		
@@ -130,10 +120,10 @@ public class Register extends BorderPane{
 	
 	private void createBottomSection() {
 	
-		HBox exitCtn = new HBox(20, btnBack, btnExit);
-		exitCtn.setAlignment(Pos.BOTTOM_RIGHT);
-		exitCtn.setPadding(new Insets(10, 10, 10, 10));
-		this.setBottom(exitCtn);
+		HBox btmCtn = new HBox(btnBack);
+		btmCtn.setAlignment(Pos.BOTTOM_LEFT);
+		btmCtn.setPadding(new Insets(20));
+		this.setBottom(btmCtn);
 		
 	}
 	
@@ -182,19 +172,12 @@ public class Register extends BorderPane{
 		alert.setTitle(title);
 		alert.setContentText(message);
 		alert.showAndWait();
-		
-		
-		
 	}
-	
 	
 	private void styleButtons() {
 		
 		btnRegister.setFont(Font.font("Arial", 20));
-		
-		btnExit.setPrefSize(100, 50);
-		btnExit.setFont(Font.font("Arial", 14));
-		
+	
 		btnBack.setPrefSize(100, 50);
 		btnBack.setFont(Font.font("Arial", 14));
 		
@@ -212,15 +195,6 @@ public class Register extends BorderPane{
 			    "-fx-border-width: 1;"
 			   );
 
-		btnExit.setStyle(
-				"-fx-background-color: linear-gradient(to bottom, #cc8e8e, #a76d6d);" +  
-				"-fx-text-fill: #2a2a2a;" +
-				"-fx-font-weight: bold;" +
-				"-fx-background-radius: 6;" +
-				"-fx-border-radius: 6;" +
-				"-fx-border-color: #8a8a8a;" +
-				"-fx-border-width: 1;"
-				);
 		
 		btnBack.setStyle(	
 				"-fx-background-color: linear-gradient(to bottom, #a6c2cb, #8fa9b3);" +  

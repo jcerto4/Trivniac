@@ -108,28 +108,31 @@ public class DatabaseManager {
     		}	
     		
     }
-      
+    
     public static int getPlayerHighScore(int playerID, String gameMode) {
-    	 
+    	
     	String query = "SELECT MAX(score) FROM game_results WHERE player_id = ? AND game_mode = ?";
     	
-    	  try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-    			  PreparedStatement statement = connection.prepareStatement(query)){
-    		  
-    		  statement.setInt(1,  playerID);
-    		  statement.setString(2, gameMode);
-    		  
-         try(ResultSet results = statement.executeQuery()){
-    		  if(results.next()) {
-    			  return results.getInt(1);
-    		  }
-         }	  
-    	  }catch(SQLException e) {
-    		  System.out.println("Error Getting High Score For " + gameMode);
-    		  e.printStackTrace();
-    	  }
-    	  
-    	  return 0;
+    	try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
+    			PreparedStatement statement = connection.prepareStatement(query)){
+    		
+    		statement.setInt(1, playerID);
+    		statement.setString(2, gameMode);
+    		
+    		try(ResultSet results = statement.executeQuery()){
+    			while(results.next()) {
+    				return results.getInt(1);
+    			}
+    		}
+    		
+    
+    	}catch(SQLException e) {
+    		System.out.println("Error retrieving all scores for player " + playerID + " in mode " + gameMode);
+    		e.printStackTrace();
+    	}
+    	
+    	return 0;
+    	
     }
     
     public static ArrayList<Integer> getAllScoresForPlayer(int playerID, String gameMode){
@@ -225,40 +228,8 @@ public class DatabaseManager {
     	    }
     	 return -1;
     	}
-    
-   
-    
-    public static void saveGameRound(int gameID, int questionID, boolean isCorrect) {
-    	
-    	if(gameID == -1) {
-    		System.out.println("Error Locating Game");
-    		return;
-    	}
-    	
-    	String query = "INSERT INTO game_rounds (game_id, questions_id, is_correct) VALUES (?, ?, ?)";
-        
-    	try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-   	         PreparedStatement statement = connection.prepareStatement(query)) {
-
-   	        statement.setInt(1, gameID);
-   	        statement.setInt(2, questionID);
-   	        statement.setBoolean(3, isCorrect);
-
-   	        statement.executeUpdate();
-   	   
-   	    } catch (SQLException e) {
-   	        System.out.println("Error Saving Game Round");
-   	        e.printStackTrace();
-   	    }
-    	
-    }
-  
+      
     public static void updateScore(int gameID, int newScore) {
-    	    
-    	if(gameID == -1) {
-    		System.out.println("Error Locating Game");
-    		return;
-    	}
     	
     	String query = "UPDATE game_results SET score = ? WHERE game_id = ?";
 

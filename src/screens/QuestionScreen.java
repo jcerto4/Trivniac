@@ -143,12 +143,11 @@ public class QuestionScreen extends BorderPane{
 		}
 		
 		stopQuestionMusic();
+		timer.stopTickingSound();
 		timer.stopTimer();
 		disableOptionButtons();
 		
 		boolean isCorrect = (selectedOption == correctAnswer);
-		
-		DatabaseManager.saveGameRound(gameID, question.getQuestionID(), isCorrect);
 		
 		highlightOptions(option1, correctAnswer == 1);
 		highlightOptions(option2, correctAnswer == 2);
