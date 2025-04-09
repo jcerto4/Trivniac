@@ -44,7 +44,10 @@ public class Survival extends BorderPane{
 	private int gameID;
 	private Player player;
 	private int answerStreak = 0;
-	Text streakTracker = new Text("Current Answer Streak: " + answerStreak);
+	private double multiplier = 1.0;
+	private Label streakTracker = new Label("Current Answer Streak: " + answerStreak);
+	private Label multiplierTracker = new Label("Score: x" + multiplier);
+	
 	
 	private Media loseLifeMedia;
 	private MediaPlayer loseLifePlayer;
@@ -99,8 +102,9 @@ public class Survival extends BorderPane{
 	
 	private void createTopSection() {
 		
-		VBox streakCtn = new VBox(streakTracker);
+		VBox streakCtn = new VBox(10, streakTracker, multiplierTracker);
 		streakCtn.setAlignment(Pos.CENTER);
+		streakCtn.setTranslateY(30);
 		this.setTop(streakCtn);
 		
 	}
@@ -109,6 +113,7 @@ public class Survival extends BorderPane{
 		
 		VBox centerCtn = new VBox(10, wheel, btnSpin);
 		centerCtn.setAlignment(Pos.CENTER);
+		centerCtn.setTranslateY(20);
 		this.setCenter(centerCtn);
 	}
 	
@@ -130,8 +135,9 @@ public class Survival extends BorderPane{
 	private void handleQuestionResult(boolean isCorrect) {
 		
 		if(isCorrect) {
-			score += 10;
+			score = (int) (10 * multiplier);
 			answerStreak++;
+			multiplier++;
 			DatabaseManager.updateScore(gameID, score);
 			btnSpin.setDisable(false);
 			updateStreakTracker();
@@ -143,7 +149,8 @@ public class Survival extends BorderPane{
 	}
 	private void styleButtons() {
 		
-		streakTracker.setFont(Font.font("Georgia", 36));
+		streakTracker.setFont(Font.font("Verdana", 36));
+		multiplierTracker.setFont(Font.font("Verdana", 16));
 		
 		btnSpin.setPrefSize(250, 50);
 		btnBack.setPrefSize(100, 40);
@@ -169,6 +176,19 @@ public class Survival extends BorderPane{
 				"-fx-background-radius: 12;" 
 			);
 		
+		String labelStyle = (
+				"-fx-background-color: rgba(0,0,0,0.5);" +
+			    "-fx-text-fill: white;" +
+			    "-fx-font-weight: bold;" +
+			    "-fx-padding: 4 8 4 8;" +
+			    "-fx-background-radius: 8;"
+			  );
+		
+		streakTracker.setStyle(labelStyle);
+		multiplierTracker.setStyle(labelStyle);
+		
+		
+		
 	}
 	
 	private void loadLoseLifeSound() {
@@ -183,6 +203,7 @@ public class Survival extends BorderPane{
 	
 	private void updateStreakTracker() {
 		streakTracker.setText("Current Answer Streak: " + answerStreak);
+		multiplierTracker.setText("Multiplier x" + multiplier);
 	}
 	
 	private void createHoverEffect(Button button) {

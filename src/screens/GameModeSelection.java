@@ -146,7 +146,7 @@ public class GameModeSelection extends BorderPane{
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(event -> {
 			close();
-			new Login();
+			new Welcome();
 		});
 	}
 	
