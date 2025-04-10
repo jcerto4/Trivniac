@@ -50,6 +50,9 @@ public class GameOver extends BorderPane{
 	private Media gameOverSoundMedia;
 	private MediaPlayer gameOverSoundPlayer;
 	
+	private Media highScoreMedia;
+	private MediaPlayer highScorePlayer;
+	
 	public GameOver(Player player, int score, String gameMode) {
 		
 		
@@ -57,7 +60,7 @@ public class GameOver extends BorderPane{
 		this.score = score;
 		this.gameMode = gameMode;
 		loadGameOverSound();
-		playGameOverSound();
+		loadHighScoreSound();
 		setBackground();
 		createTopSection();
 		createCenterSection();
@@ -138,9 +141,11 @@ public class GameOver extends BorderPane{
 		int highScore = DatabaseManager.getPlayerHighScore(player.getPlayerID(), gameMode);
 		
 		if(highScore == score && highScore != 0) {
+			playHighScoreSound();
 			subHeader = new Label("NEW High Score! Congrats " + player.getUsername());
 			headerCtn.getChildren().add(subHeader);
 		}else {
+			playGameOverSound();
 			subHeader = new Label("Better Luck Next Time!");
 		}
 		
@@ -206,8 +211,12 @@ public class GameOver extends BorderPane{
 	
 	private void styleButtons() {
 		
-		btnAgain.setFont(Font.font("Arial", 28));
-		btnMode.setFont(Font.font("Arial", 28));
+		btnAgain.setFont(Font.font("Verdana", 28));
+		btnMode.setFont(Font.font("Verdana", 28));
+		
+		btnLogout.setFont(Font.font("Verdana", 14));
+		btnExit.setFont(Font.font("Verdana", 14));
+		
 		
 		btnAgain.setPrefSize(400, 100);
 		btnMode.setPrefSize(400, 100);
@@ -220,9 +229,9 @@ public class GameOver extends BorderPane{
 		createHoverEffect(btnLogout);
 		createHoverEffect(btnExit);
 		
-		btnAgain.setStyle("-fx-background-color: linear-gradient(#ff1744, #d50000); -fx-text-fill: white; -fx-background-radius: 12;");
+		btnAgain.setStyle("-fx-background-color: linear-gradient(#ff9800, #f57c00); -fx-text-fill: white; -fx-background-radius: 12;");
 		btnMode.setStyle("-fx-background-color: linear-gradient(#2979ff, #1565c0); -fx-text-fill: white; -fx-background-radius: 12;");
-		btnLogout.setStyle("-fx-background-color: #555; -fx-text-fill: white; -fx-background-radius: 8;");
+		btnLogout.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: red; -fx-border-radius: 8; -fx-border-width: 2;");
 		btnExit.setStyle("-fx-background-color: transparent; -fx-border-color: red; -fx-text-fill: red; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-width: 2;");
 		
 	}	
@@ -274,6 +283,17 @@ public class GameOver extends BorderPane{
 	
 	private void playGameOverSound() {
 		gameOverSoundPlayer.play();
+	}
+	
+	private void loadHighScoreSound() {
+		String soundURL = "sounds/high_score_sound.mp3";
+		highScoreMedia = new Media(new File(soundURL).toURI().toString());
+		highScorePlayer = new MediaPlayer(highScoreMedia);
+	}
+	
+	private void playHighScoreSound() {
+		highScorePlayer.seek(Duration.ZERO);
+		highScorePlayer.play();
 	}
 	
 	private void showGameOverScreen() {

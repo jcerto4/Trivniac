@@ -261,7 +261,7 @@ INSERT INTO `trivniac`.`questions` (category, question, option_1, option_2, opti
 ('Pop-Culture', 'Which singer is known by the nickname \"Queen Bey\"?', 'Alicia Keys', 'Mariah Carey', 'Cardi B', 'Beyoncé', 4),
 ('Pop-Culture', 'Which artist is famous for painting the \"Mona Lisa\"?', 'Michelangelo', 'Raphael', 'Donatello', 'Leonardo da Vinci', 4),
 ('Pop-Culture', 'Which game series includes characters like Pikachu and Charizard?', 'Digimon', 'Yu-Gi-Oh!', 'Monster Hunter', 'Pokémon', 4),
-('Pop-Culture', 'Which actress famously portrayed Black Widow in the Marvel Cinematic Universe?', 'Elizabeth Olsen', 'Brie Larson', 'Scarlett Johansson', 'Natalie Portman', 4),
+('Pop-Culture', 'Which actress famously portrayed Jane Foster in the Marvel Cinematic Universe?', 'Elizabeth Olsen', 'Brie Larson', 'Scarlett Johansson', 'Natalie Portman', 4),
 ('Pop-Culture', 'Which classic arcade game features a yellow character eating pellets in a maze?', 'Space Invaders', 'Galaga', 'Donkey Kong', 'Pac-Man', 4),
 
 

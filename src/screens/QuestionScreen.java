@@ -269,11 +269,6 @@ public class QuestionScreen extends BorderPane{
 		option3.setPrefSize(450, Region.USE_COMPUTED_SIZE);
 		option4.setPrefSize(450, Region.USE_COMPUTED_SIZE);
 		
-//		option1.setFont(Font.font("Georgia", 32));
-//		option2.setFont(Font.font("Georgia", 32));
-//		option3.setFont(Font.font("Georgia", 32));
-//		option4.setFont(Font.font("Georgia", 32));
-		
 		String style = (
 			"-fx-background-color: rgba(0, 0, 0, 0.35);" +
 			"-fx-background-radius: 20;" +

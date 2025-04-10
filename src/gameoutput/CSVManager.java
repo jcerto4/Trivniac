@@ -61,6 +61,10 @@ public class CSVManager {
 			
 			ArrayList<Integer> scores = DatabaseManager.getAllScoresForPlayer(player.getPlayerID(), gameModes[i]); 
 			
+			if(i == 1 || i == 2) {
+				output.println("---------------------");
+			}
+			
 			for(int x = 0; x < scores.size(); x++) {
 				
 				output.printf("%s,%s,%d%n", gameModes[i], player.getUsername(), scores.get(x));
@@ -81,7 +85,13 @@ public class CSVManager {
 			
 			ArrayList<Player> topPlayers = DatabaseManager.getTopPlayers(gameModes[i]); 
 			
+			if(i == 1 || i == 2) {
+				output.println("---------------------");
+			}
+			
 			for(int x = 0; x < topPlayers.size(); x++) {
+				
+				topPlayers.get(x).setRank(x + 1);
 				
 				output.printf("%s,%d,%s,%d%n", 
 						gameModes[i], 

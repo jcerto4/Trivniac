@@ -121,7 +121,11 @@ public class Welcome extends BorderPane{
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		
+		
 		HBox bottomCtn = new HBox(volumeCtn, spacer, btnExit);
+		
+		btnExit.setTranslateY(-5);
+		btnExit.setTranslateX(-5);
 		
 		bottomCtn.setAlignment(Pos.BOTTOM_RIGHT);
 		bottomCtn.setPadding(new Insets(10, 10, 10, 10));

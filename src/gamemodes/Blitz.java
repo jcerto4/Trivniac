@@ -48,7 +48,7 @@ public class Blitz extends BorderPane{
 	
 	private int score;
 	
-	private ArrayList<Question> usedQuestions = new ArrayList<>();
+	private ArrayList<Integer> usedQuestions = new ArrayList<>();
 	
 	private Media correctSoundMedia;
 	private MediaPlayer correctSoundPlayer;
@@ -68,7 +68,7 @@ public class Blitz extends BorderPane{
 		
 		question = DatabaseManager.getRandomQuestion("History");
 		
-		usedQuestions.add(question);
+		usedQuestions.add(question.getQuestionID());
 		
 		setBackground();
 		loadIncorrectSound();
@@ -175,9 +175,9 @@ public class Blitz extends BorderPane{
 		
 		do {
 			question = DatabaseManager.getRandomQuestion(categories[random]);
-		}while(usedQuestions.contains(question));
+		}while(usedQuestions.contains(question.getQuestionID()));
 		
-		usedQuestions.add(question);
+		usedQuestions.add(question.getQuestionID());
 		
 		questionText.setText(question.getQuestionText());
 		
