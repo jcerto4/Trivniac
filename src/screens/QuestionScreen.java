@@ -134,6 +134,21 @@ public class QuestionScreen extends BorderPane{
 		
 		if(doubleChanceActive && !doubleChanceUsed && selectedOption != correctAnswer) {
 			
+			Button[] buttons = {option1, option2, option3, option4};
+			
+			buttons[selectedOption - 1].setStyle(
+					"-fx-background-radius: 20;" +
+					"-fx-border-color: white;" +
+					"-fx-border-width: 2;" +
+					"-fx-border-radius: 20;" +
+					"-fx-text-fill: white;" +
+					"-fx-font-size: 24px;" +
+					"-fx-font-weight: bold;" +
+					"-fx-font-family: 'Segoe UI';" +
+					"-fx-padding: 12 24 12 24;" +
+					"-fx-background-color: red;"
+				);
+			
 			doubleChanceUsed = true;
 			
 			disableOptionButton(selectedOption);
