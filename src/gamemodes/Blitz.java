@@ -79,6 +79,7 @@ public class Blitz extends BorderPane{
 		loadIncorrectSound();
 		loadCorrectSound();
 		loadBlitzMusic();
+		playBlitzMusic();
 		createTopSection();
 		createCenterSection();
 		createBottomSection();
@@ -92,6 +93,7 @@ public class Blitz extends BorderPane{
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			stopBlitzMusic();
 			playBackSound();
 			timer.stopTickingSound();
 			blitzStage.close();
@@ -110,6 +112,7 @@ public class Blitz extends BorderPane{
 		
 		timer = new Timer(30, () -> {
 			timer.stopTickingSound();
+			stopBlitzMusic();
 			blitzStage.close();
 			new GameOver(player, score, "Blitz");
 		});
@@ -168,6 +171,7 @@ public class Blitz extends BorderPane{
 			timer.setSecondsLeft(timer.getSecondsLeft() + 5);
 			playCorrectSound();
 		}else {
+			btnBack.setDisable(true);
 			playIncorrectSound();
 		}
 		
@@ -226,15 +230,30 @@ public class Blitz extends BorderPane{
 		createHoverEffect(option4);
 		createHoverEffect(btnBack);
 		
+//		String style = (
+//			"-fx-background-color: linear-gradient(to bottom, #ffe680, #ffcc00);" +
+//			"-fx-text-fill: #1a1a1a;" +
+//			 "-fx-font-weight: bold;" +
+//			 "-fx-font-size: 20px;" +
+//			 "-fx-background-radius: 6;" +
+//			 "-fx-border-radius: 6;" +
+//			 "-fx-border-color: #333;" +
+//			 "-fx-border-width: 2;"	
+//			);
+		
 		String style = (
-			"-fx-background-color: linear-gradient(to bottom, #ffe680, #ffcc00);" +
-			"-fx-text-fill: #1a1a1a;" +
-			 "-fx-font-weight: bold;" +
-			 "-fx-font-size: 20px;" +
-			 "-fx-background-radius: 6;" +
-			 "-fx-border-radius: 6;" +
-			 "-fx-border-color: #333;" +
-			 "-fx-border-width: 2;"	
+				"-fx-background-color: rgba(0, 0, 0, 0.35);" +
+				"-fx-background-radius: 20;" +
+				"-fx-border-color: white;" +
+				"-fx-border-width: 2;" +
+			    "-fx-border-radius: 20;" +
+				"-fx-background-radius: 20;" +
+			    "-fx-text-fill: white;" +
+			    "-fx-font-size: 24px;" +
+			    "-fx-font-weight: bold;" +
+			    "-fx-font-family: 'Segoe UI';" +
+			    "-fx-padding: 12 24 12 24;" +
+			    "-fx-cursor: hand;"
 			);
 		
 		option1.setStyle(style);
@@ -280,6 +299,7 @@ public class Blitz extends BorderPane{
 	
 	private void playIncorrectSound() {
 		
+		incorrectSoundPlayer.setVolume(1.0);
 		incorrectSoundPlayer.seek(Duration.ZERO);
 		incorrectSoundPlayer.play();
 	}
@@ -295,6 +315,8 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void playCorrectSound() {
+		
+		correctSoundPlayer.setVolume(1.0);
 		correctSoundPlayer.seek(Duration.ZERO);
 		correctSoundPlayer.play();
 	}
@@ -304,12 +326,14 @@ public class Blitz extends BorderPane{
 	}
 	
 	private void loadBlitzMusic() {
-		String soundURL = "sounds/question_music.mp3";
+		String soundURL = "sounds/blitz_music.mp3";
 		blitzMusicMedia = new Media(new File(soundURL).toURI().toString());
 		blitzMusicPlayer = new MediaPlayer(blitzMusicMedia);
 	}
 	
 	private void playBlitzMusic() {
+		
+		blitzMusicPlayer.setVolume(0.3);
 		blitzMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		blitzMusicPlayer.play();
 	}

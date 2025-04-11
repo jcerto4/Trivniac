@@ -75,6 +75,10 @@ public class GameOver extends BorderPane{
 	private Media lbSoundMedia;
 	private MediaPlayer lbSoundPlayer;
 	
+	private Media modeSoundMedia;
+	private MediaPlayer modeSoundPlayer;
+	
+	
 	public GameOver(Player player, int score, String gameMode) {
 		
 		
@@ -88,6 +92,7 @@ public class GameOver extends BorderPane{
 		loadBlitzSound();
 		loadHighScoreSound();
 		loadLeaderboardSound();
+		loadModeSound();
 		setBackground();
 		createTopSection();
 		createCenterSection();
@@ -152,6 +157,7 @@ public class GameOver extends BorderPane{
 	private void createModeButtonListeners() {
 		
 		btnMode.setOnAction(e -> {
+			playModeSound();
 			close();
 			new GameModeSelection(player);
 		});
@@ -373,6 +379,12 @@ public class GameOver extends BorderPane{
 		lbSoundPlayer = new MediaPlayer(lbSoundMedia);
 	}
 	
+	private void loadModeSound() {
+		String soundURL = "sounds/mode_sound.mp3";
+		modeSoundMedia = new Media(new File(soundURL).toURI().toString());
+		modeSoundPlayer = new MediaPlayer(modeSoundMedia);
+	}
+	
 	private void playClassicSound() {
 		classicSoundPlayer.seek(Duration.ZERO);
 		classicSoundPlayer.play();
@@ -393,9 +405,14 @@ public class GameOver extends BorderPane{
 		lbSoundPlayer.play();
 	}
 	
+	private void playModeSound() {
+		modeSoundPlayer.seek(Duration.ZERO);
+		modeSoundPlayer.play();
+	}
+	
 	private void setBackground() {
 		
-		Image backgroundImage = new Image("file:images/over_background2.png");
+		Image backgroundImage = new Image("file:images/over_background.png");
 //		
 //		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
 //		

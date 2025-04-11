@@ -40,9 +40,13 @@ public class Welcome extends BorderPane{
 	private Media welcomeMusicMedia;
 	private MediaPlayer welcomeMusicPlayer;
 	
+	private Media buttonMedia;
+	private MediaPlayer buttonPlayer;
+	
 	public Welcome() {
 		
 		loadWelcomeMusic();
+		loadButtonSound();
 		playWelcomeMusic();
 		//createTopSection();
 		createCenterSection();
@@ -58,16 +62,18 @@ public class Welcome extends BorderPane{
 	
 	private void createRegisterButtonListeners() {
 		btnRegister.setOnAction(event -> {
-				new Register();
 				stopWelcomeMusic();
+				playButtonSound();
+				new Register();
 				close();
 		});
 		
 	}
 	private void createLoginButtonListeners() {
 		btnLogin.setOnAction(event -> {
+				stopWelcomeMusic();	
+				playButtonSound();
 				new Login();
-				stopWelcomeMusic();
 				close();
 		});
 	}
@@ -265,6 +271,12 @@ public class Welcome extends BorderPane{
 		welcomeMusicPlayer = new MediaPlayer(welcomeMusicMedia);
 	}
 	
+	private void loadButtonSound() {
+		String soundURL = "sounds/welcome_buttons_sound.mp3";
+		buttonMedia = new Media(new File(soundURL).toURI().toString());
+		buttonPlayer = new MediaPlayer(buttonMedia);
+	}
+	
 	private void playWelcomeMusic() {
 		welcomeMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		welcomeMusicPlayer.play();
@@ -272,6 +284,11 @@ public class Welcome extends BorderPane{
 	
 	private void stopWelcomeMusic() {
 		welcomeMusicPlayer.stop();
+	}
+	
+	private void playButtonSound() {
+		buttonPlayer.seek(Duration.ZERO);
+		buttonPlayer.play();
 	}
 
 	
