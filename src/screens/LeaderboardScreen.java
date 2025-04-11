@@ -43,15 +43,21 @@ public class LeaderboardScreen extends BorderPane{
 	private Media fileSound;
 	private MediaPlayer fileSoundPlayer;
 	
-	private LeaderBoard classicLB = new LeaderBoard("Classic");
-	private LeaderBoard survivalLB = new LeaderBoard("Survival");
-	private LeaderBoard blitzLB = new LeaderBoard("Blitz");
+	private LeaderBoard classicLB;
+	private LeaderBoard survivalLB;
+	private LeaderBoard blitzLB;
+	
+	private Media backSoundMedia;
+	private MediaPlayer backSoundPlayer;
 	
 	public LeaderboardScreen(Player player) {
 		
 		this.player = player;
-		
+		classicLB = new LeaderBoard("Classic", player);
+		survivalLB = new LeaderBoard("Survival", player);
+		blitzLB = new LeaderBoard("Blitz", player);
 		loadFileSound();
+		loadBackSound();
 		setBackground();
 		createCenterSection();
 		createBottomSection();
@@ -67,6 +73,7 @@ public class LeaderboardScreen extends BorderPane{
 	private void createBackButtonListeners() {
 		
 		btnBack.setOnAction(e -> {
+			playBackSound();
 			leaderboardStage.close();
 			new GameModeSelection(player);
 		});
@@ -122,7 +129,7 @@ public class LeaderboardScreen extends BorderPane{
 		
 		HBox btnCtn = new HBox(10, btnSave, btnSaveAll);
 		btnCtn.setAlignment(Pos.CENTER);
-		btnCtn.setPadding(new Insets(0, 70, 100, 0));
+		btnCtn.setPadding(new Insets(0, 100, 100, 0));
 		
 		HBox bottomCtn = new HBox(backCtn, spacerLeft, btnCtn, spacerRight);
 		
@@ -173,11 +180,12 @@ public class LeaderboardScreen extends BorderPane{
 	private void styleButtons() {
 		
 		String labelStyle = (
-				"-fx-background-color: rgba(0,0,0,0.5);" +
-			    "-fx-text-fill: white;" +
-			    "-fx-font-weight: bold;" +
-			    "-fx-padding: 4 8 4 8;" +
-			    "-fx-background-radius: 8;"
+				"-fx-background-color: transparent;" +
+				"-fx-text-fill: white;" +
+				"-fx-font-size: 24px;" +
+				"-fx-font-family: 'Poppins';" +  
+				"-fx-font-weight: bold;" +
+				"-fx-underline: true;"
 			  );
 		
 		classicLabel.setStyle(labelStyle);
@@ -255,6 +263,17 @@ public class LeaderboardScreen extends BorderPane{
 	
 	private void stopFileSound() {
 		fileSoundPlayer.stop();
+	}
+	
+	private void loadBackSound() {
+		String soundURL = "sounds/go_back_sound.mp3";
+		backSoundMedia = new Media(new File(soundURL).toURI().toString());
+		backSoundPlayer = new MediaPlayer(backSoundMedia);
+	}
+	
+	private void playBackSound() {
+		backSoundPlayer.seek(Duration.ZERO);
+		backSoundPlayer.play();
 	}
 	
 	private void setBackground() {

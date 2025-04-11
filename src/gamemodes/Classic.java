@@ -63,10 +63,14 @@ public class Classic extends BorderPane{
 	
 	private Button btnBack = new Button("Go Back");
 	
+	private Media backSoundMedia;
+	private MediaPlayer backSoundPlayer;
+	
 		
 	public Classic(int gameID, Player player) {
 		
 		loadLoseLifeSound();
+		loadBackSound();
 		this.gameID = gameID;
 		this.player = player;
 		wheel = new Wheel();
@@ -90,6 +94,7 @@ public class Classic extends BorderPane{
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			playBackSound();
 			classicStage.close();
 			new GameModeSelection(player);
 		});
@@ -99,6 +104,7 @@ public class Classic extends BorderPane{
 		btnSpin.setOnAction(e -> {
 			
 			btnSpin.setDisable(true);
+			btnBack.setDisable(true);
 			
 			wheel.spinWheel((String selectedCategory) -> {
 				showQuestionScreen(selectedCategory);
@@ -218,13 +224,23 @@ public class Classic extends BorderPane{
 	}
 	
 	private void playLoseLife() {
-		//stopLoseLife();
 		loseLifePlayer.seek(Duration.ZERO);
 		loseLifePlayer.play();
 	}
 	
 	private void stopLoseLife() {
 		loseLifePlayer.stop();
+	}
+	
+	private void loadBackSound() {
+		String soundURL = "sounds/go_back_sound.mp3";
+		backSoundMedia = new Media(new File(soundURL).toURI().toString());
+		backSoundPlayer = new MediaPlayer(backSoundMedia);
+	}
+	
+	private void playBackSound() {
+		backSoundPlayer.seek(Duration.ZERO);
+		backSoundPlayer.play();
 	}
 	
 	private void createHoverEffect(Button button) {

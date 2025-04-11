@@ -18,10 +18,12 @@ import javafx.scene.text.FontWeight;
 public class LeaderBoard extends VBox{
  
 	private String gameMode;
+	private Player currentPlayer;
 	
-	public LeaderBoard(String gameMode) {
+	public LeaderBoard(String gameMode, Player player) {
 		
 		this.gameMode = gameMode;
+		currentPlayer = player;
 		buildLeaderboard();
 		styleLeaderboard();
 	}
@@ -40,9 +42,13 @@ public class LeaderBoard extends VBox{
 		//setMaxHeight(300);
 		setEffect(new DropShadow(10, Color.BLACK));
 		//setAlignment(Pos.CENTER_LEFT);
-		setStyle("-fx-border-color: white;" +
-		          "-fx-border-width: 2;" +
-		          "-fx-border-style: solid;");
+		setStyle("-fx-background-color: rgba(255,255,255,0.05);" +
+				  "-fx-background-radius: 16;" +
+				  "-fx-border-radius: 16;" +
+				  "-fx-border-color: white;" +
+				  "-fx-border-width: 2;" +
+				  "-fx-padding: 12;"
+			);
 	}
 	
 	private void buildRows(ArrayList<Player> topPlayers) {
@@ -75,14 +81,30 @@ public class LeaderBoard extends VBox{
 			Player player = topPlayers.get(i);
 			player.setRank(i + 1);
 			
+			
+			
 			HBox row = new HBox(10);
 			row.setAlignment(Pos.CENTER_RIGHT);
+			
+			row.setOnMouseEntered(e -> row.setStyle("-fx-background-color: rgba(255,255,255,0.1);"));
+			row.setOnMouseExited(e -> row.setStyle("-fx-background-color: transparent;"));
 			
 			Label rank = new Label(String.valueOf(player.getRank()));
 			Label username = new Label(player.getUsername());
 			Label score = new Label(String.valueOf(player.getHighScore()));
 			
-			Font font = Font.font("Verdana", FontWeight.BOLD, 16);
+			if(player.getUsername().equalsIgnoreCase(currentPlayer.getUsername())) {
+				rank.setTextFill(Color.web("#4DD0E1"));
+			    username.setTextFill(Color.web("#4DD0E1"));
+			    score.setTextFill(Color.web("#4DD0E1"));
+			    username.setStyle("-fx-font-weight: bold;");
+			}else {
+				rank.setTextFill(Color.WHITE);
+				username.setTextFill(Color.WHITE);
+				score.setTextFill(Color.WHITE);
+			}
+			
+			Font font = Font.font("Verdana", FontWeight.BOLD, 18);
 			rank.setFont(font);
 			username.setFont(font);
 			score.setFont(font);
@@ -90,10 +112,6 @@ public class LeaderBoard extends VBox{
 			rank.setPrefWidth(70);
 			username.setPrefWidth(75);
 			score.setPrefWidth(70);
-			
-			rank.setTextFill(Color.WHITE);
-			username.setTextFill(Color.WHITE);
-			score.setTextFill(Color.WHITE);
 			
 			row.getChildren().addAll(rank, username, score);
 			

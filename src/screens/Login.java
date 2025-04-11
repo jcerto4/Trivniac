@@ -1,5 +1,7 @@
 package screens;
 
+import java.io.File;
+
 import classes.Player;
 import db.DatabaseManager;
 import javafx.animation.ScaleTransition;
@@ -24,6 +26,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -39,9 +43,19 @@ public class Login extends BorderPane{
 	private Label passwordLabel = new Label("Password: ");
 	private Stage loginStage;
 	
+	private Media entrySoundMedia;
+	private MediaPlayer entrySoundPlayer;
+	private Media errorSoundMedia;
+	private MediaPlayer errorSoundPlayer;
+	private Media backSoundMedia;
+	private MediaPlayer backSoundPlayer;
+	
 	public Login() {
 		
 		setBackground();
+		loadEntrySound();
+		loadErrorSound();
+		loadBackSound();
 		createCenterSection();
 		createBottomSection();
 		createBackButtonListeners();
@@ -52,6 +66,7 @@ public class Login extends BorderPane{
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			playBackSound();
 			loginStage.close();
 			new Welcome();
 		});
@@ -84,17 +99,21 @@ public class Login extends BorderPane{
 		
 		btnLogin.setOnAction(e -> {
 			if(userNameEntry.getText().isEmpty() || passwordEntry.getText().isEmpty()) {
+				playErrorSound();
 				showAlert(Alert.AlertType.WARNING, "Empty Field", "Please enter both username and password");
 			}else {
 				Player player = DatabaseManager.getPlayer(userNameEntry.getText());
 				
 				if(player == null) {
+					playErrorSound();
 					showAlert(AlertType.ERROR, "Login Error", "No account found with this username");	
 				}else {
 					if(passwordEntry.getText().equals(player.getPassword())) {
+						playEntrySound();
 						loginStage.close();
 						new GameModeSelection(player);
 					}else {
+						playErrorSound();
 						showAlert(AlertType.ERROR, "Login Error", "Incorrect Password");
 					}
 				}
@@ -209,6 +228,49 @@ public class Login extends BorderPane{
 				"-fx-border-width: 1;"
 				);
 	}	
+	
+	
+	private void loadEntrySound() {
+		String soundURL = "sounds/entry_sound.mp3";
+		entrySoundMedia = new Media(new File(soundURL).toURI().toString());
+		entrySoundPlayer = new MediaPlayer(entrySoundMedia);
+	}
+	
+	private void playEntrySound() {
+		entrySoundPlayer.seek(Duration.ZERO);
+		entrySoundPlayer.play();
+	}
+	
+	private void stopEntrySound() {
+		entrySoundPlayer.stop();
+	}
+	
+	private void loadErrorSound() {
+		String soundURL = "sounds/error_sound.mp3";
+		errorSoundMedia = new Media(new File(soundURL).toURI().toString());
+		errorSoundPlayer = new MediaPlayer(errorSoundMedia);
+	}
+	
+	private void playErrorSound() {
+		errorSoundPlayer.seek(Duration.ZERO);
+		errorSoundPlayer.play();
+	}
+	
+	private void stopErrorSound() {
+		errorSoundPlayer.stop();
+	}
+	
+	private void loadBackSound() {
+		String soundURL = "sounds/go_back_sound.mp3";
+		backSoundMedia = new Media(new File(soundURL).toURI().toString());
+		backSoundPlayer = new MediaPlayer(backSoundMedia);
+	}
+	
+	private void playBackSound() {
+		backSoundPlayer.seek(Duration.ZERO);
+		backSoundPlayer.play();
+	}
+	
 	
 	private void showLoginScreen() {
 		Scene scene = new Scene(this, 1000, 700);

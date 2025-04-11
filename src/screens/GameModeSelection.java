@@ -66,6 +66,11 @@ public class GameModeSelection extends BorderPane{
 	private Media blitzSoundMedia;
 	private MediaPlayer blitzSoundPlayer;
 	
+	private Media lbSoundMedia;
+	private MediaPlayer lbSoundPlayer;
+	
+	private Media logoutSoundMedia;
+	private MediaPlayer logoutSoundPlayer;
 	
 	public GameModeSelection(Player player) {
 		
@@ -74,6 +79,8 @@ public class GameModeSelection extends BorderPane{
 		loadClassicSound();
 		loadSurvivalSound();
 		loadBlitzSound();
+		loadLeaderboardSound();
+		loadLogoutSound();
 		
 		setBackground();
 		createTopSection();
@@ -90,6 +97,7 @@ public class GameModeSelection extends BorderPane{
 	private void createLeaderboardButtonListeners() {
 		
 		btnLeaderboard.setOnAction(e -> {
+			playLeaderboardSound();
 			close();
 			new LeaderboardScreen(player);
 		});
@@ -145,6 +153,7 @@ public class GameModeSelection extends BorderPane{
 
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(event -> {
+			playLogoutSound();
 			close();
 			new Welcome();
 		});
@@ -154,6 +163,13 @@ public class GameModeSelection extends BorderPane{
 		
 		Label user = new Label("Signed in as: " + player.getUsername());
 		user.setTextFill(Color.WHITE);
+		
+		user.setStyle("-fx-background-color: rgba(0, 0, 0, 0.35);"
+                 + "-fx-background-radius: 8;"
+                 + "-fx-padding: 4 10 4 10;"
+                 + "-fx-text-fill: white;"
+                 + "-fx-font-size: 12px;"
+                 + "-fx-font-weight: bold;");
 		
 		HBox userCtn = new HBox(user);
 		userCtn.setAlignment(Pos.TOP_RIGHT);
@@ -352,16 +368,41 @@ public class GameModeSelection extends BorderPane{
 		blitzSoundPlayer = new MediaPlayer(blitzSoundMedia);
 	}
 	
+	private void loadLeaderboardSound() {
+		String soundURL = "sounds/leaderboard_sound.mp3";
+		lbSoundMedia = new Media(new File(soundURL).toURI().toString());
+		lbSoundPlayer = new MediaPlayer(lbSoundMedia);
+	}
+	
+	private void loadLogoutSound() {
+		String soundURL = "sounds/logout_sound.mp3";
+		logoutSoundMedia = new Media(new File(soundURL).toURI().toString());
+		logoutSoundPlayer = new MediaPlayer(logoutSoundMedia);
+	}
+	
 	private void playClassicSound() {
+		classicSoundPlayer.seek(Duration.ZERO);
 		classicSoundPlayer.play();
 	}
 	
 	private void playSurvivalSound() {
+		survivalSoundPlayer.seek(Duration.ZERO);
 		survivalSoundPlayer.play();
 	}
 	
 	private void playBlitzSound() {
+		blitzSoundPlayer.seek(Duration.ZERO);
 		blitzSoundPlayer.play();
+	}
+	
+	private void playLeaderboardSound() {
+		lbSoundPlayer.seek(Duration.ZERO);
+		lbSoundPlayer.play();
+	}
+	
+	private void playLogoutSound() {
+		logoutSoundPlayer.seek(Duration.ZERO);
+		logoutSoundPlayer.play();
 	}
 	
 	

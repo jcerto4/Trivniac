@@ -48,15 +48,14 @@ public class Survival extends BorderPane{
 	private Label streakTracker = new Label("Current Answer Streak: " + answerStreak);
 	private Label multiplierTracker = new Label("Score: x" + multiplier);
 	
-	
-	private Media loseLifeMedia;
-	private MediaPlayer loseLifePlayer;
-	
 	private Button btnBack = new Button("Go Back");
 	
 	private DoubleChance doubleChance;
 	private EliminateTwo elimTwo;
 	private StopTimer stopTimer;
+	
+	private Media backSoundMedia;
+	private MediaPlayer backSoundPlayer;
 		
 	public Survival(int gameID, Player player) {
 		
@@ -69,6 +68,7 @@ public class Survival extends BorderPane{
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
 		
+		loadBackSound();
 		setBackground();
 		createTopSection();
 		createCenterSection();
@@ -81,6 +81,7 @@ public class Survival extends BorderPane{
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			playBackSound();
 			survivalStage.close();
 			new GameModeSelection(player);
 		});
@@ -90,6 +91,7 @@ public class Survival extends BorderPane{
 		btnSpin.setOnAction(e -> {
 			
 			btnSpin.setDisable(true);
+			btnBack.setDisable(true);
 			
 			wheel.spinWheel((String selectedCategory) -> {
 				showQuestionScreen(selectedCategory);
@@ -191,14 +193,15 @@ public class Survival extends BorderPane{
 		
 	}
 	
-	private void loadLoseLifeSound() {
-		String soundURL = "sounds/lose_life.mp3";
-		loseLifeMedia = new Media(new File(soundURL).toURI().toString());
-		loseLifePlayer = new MediaPlayer(loseLifeMedia);
+	private void loadBackSound() {
+		String soundURL = "sounds/go_back_sound.mp3";
+		backSoundMedia = new Media(new File(soundURL).toURI().toString());
+		backSoundPlayer = new MediaPlayer(backSoundMedia);
 	}
 	
-	private void playLoseLife() {
-		loseLifePlayer.play();
+	private void playBackSound() {
+		backSoundPlayer.seek(Duration.ZERO);
+		backSoundPlayer.play();
 	}
 	
 	private void updateStreakTracker() {

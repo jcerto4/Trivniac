@@ -136,6 +136,7 @@ public class Timer extends HBox{
 		}
 		
 		private void playTickingSound() {
+			clockMediaPlayer.seek(Duration.ZERO);
 			clockMediaPlayer.play();
 		}
 		

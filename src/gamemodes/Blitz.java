@@ -9,7 +9,9 @@ import classes.Question;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Timer;
+import javafx.animation.KeyFrame;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -59,6 +61,8 @@ public class Blitz extends BorderPane{
 	
 	private Button btnBack = new Button("Go Back");
 	
+	private Media backSoundMedia;
+	private MediaPlayer backSoundPlayer;
 	
 	
 	public Blitz(int gameID, Player player) {
@@ -71,6 +75,7 @@ public class Blitz extends BorderPane{
 		usedQuestions.add(question.getQuestionID());
 		
 		setBackground();
+		loadBackSound();
 		loadIncorrectSound();
 		loadCorrectSound();
 		loadBlitzMusic();
@@ -81,13 +86,13 @@ public class Blitz extends BorderPane{
 		createBackButtonListeners();
 		styleButtons();
 		
-		
 		showBlitzScreen();
 		
 	}
 	
 	private void createBackButtonListeners() {
 		btnBack.setOnAction(e -> {
+			playBackSound();
 			timer.stopTickingSound();
 			blitzStage.close();
 			new GameModeSelection(player);
@@ -157,6 +162,7 @@ public class Blitz extends BorderPane{
 	private void checkAnswer(int selectedAnswer) {
 		
 		if(selectedAnswer == question.getCorrectAnswer()) {
+			btnBack.setDisable(true);
 			score += 10;
 			DatabaseManager.updateScore(gameID, score);
 			timer.setSecondsLeft(timer.getSecondsLeft() + 5);
@@ -310,6 +316,17 @@ public class Blitz extends BorderPane{
 	
 	private void stopBlitzMusic() {
 		blitzMusicPlayer.stop();
+	}
+	
+	private void loadBackSound() {
+		String soundURL = "sounds/go_back_sound.mp3";
+		backSoundMedia = new Media(new File(soundURL).toURI().toString());
+		backSoundPlayer = new MediaPlayer(backSoundMedia);
+	}
+	
+	private void playBackSound() {
+		backSoundPlayer.seek(Duration.ZERO);
+		backSoundPlayer.play();
 	}
 	
 	private void setBackground() {
