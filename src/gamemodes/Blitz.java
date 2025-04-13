@@ -95,6 +95,7 @@ public class Blitz extends BorderPane{
 		btnBack.setOnAction(e -> {
 			stopBlitzMusic();
 			playBackSound();
+			timer.stopTimer();
 			timer.stopTickingSound();
 			blitzStage.close();
 			new GameModeSelection(player);
@@ -173,6 +174,7 @@ public class Blitz extends BorderPane{
 		}else {
 			btnBack.setDisable(true);
 			playIncorrectSound();
+			timer.setSecondsLeft(timer.getSecondsLeft() - 3);
 		}
 		
 		showNextQuestion();
