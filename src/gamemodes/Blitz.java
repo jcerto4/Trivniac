@@ -86,8 +86,9 @@ public class Blitz extends BorderPane{
 		createOptionButtonListeners();
 		createBackButtonListeners();
 		styleButtons();
-		
 		showBlitzScreen();
+		
+		disableGoBack();
 		
 	}
 	
@@ -112,6 +113,7 @@ public class Blitz extends BorderPane{
 	private void createTopSection() {
 		
 		timer = new Timer(30, () -> {
+			timer.stopTimer();
 			timer.stopTickingSound();
 			stopBlitzMusic();
 			blitzStage.close();
@@ -353,6 +355,14 @@ public class Blitz extends BorderPane{
 	private void playBackSound() {
 		backSoundPlayer.seek(Duration.ZERO);
 		backSoundPlayer.play();
+	}
+	
+	private void disableGoBack() {
+		Timeline timeLine = new Timeline(new KeyFrame(Duration.seconds(5), event -> {
+			btnBack.setDisable(true);
+		}));
+		
+		timeLine.play();
 	}
 	
 	private void setBackground() {

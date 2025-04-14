@@ -202,7 +202,7 @@ public class GameModeSelection extends BorderPane{
 		
 		Tooltip classicTip = new Tooltip("Classic Mode: You have 3 lives. Try to answer as many questions as you can before losing them all!");
 		Tooltip survivalTip = new Tooltip("Survival Mode: You only get 1 life. One wrong answer and it's game over!");
-		Tooltip blitzTip = new Tooltip("Blitz Mode: You have 30 seconds to answer as many questions as possible. Each correct answer adds 5 seconds, wrong answers subtract 3!");
+		Tooltip blitzTip = new Tooltip("Blitz Mode: 30 seconds to score big! +5s for correct, -3s for wrong.");
 		
 		HBox headerCtn = new HBox(header);
 		HBox classicCtn = new HBox(10, classicIcon, btnClassic);
