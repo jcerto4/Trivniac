@@ -110,7 +110,7 @@ public class Login extends BorderPane{
 				}else {
 					if(passwordEntry.getText().equals(player.getPassword())) {
 						playEntrySound();
-						loginStage.close();
+						close();
 						new GameModeSelection(player);
 					}else {
 						playErrorSound();
@@ -192,8 +192,6 @@ public class Login extends BorderPane{
 		alert.setContentText(message);
 		alert.showAndWait();
 		
-		
-		
 	}
 	
 	
@@ -241,10 +239,6 @@ public class Login extends BorderPane{
 		entrySoundPlayer.play();
 	}
 	
-	private void stopEntrySound() {
-		entrySoundPlayer.stop();
-	}
-	
 	private void loadErrorSound() {
 		String soundURL = "sounds/error_sound.mp3";
 		errorSoundMedia = new Media(new File(soundURL).toURI().toString());
@@ -254,10 +248,6 @@ public class Login extends BorderPane{
 	private void playErrorSound() {
 		errorSoundPlayer.seek(Duration.ZERO);
 		errorSoundPlayer.play();
-	}
-	
-	private void stopErrorSound() {
-		errorSoundPlayer.stop();
 	}
 	
 	private void loadBackSound() {
@@ -270,7 +260,6 @@ public class Login extends BorderPane{
 		backSoundPlayer.seek(Duration.ZERO);
 		backSoundPlayer.play();
 	}
-	
 	
 	private void showLoginScreen() {
 		Scene scene = new Scene(this, 1000, 700);

@@ -75,8 +75,6 @@ public class Classic extends BorderPane{
 		this.player = player;
 		wheel = new Wheel();
 		
-		
-		
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
@@ -155,7 +153,7 @@ public class Classic extends BorderPane{
 	
 	private void handleQuestionResult(boolean isCorrect) {
 		if(isCorrect) {
-			score += 5;
+			score += 10;
 			DatabaseManager.updateScore(gameID, score);
 			btnSpin.setDisable(false);
 		}else {
@@ -226,10 +224,6 @@ public class Classic extends BorderPane{
 	private void playLoseLife() {
 		loseLifePlayer.seek(Duration.ZERO);
 		loseLifePlayer.play();
-	}
-	
-	private void stopLoseLife() {
-		loseLifePlayer.stop();
 	}
 	
 	private void loadBackSound() {

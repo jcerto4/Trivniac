@@ -109,7 +109,7 @@ public class Register extends BorderPane{
 					playEntrySound();
 					DatabaseManager.insertNewPlayer(userNameEntry.getText(), passwordEntry.getText());
 					Player newUser = DatabaseManager.getPlayer(userNameEntry.getText());
-					registerStage.close();
+					close();
 					new GameModeSelection(newUser);
 				} else {
 					playErrorSound();

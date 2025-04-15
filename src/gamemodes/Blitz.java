@@ -169,7 +169,7 @@ public class Blitz extends BorderPane{
 		
 		if(selectedAnswer == question.getCorrectAnswer()) {
 			btnBack.setDisable(true);
-			score += 10;
+			score += 5;
 			DatabaseManager.updateScore(gameID, score);
 			timer.setSecondsLeft(timer.getSecondsLeft() + 5);
 			playCorrectSound();
@@ -234,17 +234,6 @@ public class Blitz extends BorderPane{
 		createHoverEffect(option4);
 		createHoverEffect(btnBack);
 		
-//		String style = (
-//			"-fx-background-color: linear-gradient(to bottom, #ffe680, #ffcc00);" +
-//			"-fx-text-fill: #1a1a1a;" +
-//			 "-fx-font-weight: bold;" +
-//			 "-fx-font-size: 20px;" +
-//			 "-fx-background-radius: 6;" +
-//			 "-fx-border-radius: 6;" +
-//			 "-fx-border-color: #333;" +
-//			 "-fx-border-width: 2;"	
-//			);
-		
 		String style = (
 				"-fx-background-color: rgba(0, 0, 0, 0.35);" +
 				"-fx-background-radius: 20;" +
@@ -308,10 +297,6 @@ public class Blitz extends BorderPane{
 		incorrectSoundPlayer.play();
 	}
 	
-	private void stopIncorrectSound() {
-		incorrectSoundPlayer.stop();
-	}
-	
 	private void loadCorrectSound() {
 		String soundURL = "sounds/correct_answer.mp3";
 		correctSoundMedia = new Media(new File(soundURL).toURI().toString());
@@ -323,10 +308,6 @@ public class Blitz extends BorderPane{
 		correctSoundPlayer.setVolume(1.0);
 		correctSoundPlayer.seek(Duration.ZERO);
 		correctSoundPlayer.play();
-	}
-	
-	private void stopCorrectSound() {
-		correctSoundPlayer.stop();
 	}
 	
 	private void loadBlitzMusic() {

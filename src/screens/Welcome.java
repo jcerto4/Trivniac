@@ -48,7 +48,6 @@ public class Welcome extends BorderPane{
 		loadWelcomeMusic();
 		loadButtonSound();
 		playWelcomeMusic();
-		//createTopSection();
 		createCenterSection();
 		createBottomSection();
 		setBackground();
@@ -81,11 +80,6 @@ public class Welcome extends BorderPane{
 	private void createExitButtonListeners() {
 		btnExit.setOnAction(event -> close());
 	}
-	
-	private void createTopSection() {
-		
-	}
-	
 	
 	private void createCenterSection() {
 		
@@ -122,11 +116,8 @@ public class Welcome extends BorderPane{
 		HBox volumeCtn = new HBox(volumeLabel, volumeSlider);
 		volumeCtn.setAlignment(Pos.CENTER_LEFT);
 		
-		
-		
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		
 		
 		HBox bottomCtn = new HBox(volumeCtn, spacer, btnExit);
 		
@@ -152,20 +143,10 @@ public class Welcome extends BorderPane{
 	private void close() {
 		welcomeStage.close();
 	}
+	
 	private void setBackground() {
 		
 		Image backgroundImage = new Image("file:images/welcome_background.png");
-		
-//		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
-//		
-//		BackgroundImage welcomeBackground = new BackgroundImage(
-//			backgroundImage,
-//			BackgroundRepeat.NO_REPEAT,
-//			BackgroundRepeat.NO_REPEAT,
-//			BackgroundPosition.DEFAULT,
-//			backgroundSize
-//			);
-//		this.setBackground(new Background(welcomeBackground));
 		
 		ImageView background = new ImageView(backgroundImage);
 		background.setY(-68);
@@ -214,17 +195,6 @@ public class Welcome extends BorderPane{
 		createHoverEffect(btnRegister);
 		createHoverEffect(btnLogin);
 		createHoverEffect(btnExit);
-		
-//		btnExit.setStyle(
-//			"-fx-background-color: linear-gradient(to bottom, #d9d9d9, #bfbfbf);" +
-//			"-fx-text-fill: #2a2a2a;" +
-//			"-fx-font-weight: bold;" +
-//			"-fx-background-radius: 8;" +
-//			"-fx-border-radius: 8;" +
-//			"-fx-border-color: #7a7a7a;" +
-//		    "-fx-border-width: 1;" +
-//			"-fx-cursor: hand;"
-//		);
 		
 		String backStyle = (
 				"-fx-background-color: rgba(0,0,0,0.4);" +

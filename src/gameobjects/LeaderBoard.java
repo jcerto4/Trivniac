@@ -39,16 +39,15 @@ public class LeaderBoard extends VBox{
 		setSpacing(10);
 		setPadding(new Insets(10));
 		setMaxWidth(300);
-		//setMaxHeight(300);
 		setEffect(new DropShadow(10, Color.BLACK));
-		//setAlignment(Pos.CENTER_LEFT);
-		setStyle("-fx-background-color: rgba(255,255,255,0.05);" +
-				  "-fx-background-radius: 16;" +
-				  "-fx-border-radius: 16;" +
-				  "-fx-border-color: white;" +
-				  "-fx-border-width: 2;" +
-				  "-fx-padding: 12;"
-			);
+		setStyle(
+			"-fx-background-color: rgba(255,255,255,0.05);" +
+			"-fx-background-radius: 16;" +
+			"-fx-border-radius: 16;" +
+			"-fx-border-color: white;" +
+			"-fx-border-width: 2;" +
+			"-fx-padding: 12;"
+		);
 	}
 	
 	private void buildRows(ArrayList<Player> topPlayers) {

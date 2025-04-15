@@ -261,10 +261,6 @@ public class LeaderboardScreen extends BorderPane{
 		fileSoundPlayer.play();
 	}
 	
-	private void stopFileSound() {
-		fileSoundPlayer.stop();
-	}
-	
 	private void loadBackSound() {
 		String soundURL = "sounds/go_back_sound.mp3";
 		backSoundMedia = new Media(new File(soundURL).toURI().toString());

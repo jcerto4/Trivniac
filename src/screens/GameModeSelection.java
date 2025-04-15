@@ -54,9 +54,6 @@ public class GameModeSelection extends BorderPane{
 	private Button btnBack = new Button("Logout");
 	private Button btnLeaderboard = new Button("Leaderboards");
 	
-	private Media gameModeMusicMedia;
-	private MediaPlayer gameModeMusicPlayer;
-	
 	private Media classicSoundMedia;
 	private MediaPlayer classicSoundPlayer;
 	
@@ -234,7 +231,7 @@ public class GameModeSelection extends BorderPane{
 		
 		HBox bottomCtn = new HBox(btnLeaderboard, spacer, btnBack);
 		bottomCtn.setAlignment(Pos.CENTER_RIGHT);
-		bottomCtn.setPadding(new Insets(10, 20, 10, 20));
+		bottomCtn.setPadding(new Insets(20));
 		
 		this.setBottom(bottomCtn);
 		
@@ -279,13 +276,14 @@ public class GameModeSelection extends BorderPane{
 		btnBack.setStyle(
 				"-fx-background-color: transparent;" +        
 			    "-fx-text-fill: white;" +
-			    "-fx-background-radius: 10;" +
-			    "-fx-border-radius: 10;" +
-			    "-fx-border-color: #ffffff;" +
-			    "-fx-border-width: 2px;" +
+			    "-fx-background-radius: 12;" +
+			    "-fx-border-radius: 12;" +
+			    "-fx-border-color: white;" +
+			    "-fx-border-width: 2.5px;" +
 			    "-fx-font-weight: bold;" +
 			    "-fx-font-size: 14px;" +
 			    "-fx-cursor: hand;" +
+			    "-fx-padding: 8 16 8 16;" +
 			    "-fx-font-family: 'Verdana';"
 			    );
 		
@@ -294,22 +292,20 @@ public class GameModeSelection extends BorderPane{
 			"-fx-border-color: white;" +
 			"-fx-text-fill: white;" +
 			"-fx-font-weight: bold;" +
-			"-fx-border-radius: 10;" +
-			"-fx-background-radius: 10;" +
-		    "-fx-border-width: 2px;" +
-			"-fx-font-size: 14px;" +
+			"-fx-border-radius: 12;" +
+			"-fx-background-radius: 12;" +
+		    "-fx-border-width: 2.5px;" +
+			"-fx-font-size: 16px;" +
 			"-fx-cursor: hand;" +
+			"-fx-padding: 8 20 8 20;" +
 			"-fx-font-family: 'Verdana';"
 		);
-		
-		
-		btnBack.setPrefSize(100, 40);
 		
 		btnClassic.setPrefSize(500, 100);
 		btnSurvival.setPrefSize(500, 100);
 		btnBlitz.setPrefSize(500, 100);
 
-		btnBack.setPadding(new Insets(20));
+		//btnBack.setPadding(new Insets(20));
 		
 		createHoverEffect(btnClassic);
 		createHoverEffect(btnSurvival);
@@ -326,8 +322,8 @@ public class GameModeSelection extends BorderPane{
 		
 		button.setOnMouseEntered(e -> {
 			ScaleTransition scale = new ScaleTransition(Duration.millis(200), button);
-			scale.setToX(1.05);
-			scale.setToY(1.05);
+			scale.setToX(1.1);
+			scale.setToY(1.1);
 			scale.play();
 			button.setEffect(shadow);
 		});

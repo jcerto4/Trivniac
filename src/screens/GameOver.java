@@ -49,7 +49,6 @@ public class GameOver extends BorderPane{
 	private String gameMode;
 	private Button btnAgain = new Button("Play Again");
 	private Button btnMode = new Button("New Mode");
-	//private Button btnLogout = new Button("Logout");
 	private Button btnExit = new Button("Exit");
 	private Button btnLeaderboard = new Button("Leaderboards");
 	private Stage gameOverStage;
@@ -86,7 +85,6 @@ public class GameOver extends BorderPane{
 		this.score = score;
 		this.gameMode = gameMode;
 		loadGameOverSound();
-//		loadLogoutSound();
 		loadClassicSound();
 		loadSurvivalSound();
 		loadBlitzSound();
@@ -100,7 +98,6 @@ public class GameOver extends BorderPane{
 		createPlayAgainButtonListeners();
 		createModeButtonListeners();
 		createLeaderboardButtonListeners();
-//		createLogoutButtonListeners();
 		createExitButtonListeners();
 		styleButtons();
 		showGameOverScreen();		
@@ -222,13 +219,8 @@ public class GameOver extends BorderPane{
 	
 	private void createBottomSection() {
 	
-//		HBox logoutCtn = new HBox(10, btnLogout, btnExit);
-		
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		
-		//btnLeaderboard.setAlignment(Pos.BOTTOM_LEFT);
-		//btnExit.setAlignment(Pos.BOTTOM_RIGHT);
 		
 		HBox bottomCtn = new HBox(btnLeaderboard, spacer, btnExit);
 		bottomCtn.setAlignment(Pos.CENTER);
@@ -241,41 +233,54 @@ public class GameOver extends BorderPane{
 	
 	private void styleButtons() {
 		
-		//btnAgain.setFont(Font.font("Verdana", 28));
-		//btnMode.setFont(Font.font("Verdana", 28));
-		
-//		btnLogout.setFont(Font.font("Verdana", 14));
 		btnExit.setFont(Font.font("Verdana", 14));
-		
 		
 		btnAgain.setPrefSize(400, 100);
 		btnMode.setPrefSize(400, 100);
 		
-//		btnLogout.setPrefSize(100, 50);
 		btnExit.setPrefSize(100, 50);
 		
 		createHoverEffect(btnAgain);
 		createHoverEffect(btnMode);
-//		createHoverEffect(btnLogout);
 		createHoverEffect(btnExit);
 		createHoverEffect(btnLeaderboard);
 		
-		btnAgain.setStyle("-fx-background-color: linear-gradient(#ff9500, #ff6f00); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 16; -fx-border-radius: 16; -fx-font-size: 28px;");
-		btnMode.setStyle("-fx-background-color: linear-gradient(#2196f3, #1565c0); -fx-text-fill: white;  -fx-font-weight: bold; -fx-background-radius: 16; -fx-border-radius: 16; -fx-font-size: 28px;");
-//		btnLogout.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-color: red; -fx-border-radius: 8; -fx-border-width: 2;");
-		btnExit.setStyle("-fx-background-color: transparent; -fx-border-color: white; -fx-text-fill: white; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-width: 2;");
+		btnAgain.setStyle(
+				"-fx-background-color: linear-gradient(#ff9500, #ff6f00); "
+				+ "-fx-text-fill: white; "
+				+ "-fx-font-weight: bold; "
+				+ "-fx-background-radius: 16; "
+				+ "-fx-border-radius: 16; "
+				+ "-fx-font-size: 28px;");
+		
+		btnMode.setStyle(
+				"-fx-background-color: linear-gradient(#2196f3, #1565c0); "
+				+ "-fx-text-fill: white;  "
+				+ "-fx-font-weight: bold; "
+				+ "-fx-background-radius: 16; "
+				+ "-fx-border-radius: 16; "
+				+ "-fx-font-size: 28px;");
+		
+		btnExit.setStyle(
+				"-fx-background-color: transparent; "
+				+ "-fx-border-color: white; "
+				+ "-fx-text-fill: white; "
+				+ "-fx-background-radius: 8; "
+				+ "-fx-border-radius: 8; "
+				+ "-fx-border-width: 2;");
 		
 		btnLeaderboard.setStyle(
-				"-fx-background-color: transparent;" +
-				"-fx-border-color: white;" +
-				"-fx-text-fill: white;" +
-				"-fx-font-weight: bold;" +
-				"-fx-border-radius: 10;" +
-				"-fx-background-radius: 10;" +
-			    "-fx-border-width: 2px;" +
-				"-fx-font-size: 14px;" +
-				"-fx-cursor: hand;" +
-				"-fx-font-family: 'Verdana';"
+			"-fx-background-color: transparent;" +
+			"-fx-border-color: white;" +
+			"-fx-text-fill: white;" +
+			"-fx-font-weight: bold;" +
+			"-fx-border-radius: 12;" +
+			"-fx-background-radius: 12;" +
+			"-fx-border-width: 2.5px;" +
+			"-fx-font-size: 16px;" +
+			"-fx-cursor: hand;" +
+			"-fx-padding: 8 20 8 20;" +
+			"-fx-font-family: 'Verdana';"
 			);
 		
 	}	
@@ -306,7 +311,6 @@ public class GameOver extends BorderPane{
 		
 		btnAgain.setDisable(true);
 		btnMode.setDisable(true);
-//		btnLogout.setDisable(true);
 		btnExit.setDisable(true);
 		btnLeaderboard.setDisable(true);
 		
@@ -316,7 +320,6 @@ public class GameOver extends BorderPane{
 	
 		btnAgain.setDisable(false);
 		btnMode.setDisable(false);
-//		btnLogout.setDisable(false);
 		btnExit.setDisable(false);
 		btnLeaderboard.setDisable(false);
 
@@ -343,17 +346,6 @@ public class GameOver extends BorderPane{
 		highScorePlayer.seek(Duration.ZERO);
 		highScorePlayer.play();
 	}
-	
-//	private void loadLogoutSound() {
-//		String soundURL = "sounds/logout_sound.mp3";
-//		logoutSoundMedia = new Media(new File(soundURL).toURI().toString());
-//		logoutSoundPlayer = new MediaPlayer(logoutSoundMedia);
-//	}
-	
-//	private void playLogoutSound() {
-//		logoutSoundPlayer.seek(Duration.ZERO);
-//		logoutSoundPlayer.play();
-//	}
 	
 	private void loadClassicSound() {
 		String soundURL = "sounds/classic_sound.mp3";
@@ -413,20 +405,8 @@ public class GameOver extends BorderPane{
 	private void setBackground() {
 		
 		Image backgroundImage = new Image("file:images/over_background.png");
-//		
-//		BackgroundSize backgroundSize = new BackgroundSize(100, 100, true, true, false, true);
-//		
-//		BackgroundImage gameOverBackground = new BackgroundImage(
-//			backgroundImage,
-//			BackgroundRepeat.NO_REPEAT,
-//			BackgroundRepeat.NO_REPEAT,
-//			BackgroundPosition.DEFAULT,
-//			backgroundSize
-//			);
-//		this.setBackground(new Background(gameOverBackground));
 		
 		ImageView background = new ImageView(backgroundImage);
-		//background.setTranslateX(10);
 		background.setTranslateY(-70);
 		
 		getChildren().add(0, background);

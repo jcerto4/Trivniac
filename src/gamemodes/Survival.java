@@ -63,7 +63,6 @@ public class Survival extends BorderPane{
 		this.player = player;
 		wheel = new Wheel();
 		
-		
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
