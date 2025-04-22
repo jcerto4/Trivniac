@@ -281,9 +281,9 @@ public class GameModeSelection extends BorderPane{
 			    "-fx-border-color: white;" +
 			    "-fx-border-width: 2.5px;" +
 			    "-fx-font-weight: bold;" +
-			    "-fx-font-size: 14px;" +
+			    "-fx-font-size: 16px;" +
 			    "-fx-cursor: hand;" +
-			    "-fx-padding: 8 16 8 16;" +
+			    "-fx-padding: 8 20 8 20;" +
 			    "-fx-font-family: 'Verdana';"
 			    );
 		

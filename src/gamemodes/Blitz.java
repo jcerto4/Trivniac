@@ -59,7 +59,7 @@ public class Blitz extends BorderPane{
 	private Media blitzMusicMedia;
 	private MediaPlayer blitzMusicPlayer;
 	
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	
 	private Media backSoundMedia;
 	private MediaPlayer backSoundPlayer;

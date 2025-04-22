@@ -38,7 +38,7 @@ import javafx.util.Duration;
 public class Register extends BorderPane{
 	
 	private Button btnRegister = new Button("Register");
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	private Button btnExit = new Button("Exit");
 	private Stage registerStage;
 	

@@ -61,7 +61,7 @@ public class Classic extends BorderPane{
 	private EliminateTwo elimTwo;
 	private StopTimer stopTimer;
 	
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	
 	private Media backSoundMedia;
 	private MediaPlayer backSoundPlayer;

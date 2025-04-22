@@ -34,7 +34,7 @@ public class LeaderboardScreen extends BorderPane{
 	
 	private Button btnSave = new Button("Export My Stats");
 	private Button btnSaveAll = new Button("Export Leaderboards");
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	
 	private Label classicLabel;
 	private Label survivalLabel;

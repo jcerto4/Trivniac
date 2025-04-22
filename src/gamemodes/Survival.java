@@ -48,7 +48,7 @@ public class Survival extends BorderPane{
 	private Label streakTracker = new Label("Current Answer Streak: " + answerStreak);
 	private Label multiplierTracker = new Label("Score: x" + multiplier);
 	
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	
 	private DoubleChance doubleChance;
 	private EliminateTwo elimTwo;

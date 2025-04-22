@@ -38,7 +38,7 @@ import javafx.util.Duration;
 public class Login extends BorderPane{
 
 	private Button btnLogin = new Button("Login");
-	private Button btnBack = new Button("Go Back");
+	private Button btnBack = new Button("Back");
 	private Label userNameLabel = new Label("Username: ");
 	private Label passwordLabel = new Label("Password: ");
 	private Stage loginStage;
