@@ -13,9 +13,13 @@ import classes.Question;
 
 public class DatabaseManager {
 
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/trivniac";
-    private static final String USER = "root";
-    private static final String PASSWORD = "root";
+//	private static final String DB_URL = "jdbc:mysql://localhost:3306/trivniac";
+//    private static final String USER = "root";
+//    private static final String PASSWORD = "root";
+	
+	private static final String DB_URL = "jdbc:mysql://trivniac-db-trivniac.b.aivencloud.com:28380/trivniac?ssl-mode=REQUIRED";
+	private static final String USER = "avnadmin";
+	private static final String PASSWORD = "AVNS_JWAugiCHt_zwaoTko6R";
 	    
     
 //Question Fetching and Question Instantiation 
