@@ -28,6 +28,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class Welcome extends BorderPane{
@@ -136,6 +137,7 @@ public class Welcome extends BorderPane{
 		Scene scene = new Scene(this, 1000, 700);
 		welcomeStage = new Stage();
 		welcomeStage.setTitle("Welcome Screen");
+		//welcomeStage.initStyle(StageStyle.UNDECORATED);
 		welcomeStage.setScene(scene);
 		welcomeStage.show();
 	}
@@ -239,6 +241,7 @@ public class Welcome extends BorderPane{
 		String soundURL = "sounds/welcome_music.mp3";
 		welcomeMusicMedia = new Media(new File(soundURL).toURI().toString());
 		welcomeMusicPlayer = new MediaPlayer(welcomeMusicMedia);
+		
 	}
 	
 	private void loadButtonSound() {

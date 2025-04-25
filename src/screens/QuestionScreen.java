@@ -70,13 +70,19 @@ public class QuestionScreen extends BorderPane{
 	private boolean doubleChanceActive = false;
 	private boolean doubleChanceUsed = false;
 	
-	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered, DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer) {
+	public QuestionScreen(int gameID, String category, Consumer<Boolean> onQuestionAnswered, DoubleChance doubleChance, EliminateTwo elimTwo, StopTimer stopTimer, ArrayList<Integer> usedQuestions) {
 				
 		this.gameID = gameID;
 		this.category = category;
-		question = DatabaseManager.getRandomQuestion(category);
+		
+		do {
+			question = DatabaseManager.getRandomQuestion(category);
+		}while(usedQuestions.contains(question.getQuestionID()));
+		
 		correctAnswer = question.getCorrectAnswer();
 		options = question.getOptions();
+		
+		usedQuestions.add(question.getQuestionID());
 		
 		this.onQuestionAnswered = onQuestionAnswered;
 		

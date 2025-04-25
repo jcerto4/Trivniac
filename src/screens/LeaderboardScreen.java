@@ -197,28 +197,38 @@ public class LeaderboardScreen extends BorderPane{
 		createHoverEffect(btnSaveAll);
 		createHoverEffect(btnBack);
 		
-		String fileBtnStyle = (
-				"-fx-background-color: linear-gradient(#3c3f41, #232526);" +
+		String fileBtnStyle1 = (
+				"-fx-background-color: #ff6f3c;" +
 				"-fx-text-fill: white;" +
 				"-fx-font-size: 18px;" +
 				"-fx-font-weight: bold;" +
 				"-fx-padding: 8 16 8 16;" +
-				"-fx-background-radius: 10;" 
-				); 
+				"-fx-background-radius: 8;" 
+				);
 		
-		btnSave.setStyle(fileBtnStyle);
-		btnSaveAll.setStyle(fileBtnStyle);
+		String fileBtnStyle2 = (
+				"-fx-background-color: #1f6f8b;" +
+				"-fx-text-fill: white;" +
+				"-fx-font-size: 18px;" +
+				"-fx-font-weight: bold;" +
+				"-fx-padding: 8 16 8 16;" +
+				"-fx-background-radius: 8;" 
+				);
+		
+		
+		btnSave.setStyle(fileBtnStyle1);
+		btnSaveAll.setStyle(fileBtnStyle2);
 		
 		String backStyle = (
 				"-fx-background-color: rgba(0,0,0,0.4);" +
 				"-fx-text-fill: white;" +
-				"-fx-font-size: 14px;" +
+				"-fx-font-size: 16px;" +
 				"-fx-font-weight: bold;" +
-				"-fx-padding: 6 14 6 14;" +
-				"-fx-background-radius: 8;" +
+				"-fx-padding: 8 20 8 20;" +
+				"-fx-background-radius: 12;" +
 				"-fx-border-color: white;" +
-				"-fx-border-width: 1;" +
-				"-fx-border-radius: 8;"
+				"-fx-border-width: 2.5;" +
+				"-fx-border-radius: 12;"
 			);
 		
 		btnBack.setStyle(backStyle);

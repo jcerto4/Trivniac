@@ -1,6 +1,7 @@
 package gamemodes;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 
 import classes.Player;
@@ -56,6 +57,8 @@ public class Survival extends BorderPane{
 	
 	private Media backSoundMedia;
 	private MediaPlayer backSoundPlayer;
+	
+	private ArrayList<Integer> usedQuestions;
 		
 	public Survival(int gameID, Player player) {
 		
@@ -66,6 +69,8 @@ public class Survival extends BorderPane{
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
+		
+		usedQuestions = new ArrayList<>();
 		
 		loadBackSound();
 		setBackground();
@@ -130,7 +135,7 @@ public class Survival extends BorderPane{
 	private void showQuestionScreen(String category) {
 		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
 			handleQuestionResult(isCorrect);
-		}, doubleChance, elimTwo, stopTimer);
+		}, doubleChance, elimTwo, stopTimer, usedQuestions);
 	}
 	
 	private void handleQuestionResult(boolean isCorrect) {

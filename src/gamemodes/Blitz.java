@@ -331,6 +331,7 @@ public class Blitz extends BorderPane{
 		String soundURL = "sounds/go_back_sound.mp3";
 		backSoundMedia = new Media(new File(soundURL).toURI().toString());
 		backSoundPlayer = new MediaPlayer(backSoundMedia);
+
 	}
 	
 	private void playBackSound() {

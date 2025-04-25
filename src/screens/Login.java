@@ -232,6 +232,7 @@ public class Login extends BorderPane{
 		String soundURL = "sounds/entry_sound.mp3";
 		entrySoundMedia = new Media(new File(soundURL).toURI().toString());
 		entrySoundPlayer = new MediaPlayer(entrySoundMedia);
+		
 	}
 	
 	private void playEntrySound() {

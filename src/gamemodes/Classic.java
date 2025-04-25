@@ -1,8 +1,10 @@
 package gamemodes;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import classes.Player;
+import classes.Question;
 import db.DatabaseManager;
 import gameobjects.LeaderBoard;
 import gameobjects.Wheel;
@@ -66,6 +68,8 @@ public class Classic extends BorderPane{
 	private Media backSoundMedia;
 	private MediaPlayer backSoundPlayer;
 	
+	private ArrayList<Integer> usedQuestions;
+	
 		
 	public Classic(int gameID, Player player) {
 		
@@ -78,6 +82,8 @@ public class Classic extends BorderPane{
 		doubleChance = new DoubleChance();
 		elimTwo = new EliminateTwo();
 		stopTimer = new StopTimer();
+		
+		usedQuestions = new ArrayList<>();
 		
 		setBackground();
 		createTopSection();
@@ -148,7 +154,7 @@ public class Classic extends BorderPane{
 	private void showQuestionScreen(String category) {
 		new QuestionScreen(gameID, category, (Boolean isCorrect) -> {
 			handleQuestionResult(isCorrect);
-		}, doubleChance, elimTwo, stopTimer);
+		}, doubleChance, elimTwo, stopTimer, usedQuestions);
 	}
 	
 	private void handleQuestionResult(boolean isCorrect) {
